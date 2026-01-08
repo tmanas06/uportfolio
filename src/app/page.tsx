@@ -120,23 +120,43 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="grid grid-cols-4 gap-4 md:gap-6">
-          {quickActions.map((action) => (
-            <Link
-              key={action.id}
-              href={action.href}
-              className="flex flex-col items-center gap-3 group"
-            >
-              <div
-                className="w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
-                style={{ backgroundColor: `${action.color}15` }}
+          {quickActions.map((action) =>
+            action.external ? (
+              <a
+                key={action.id}
+                href={action.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-3 group"
               >
-                <span style={{ color: action.color }}>{iconMap[action.icon]}</span>
-              </div>
-              <span className="text-sm md:text-base text-[#848E9C] group-hover:text-[#F5F6F5] transition-colors text-center">
-                {action.label}
-              </span>
-            </Link>
-          ))}
+                <div
+                  className="w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                  style={{ backgroundColor: `${action.color}15` }}
+                >
+                  <span style={{ color: action.color }}>{iconMap[action.icon]}</span>
+                </div>
+                <span className="text-sm md:text-base text-[#848E9C] group-hover:text-[#F5F6F5] transition-colors text-center">
+                  {action.label}
+                </span>
+              </a>
+            ) : (
+              <Link
+                key={action.id}
+                href={action.href}
+                className="flex flex-col items-center gap-3 group"
+              >
+                <div
+                  className="w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                  style={{ backgroundColor: `${action.color}15` }}
+                >
+                  <span style={{ color: action.color }}>{iconMap[action.icon]}</span>
+                </div>
+                <span className="text-sm md:text-base text-[#848E9C] group-hover:text-[#F5F6F5] transition-colors text-center">
+                  {action.label}
+                </span>
+              </Link>
+            )
+          )}
         </div>
       </motion.div>
 

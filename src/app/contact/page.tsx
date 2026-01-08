@@ -12,6 +12,9 @@ import {
   Send,
   MessageSquare,
   Clock,
+  Shield,
+  Lock,
+  ExternalLink,
 } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
@@ -155,7 +158,7 @@ export default function ContactPage() {
           </div>
         </motion.div>
 
-        {/* Contact Form */}
+        {/* ZKWhisper - Anonymous Messaging */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -163,7 +166,73 @@ export default function ContactPage() {
           className="lg:col-span-2"
         >
           <div className="card p-6">
-            <h2 className="text-lg font-semibold text-[#F5F6F5] mb-6">Send a Message</h2>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-[rgba(130,71,229,0.15)] flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-[#8247E5]" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-[#F5F6F5]">Send Anonymous Message</h2>
+                  <p className="text-sm text-[#848E9C]">Powered by Zero-Knowledge Proofs</p>
+                </div>
+              </div>
+              <a
+                href="https://github.com/tmanas06/ZKWhisper"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-[#848E9C] hover:text-[#F0B90B] transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                <span className="hidden sm:inline">Source</span>
+              </a>
+            </div>
+
+            {/* ZK Proof Features */}
+            <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="p-3 rounded-xl bg-[#1E2735] border border-[rgba(130,71,229,0.2)] text-center">
+                <Lock className="w-5 h-5 text-[#8247E5] mx-auto mb-1" />
+                <p className="text-xs font-medium text-[#F5F6F5]">Private</p>
+              </div>
+              <div className="p-3 rounded-xl bg-[#1E2735] border border-[rgba(0,212,170,0.2)] text-center">
+                <Shield className="w-5 h-5 text-[#00D4AA] mx-auto mb-1" />
+                <p className="text-xs font-medium text-[#F5F6F5]">ZK Verified</p>
+              </div>
+              <div className="p-3 rounded-xl bg-[#1E2735] border border-[rgba(240,185,11,0.2)] text-center">
+                <MessageSquare className="w-5 h-5 text-[#F0B90B] mx-auto mb-1" />
+                <p className="text-xs font-medium text-[#F5F6F5]">Decentralized</p>
+              </div>
+            </div>
+
+            {/* Embedded ZKWhisper */}
+            <div className="rounded-xl overflow-hidden border border-[rgba(130,71,229,0.3)] bg-[#0A0E17]">
+              <iframe
+                src="https://app-six-alpha.vercel.app"
+                className="w-full h-[550px] border-0"
+                title="ZKWhisper - Anonymous Messaging"
+                allow="clipboard-write; encrypted-media; camera; microphone"
+              />
+            </div>
+
+            {/* Open in New Tab Button */}
+            <a
+              href="https://app-six-alpha.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full btn btn-outline py-4 mt-4 justify-center group"
+            >
+              <ExternalLink className="w-5 h-5" />
+              Open ZKWhisper in New Tab
+            </a>
+
+            <p className="text-xs text-[#848E9C] mt-4 text-center">
+              Messages are sent using Zero-Knowledge Proofs. Your identity remains completely anonymous.
+            </p>
+          </div>
+
+          {/* Traditional Contact Form */}
+          <div className="card p-6 mt-6">
+            <h2 className="text-lg font-semibold text-[#F5F6F5] mb-4">Or Send via Email</h2>
+            <p className="text-sm text-[#848E9C] mb-4">Prefer traditional communication? Use the form below.</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -207,13 +276,13 @@ export default function ContactPage() {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Your message..."
                   required
-                  rows={6}
+                  rows={4}
                   className="w-full px-4 py-3 bg-[#1E2735] border border-[rgba(240,185,11,0.15)] rounded-xl text-[#F5F6F5] placeholder-[#5E6673] focus:outline-none focus:border-[#F0B90B] transition-colors resize-none"
                 />
               </div>
-              <button type="submit" className="w-full btn btn-gold py-4">
-                <Send className="w-5 h-5" />
-                Send Message
+              <button type="submit" className="w-full btn btn-outline py-4">
+                <Mail className="w-5 h-5" />
+                Send via Email
               </button>
             </form>
           </div>

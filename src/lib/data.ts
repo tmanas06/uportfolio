@@ -314,7 +314,7 @@ export const quickActions = [
   { id: "wins", label: "Wins", icon: "trophy", href: "/about", color: "#FF6B00" },
   { id: "certs", label: "Certs", icon: "academic", href: "/about", color: "#8247E5" },
   { id: "blockchain", label: "Blockchain", icon: "cube", href: "/projects", color: "#F6465D" },
-  { id: "resume", label: "Resume", icon: "document", href: "#", color: "#00FFA3" },
+  { id: "resume", label: "Resume", icon: "document", href: "/resume.pdf", color: "#00FFA3", external: true },
   { id: "contact", label: "Contact", icon: "mail", href: "/contact", color: "#5546FF" },
 ];
 
