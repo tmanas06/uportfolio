@@ -40,7 +40,7 @@ export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <div className="container-main py-8 space-y-8">
+    <div className="container-main py-10 space-y-10">
       {/* Profile Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

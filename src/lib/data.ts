@@ -1,6 +1,6 @@
 export const personalInfo = {
   name: "Manas Chakravarty",
-  firstName: "Manas",
+  firstName: "T Manas Chakravarty",
   title: "Full Stack Blockchain Developer",
   tagline: "Building the decentralized future, one smart contract at a time",
   email: "2210030003cse@gmail.com",

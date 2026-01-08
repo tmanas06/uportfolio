@@ -17,7 +17,7 @@ import { personalInfo, education, experience, achievements, certifications } fro
 
 export default function AboutPage() {
   return (
-    <div className="container-main py-6 space-y-6">
+    <div className="container-main py-10 space-y-8">
       {/* Profile Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

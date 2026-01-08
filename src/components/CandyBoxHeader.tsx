@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -22,7 +22,16 @@ import { useAccount, useDisconnect } from "wagmi";
 
 export default function CandyBoxHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/projects?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   // WalletConnect hooks
   const { open } = useWeb3Modal();
@@ -59,16 +68,18 @@ export default function CandyBoxHeader() {
         </Link>
 
         {/* Center: Search (Desktop) */}
-        <div className="hidden md:flex flex-1 max-w-md mx-8">
+        <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-8">
           <div className="relative w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" />
             <input
               type="text"
               placeholder="Search projects, skills..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-11 pl-12 pr-4 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-base text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
             />
           </div>
-        </div>
+        </form>
 
         {/* Right: Actions */}
         <div className="flex items-center gap-3">

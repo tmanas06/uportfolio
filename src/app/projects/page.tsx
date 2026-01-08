@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, Search, Filter } from "lucide-react";
 import { projects } from "@/lib/data";
@@ -14,8 +15,17 @@ const categories = [
 ];
 
 export default function ProjectsPage() {
+  const searchParams = useSearchParams();
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Read search query from URL params
+  useEffect(() => {
+    const search = searchParams.get("search");
+    if (search) {
+      setSearchQuery(search);
+    }
+  }, [searchParams]);
 
   const filteredProjects = projects.filter((project) => {
     const matchesCategory =
@@ -33,7 +43,7 @@ export default function ProjectsPage() {
   });
 
   return (
-    <div className="container-main py-6 space-y-6">
+    <div className="container-main py-10 space-y-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

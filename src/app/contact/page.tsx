@@ -34,7 +34,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container-main py-6 space-y-6">
+    <div className="container-main py-10 space-y-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

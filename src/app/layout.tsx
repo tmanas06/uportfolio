@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Manas Chakravarty | Full Stack Blockchain Developer",
+  title: "T Manas Chakravarty | Full Stack Blockchain Developer",
   description:
     "Final-year B.Tech CSE student specializing in Cybersecurity and Blockchain development. Building scalable full-stack applications with modern frameworks, smart contracts, and API integrations across 7+ blockchain ecosystems.",
   keywords: [
