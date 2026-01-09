@@ -155,7 +155,7 @@ export default function ContactPage() {
               <h2 className="text-base font-semibold text-[#F5F6F5]">Available</h2>
             </div>
             <p className="text-sm text-[#848E9C] mb-3">
-              Open for internships, full-time positions, and freelance opportunities in blockchain development.
+              Open for internships, full-time positions, and freelance opportunities.
             </p>
             <div className="flex items-center gap-2 text-xs text-[#848E9C]">
               <Clock className="w-3.5 h-3.5" />
