@@ -34,7 +34,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container-main py-10 flex flex-col gap-8">
+    <div className="container-main py-6 flex flex-col gap-8">
+      {/* Spacer for visual separation from header */}
+      <div className="h-4" />
+
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
