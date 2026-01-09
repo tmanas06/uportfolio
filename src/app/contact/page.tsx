@@ -15,6 +15,8 @@ import {
   Lock,
   ExternalLink,
   Send,
+  Sparkles,
+  Zap,
 } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
@@ -38,17 +40,50 @@ export default function ContactPage() {
   return (
     <div className="container-main py-6 flex flex-col gap-6">
       {/* Spacer for visual separation from header */}
-      <div className="h-4" />
+      <div className="h-6" />
 
-      {/* Header */}
+      {/* Hero Banner Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        className="card p-6 md:p-8 relative overflow-hidden"
       >
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#F5F6F5] mb-2">Contact</h1>
-        <p className="text-[#848E9C]">Let's connect and discuss opportunities</p>
+        {/* Background decoration */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[rgba(240,185,11,0.1)] to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[rgba(130,71,229,0.1)] to-transparent rounded-full blur-3xl" />
+
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-12 h-12 rounded-xl gradient-gold flex items-center justify-center glow-gold-sm">
+              <MessageSquare className="w-6 h-6 text-[#0A0E17]" />
+            </div>
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#F5F6F5]">Get in Touch</h1>
+              <p className="text-[#848E9C] text-sm">Let's connect and discuss opportunities</p>
+            </div>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="flex flex-wrap gap-3 mt-5">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(0,212,170,0.1)] border border-[rgba(0,212,170,0.2)]">
+              <Zap className="w-3.5 h-3.5 text-[#00D4AA]" />
+              <span className="text-xs text-[#00D4AA] font-medium">Fast Response</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(130,71,229,0.1)] border border-[rgba(130,71,229,0.2)]">
+              <Shield className="w-3.5 h-3.5 text-[#8247E5]" />
+              <span className="text-xs text-[#8247E5] font-medium">ZK Anonymous Option</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(240,185,11,0.1)] border border-[rgba(240,185,11,0.2)]">
+              <Sparkles className="w-3.5 h-3.5 text-[#F0B90B]" />
+              <span className="text-xs text-[#F0B90B] font-medium">Open to Work</span>
+            </div>
+          </div>
+        </div>
       </motion.div>
+
+      {/* Spacer */}
+      <div className="h-2" />
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -57,11 +92,11 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="lg:col-span-1 flex flex-col gap-4"
+          className="lg:col-span-1 flex flex-col gap-5"
         >
           {/* Quick Contact */}
           <div className="card p-5">
-            <h2 className="text-base font-semibold text-[#F5F6F5] mb-4">Get in Touch</h2>
+            <h2 className="text-base font-semibold text-[#F5F6F5] mb-4">Contact Info</h2>
             <div className="flex flex-col gap-3">
               <a
                 href={`mailto:${personalInfo.email}`}
@@ -102,6 +137,15 @@ export default function ContactPage() {
                   <p className="text-[#F5F6F5] text-sm">{personalInfo.location}</p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Decorative Spacer Card */}
+          <div className="card p-4 bg-gradient-to-r from-[rgba(240,185,11,0.05)] to-[rgba(130,71,229,0.05)] border-dashed">
+            <div className="flex items-center justify-center gap-3 text-[#848E9C]">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[rgba(240,185,11,0.3)] to-transparent" />
+              <Sparkles className="w-4 h-4 text-[#F0B90B]" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[rgba(130,71,229,0.3)] to-transparent" />
             </div>
           </div>
 
@@ -149,7 +193,7 @@ export default function ContactPage() {
           </div>
 
           {/* Availability */}
-          <div className="card p-5">
+          <div className="card p-5 border-[rgba(0,212,170,0.3)]">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-2.5 h-2.5 rounded-full bg-[#00D4AA] animate-pulse" />
               <h2 className="text-base font-semibold text-[#F5F6F5]">Available</h2>
@@ -169,8 +213,9 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="lg:col-span-2"
+          className="lg:col-span-2 flex flex-col gap-5"
         >
+          {/* Tab Card */}
           <div className="card overflow-hidden">
             {/* Tab Header */}
             <div className="flex border-b border-[rgba(240,185,11,0.15)]">
@@ -251,7 +296,7 @@ export default function ContactPage() {
                     <div className="rounded-xl overflow-hidden border border-[rgba(130,71,229,0.3)] bg-[#0A0E17]">
                       <iframe
                         src="https://app-six-alpha.vercel.app"
-                        className="w-full h-[450px] border-0"
+                        className="w-full h-[400px] border-0"
                         title="ZKWhisper - Anonymous Messaging"
                         allow="clipboard-write; encrypted-media; camera; microphone"
                       />
@@ -356,8 +401,26 @@ export default function ContactPage() {
               </AnimatePresence>
             </div>
           </div>
+
+          {/* Bottom Info Card */}
+          <div className="card p-5 bg-gradient-to-r from-[rgba(130,71,229,0.05)] to-[rgba(240,185,11,0.05)]">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[rgba(240,185,11,0.1)] flex items-center justify-center flex-shrink-0">
+                <Zap className="w-5 h-5 text-[#F0B90B]" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-[#F5F6F5] mb-1">Quick Tip</h3>
+                <p className="text-xs text-[#848E9C]">
+                  For faster response, use the ZK messaging option. For formal inquiries or collaborations, email works best.
+                </p>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
+
+      {/* Bottom Spacer */}
+      <div className="h-8" />
     </div>
   );
 }

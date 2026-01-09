@@ -368,8 +368,8 @@ export default function CandyBoxHeader() {
             </AnimatePresence>
           </div>
 
-          {/* Right: Actions */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          {/* Right: Actions - ml-auto ensures it stays on the right even when center search is hidden */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 ml-auto">
             {/* Search (Mobile) */}
             <button
               onClick={() => setShowMobileSearch(true)}
@@ -427,30 +427,52 @@ export default function CandyBoxHeader() {
 
             {/* Connect Wallet Button */}
             {isConnected && address ? (
-              <div className="hidden sm:flex items-center gap-2">
+              <>
+                {/* Mobile: Compact wallet button */}
                 <button
                   onClick={() => open()}
-                  className="h-11 px-4 rounded-xl bg-[#1E2735] border border-[rgba(240,185,11,0.3)] flex items-center gap-2 text-[#F0B90B] font-medium hover:bg-[#252D3C] transition-all"
+                  className="sm:hidden w-11 h-11 rounded-xl bg-[#1E2735] border border-[rgba(240,185,11,0.3)] flex items-center justify-center text-[#F0B90B] hover:bg-[#252D3C] transition-all"
+                  title={formatAddress(address)}
                 >
-                  <Wallet className="w-4 h-4" />
-                  <span className="text-sm">{formatAddress(address)}</span>
+                  <Wallet className="w-5 h-5" />
                 </button>
-                <button
-                  onClick={() => disconnect()}
-                  className="h-11 w-11 rounded-xl bg-[#1E2735] flex items-center justify-center text-[#848E9C] hover:text-[#F6465D] hover:bg-[#252D3C] transition-all"
-                  title="Disconnect"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
+                {/* Desktop: Full wallet display */}
+                <div className="hidden sm:flex items-center gap-2">
+                  <button
+                    onClick={() => open()}
+                    className="h-11 px-4 rounded-xl bg-[#1E2735] border border-[rgba(240,185,11,0.3)] flex items-center gap-2 text-[#F0B90B] font-medium hover:bg-[#252D3C] transition-all"
+                  >
+                    <Wallet className="w-4 h-4" />
+                    <span className="text-sm">{formatAddress(address)}</span>
+                  </button>
+                  <button
+                    onClick={() => disconnect()}
+                    className="h-11 w-11 rounded-xl bg-[#1E2735] flex items-center justify-center text-[#848E9C] hover:text-[#F6465D] hover:bg-[#252D3C] transition-all"
+                    title="Disconnect"
+                  >
+                    <LogOut className="w-4 h-4" />
+                  </button>
+                </div>
+              </>
             ) : (
-              <button
-                onClick={() => open()}
-                className="hidden sm:flex h-11 px-5 rounded-xl gradient-gold items-center gap-2 text-[#0A0E17] font-semibold hover:shadow-[0_0_20px_rgba(240,185,11,0.4)] transition-all"
-              >
-                <Wallet className="w-5 h-5" />
-                <span className="text-sm">Connect</span>
-              </button>
+              <>
+                {/* Mobile: Compact connect button */}
+                <button
+                  onClick={() => open()}
+                  className="sm:hidden w-11 h-11 rounded-xl gradient-gold flex items-center justify-center text-[#0A0E17] hover:shadow-[0_0_20px_rgba(240,185,11,0.4)] transition-all"
+                  title="Connect Wallet"
+                >
+                  <Wallet className="w-5 h-5" />
+                </button>
+                {/* Desktop: Full connect button */}
+                <button
+                  onClick={() => open()}
+                  className="hidden sm:flex h-11 px-5 rounded-xl gradient-gold items-center gap-2 text-[#0A0E17] font-semibold hover:shadow-[0_0_20px_rgba(240,185,11,0.4)] transition-all"
+                >
+                  <Wallet className="w-5 h-5" />
+                  <span className="text-sm">Connect</span>
+                </button>
+              </>
             )}
 
             {/* Settings (Desktop) */}
