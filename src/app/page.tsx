@@ -40,7 +40,10 @@ export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <div className="container-main py-10 flex flex-col gap-10">
+    <div className="container-main py-6 flex flex-col gap-8">
+      {/* Spacer for visual separation from header */}
+      <div className="h-4" />
+
       {/* Profile Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -273,20 +273,20 @@ export default function CandyBoxHeader() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#0A0E17] border-b border-[rgba(240,185,11,0.15)]">
-        <div className="h-full px-4 lg:px-6 flex items-center justify-between">
+        <div className="h-full px-4 lg:px-6 flex items-center">
           {/* Left: Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 flex-shrink-0" style={{ marginRight: '48px' }}>
             <div className="w-11 h-11 rounded-xl gradient-gold flex items-center justify-center glow-gold-sm">
               <span className="text-[#0A0E17] font-bold text-2xl">M</span>
             </div>
-            <span className="text-[#F0B90B] font-bold text-2xl hidden sm:block">
+            <span className="text-[#F0B90B] font-bold text-2xl hidden sm:block whitespace-nowrap">
               {personalInfo.firstName}
             </span>
           </Link>
 
           {/* Center: Search (Desktop) */}
-          <div ref={searchRef} className="hidden md:flex flex-1 max-w-md mx-8 relative">
-            <form onSubmit={handleSearchSubmit} className="w-full">
+          <div ref={searchRef} className="hidden md:flex flex-1 relative" style={{ marginRight: '48px' }}>
+            <form onSubmit={handleSearchSubmit} className="w-full max-w-lg">
               <div className="relative w-full">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" />
                 <input
@@ -368,7 +368,7 @@ export default function CandyBoxHeader() {
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-shrink-0">
             {/* Search (Mobile) */}
             <button
               onClick={() => setShowMobileSearch(true)}
