@@ -40,7 +40,7 @@ export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <div className="container-main py-10 space-y-10">
+    <div className="container-main py-10 flex flex-col gap-10">
       {/* Profile Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -249,7 +249,7 @@ export default function HomePage() {
             View all <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           {achievements.slice(0, 3).map((achievement) => (
             <div
               key={achievement.title}

@@ -43,7 +43,7 @@ export default function ProjectsPage() {
   });
 
   return (
-    <div className="container-main py-10 space-y-8">
+    <div className="container-main py-10 flex flex-col gap-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -59,7 +59,7 @@ export default function ProjectsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="space-y-4"
+        className="flex flex-col gap-4"
       >
         {/* Search */}
         <div className="relative">

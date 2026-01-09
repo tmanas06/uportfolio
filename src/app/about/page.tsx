@@ -17,7 +17,7 @@ import { personalInfo, education, experience, achievements, certifications } fro
 
 export default function AboutPage() {
   return (
-    <div className="container-main py-10 space-y-8">
+    <div className="container-main py-10 flex flex-col gap-8">
       {/* Profile Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ export default function AboutPage() {
           <Briefcase className="w-5 h-5 text-[#00D4AA]" />
           Experience
         </h2>
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           {experience.map((exp, index) => (
             <div
               key={exp.title + exp.company}
@@ -135,7 +135,7 @@ export default function AboutPage() {
                   {exp.location}
                 </span>
               </div>
-              <ul className="space-y-1">
+              <ul className="flex flex-col gap-1">
                 {exp.description.map((desc, i) => (
                   <li key={i} className="text-sm text-[#848E9C] flex items-start gap-2">
                     <span className="text-[#F0B90B] mt-1">•</span>

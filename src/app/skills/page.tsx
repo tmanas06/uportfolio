@@ -12,7 +12,7 @@ const skillCategories = [
 
 export default function SkillsPage() {
   return (
-    <div className="container-main py-10 space-y-8">
+    <div className="container-main py-10 flex flex-col gap-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -48,7 +48,7 @@ export default function SkillsPage() {
                 {category.title}
               </h2>
 
-              <div className="space-y-4">
+              <div className="flex flex-col gap-4">
                 {categorySkills.map((skill: { name: string; level: number }, index: number) => (
                   <div key={skill.name}>
                     <div className="flex items-center justify-between mb-2">

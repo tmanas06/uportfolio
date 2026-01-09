@@ -34,7 +34,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container-main py-10 space-y-8">
+    <div className="container-main py-10 flex flex-col gap-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -51,12 +51,12 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="lg:col-span-1 space-y-4"
+          className="lg:col-span-1 flex flex-col gap-4"
         >
           {/* Quick Contact */}
           <div className="card p-6">
             <h2 className="text-lg font-semibold text-[#F5F6F5] mb-4">Get in Touch</h2>
-            <div className="space-y-4">
+            <div className="flex flex-col gap-4">
               <a
                 href={`mailto:${personalInfo.email}`}
                 className="flex items-center gap-4 p-4 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors group"
@@ -233,7 +233,7 @@ export default function ContactPage() {
           <div className="card p-6 mt-6">
             <h2 className="text-lg font-semibold text-[#F5F6F5] mb-4">Or Send via Email</h2>
             <p className="text-sm text-[#848E9C] mb-4">Prefer traditional communication? Use the form below.</p>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm text-[#848E9C] mb-2">Name</label>
