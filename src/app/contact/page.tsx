@@ -295,22 +295,22 @@ export default function ContactPage() {
                     {/* Embedded ZKWhisper */}
                     <div className="rounded-xl overflow-hidden border border-[rgba(130,71,229,0.3)] bg-[#0A0E17]">
                       <iframe
-                        src="https://app-six-alpha.vercel.app"
-                        className="w-full h-[400px] border-0"
+                        src="https://zk-whisper.vercel.app?embedded=true"
+                        className="w-full h-[500px] border-0"
                         title="ZKWhisper - Anonymous Messaging"
-                        allow="clipboard-write; encrypted-media; camera; microphone"
+                        allow="clipboard-write; encrypted-media; camera; microphone; fullscreen"
                       />
                     </div>
 
-                    {/* Open in New Tab */}
+                    {/* Open in New Tab - if iframe has issues */}
                     <a
-                      href="https://app-six-alpha.vercel.app"
+                      href="https://zk-whisper.vercel.app"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full flex items-center justify-center gap-2 py-3 mt-4 rounded-xl border border-[rgba(130,71,229,0.3)] text-[#8247E5] hover:bg-[rgba(130,71,229,0.1)] transition-colors text-sm font-medium"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      Open ZKWhisper in New Tab
+                      Having issues? Open in New Tab
                     </a>
 
                     <p className="text-xs text-[#848E9C] mt-3 text-center">
