@@ -9,7 +9,7 @@ import {
   Bell,
   MessageSquare,
   Wallet,
-  Settings,
+  LayoutGrid,
   Star,
   GitFork,
   Trophy,
@@ -22,6 +22,15 @@ import {
   User,
   X,
   ArrowRight,
+  Home,
+  Mail,
+  FileText,
+  ExternalLink,
+  Boxes,
+  GraduationCap,
+  Github,
+  Linkedin,
+  Globe,
 } from "lucide-react";
 import {
   personalInfo,
@@ -49,11 +58,13 @@ export default function CandyBoxHeader() {
   const pathname = usePathname();
   const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showQuickAccess, setShowQuickAccess] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const mobileSearchRef = useRef<HTMLDivElement>(null);
+  const quickAccessRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
 
@@ -210,7 +221,7 @@ export default function CandyBoxHeader() {
     certification: "Certifications",
   };
 
-  // Handle click outside to close search
+  // Handle click outside to close search and quick access
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -223,6 +234,19 @@ export default function CandyBoxHeader() {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Handle ESC key to close quick access
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setShowQuickAccess(false);
+        setShowMobileSearch(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Focus input when mobile search opens
@@ -475,9 +499,17 @@ export default function CandyBoxHeader() {
               </>
             )}
 
-            {/* Settings (Desktop) */}
-            <button className="hidden lg:flex w-11 h-11 rounded-xl bg-[#1E2735] items-center justify-center text-[#848E9C] hover:text-[#F0B90B] transition-colors">
-              <Settings className="w-5 h-5" />
+            {/* Quick Access (Candy Box) Button */}
+            <button
+              onClick={() => setShowQuickAccess(!showQuickAccess)}
+              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all ${
+                showQuickAccess
+                  ? "bg-[#F0B90B] text-[#0A0E17] shadow-[0_0_20px_rgba(240,185,11,0.5)]"
+                  : "bg-[#1E2735] text-[#848E9C] hover:text-[#F0B90B] hover:bg-[#252D3C]"
+              }`}
+              title="Quick Access"
+            >
+              <LayoutGrid className="w-5 h-5" />
             </button>
 
             {/* Profile */}
@@ -633,6 +665,244 @@ export default function CandyBoxHeader() {
               )}
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Quick Access Floating Widget */}
+      <AnimatePresence>
+        {showQuickAccess && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[70] bg-[#0A0E17]/80 backdrop-blur-md"
+              onClick={() => setShowQuickAccess(false)}
+            />
+
+            {/* Floating Widget */}
+            <motion.div
+              ref={quickAccessRef}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[80] w-[90vw] max-w-md"
+            >
+              {/* Widget Container */}
+              <div className="bg-[#0D1320] border border-[rgba(240,185,11,0.2)] rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.6),0_0_40px_rgba(240,185,11,0.1)] overflow-hidden">
+                {/* Header with glow effect */}
+                <div className="relative px-6 pt-6 pb-4">
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#F0B90B]/5 to-transparent" />
+                  <div className="relative flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl gradient-gold flex items-center justify-center">
+                        <LayoutGrid className="w-5 h-5 text-[#0A0E17]" />
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-bold text-[#F5F6F5]">Quick Access</h2>
+                        <p className="text-[10px] text-[#848E9C] uppercase tracking-wider">Navigation Hub</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setShowQuickAccess(false)}
+                      className="w-9 h-9 rounded-xl bg-[#1E2735] flex items-center justify-center text-[#848E9C] hover:text-[#F5F6F5] hover:bg-[#252D3C] transition-all"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Navigation Grid */}
+                <div className="px-6 pb-4">
+                  <div className="grid grid-cols-4 gap-3">
+                    <Link
+                      href="/"
+                      onClick={() => setShowQuickAccess(false)}
+                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
+                        pathname === "/"
+                          ? "bg-gradient-to-br from-[#F0B90B]/20 to-[#F0B90B]/5 border border-[#F0B90B]/30 shadow-[0_0_20px_rgba(240,185,11,0.2)]"
+                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
+                      }`}
+                    >
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/" ? "bg-[#F0B90B]/20" : "bg-[#252D3C]"}`}>
+                        <Home className={`w-5 h-5 ${pathname === "/" ? "text-[#F0B90B]" : "text-[#848E9C]"}`} />
+                      </div>
+                      <span className={`text-xs font-medium ${pathname === "/" ? "text-[#F0B90B]" : "text-[#F5F6F5]"}`}>Home</span>
+                    </Link>
+
+                    <Link
+                      href="/projects"
+                      onClick={() => setShowQuickAccess(false)}
+                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
+                        pathname === "/projects"
+                          ? "bg-gradient-to-br from-[#F0B90B]/20 to-[#F0B90B]/5 border border-[#F0B90B]/30 shadow-[0_0_20px_rgba(240,185,11,0.2)]"
+                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
+                      }`}
+                    >
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/projects" ? "bg-[#F0B90B]/20" : "bg-[#252D3C]"}`}>
+                        <FolderKanban className={`w-5 h-5 ${pathname === "/projects" ? "text-[#F0B90B]" : "text-[#848E9C]"}`} />
+                      </div>
+                      <span className={`text-xs font-medium ${pathname === "/projects" ? "text-[#F0B90B]" : "text-[#F5F6F5]"}`}>Projects</span>
+                    </Link>
+
+                    <Link
+                      href="/skills"
+                      onClick={() => setShowQuickAccess(false)}
+                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
+                        pathname === "/skills"
+                          ? "bg-gradient-to-br from-[#00D4AA]/20 to-[#00D4AA]/5 border border-[#00D4AA]/30 shadow-[0_0_20px_rgba(0,212,170,0.2)]"
+                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
+                      }`}
+                    >
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/skills" ? "bg-[#00D4AA]/20" : "bg-[#252D3C]"}`}>
+                        <Sparkles className={`w-5 h-5 ${pathname === "/skills" ? "text-[#00D4AA]" : "text-[#848E9C]"}`} />
+                      </div>
+                      <span className={`text-xs font-medium ${pathname === "/skills" ? "text-[#00D4AA]" : "text-[#F5F6F5]"}`}>Skills</span>
+                    </Link>
+
+                    <Link
+                      href="/about"
+                      onClick={() => setShowQuickAccess(false)}
+                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
+                        pathname === "/about"
+                          ? "bg-gradient-to-br from-[#627EEA]/20 to-[#627EEA]/5 border border-[#627EEA]/30 shadow-[0_0_20px_rgba(98,126,234,0.2)]"
+                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
+                      }`}
+                    >
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/about" ? "bg-[#627EEA]/20" : "bg-[#252D3C]"}`}>
+                        <User className={`w-5 h-5 ${pathname === "/about" ? "text-[#627EEA]" : "text-[#848E9C]"}`} />
+                      </div>
+                      <span className={`text-xs font-medium ${pathname === "/about" ? "text-[#627EEA]" : "text-[#F5F6F5]"}`}>About</span>
+                    </Link>
+
+                    <Link
+                      href="/contact"
+                      onClick={() => setShowQuickAccess(false)}
+                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
+                        pathname === "/contact"
+                          ? "bg-gradient-to-br from-[#8247E5]/20 to-[#8247E5]/5 border border-[#8247E5]/30 shadow-[0_0_20px_rgba(130,71,229,0.2)]"
+                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
+                      }`}
+                    >
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/contact" ? "bg-[#8247E5]/20" : "bg-[#252D3C]"}`}>
+                        <Mail className={`w-5 h-5 ${pathname === "/contact" ? "text-[#8247E5]" : "text-[#848E9C]"}`} />
+                      </div>
+                      <span className={`text-xs font-medium ${pathname === "/contact" ? "text-[#8247E5]" : "text-[#F5F6F5]"}`}>Contact</span>
+                    </Link>
+
+                    <a
+                      href="/resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setShowQuickAccess(false)}
+                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent transition-all hover:scale-105"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-[#252D3C] flex items-center justify-center">
+                        <FileText className="w-5 h-5 text-[#00FFA3]" />
+                      </div>
+                      <span className="text-xs font-medium text-[#F5F6F5]">Resume</span>
+                    </a>
+
+                    <a
+                      href="https://testnet-wallet-teal.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setShowQuickAccess(false)}
+                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent transition-all hover:scale-105"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-[#252D3C] flex items-center justify-center">
+                        <Boxes className="w-5 h-5 text-[#F6465D]" />
+                      </div>
+                      <span className="text-xs font-medium text-[#F5F6F5]">Blockchain</span>
+                    </a>
+
+                    <Link
+                      href="/about#achievements"
+                      onClick={() => setShowQuickAccess(false)}
+                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent transition-all hover:scale-105"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-[#252D3C] flex items-center justify-center">
+                        <Trophy className="w-5 h-5 text-[#FF6B00]" />
+                      </div>
+                      <span className="text-xs font-medium text-[#F5F6F5]">Wins</span>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Quick Actions Row */}
+                <div className="px-6 pb-4">
+                  <div className="flex gap-2">
+                    <Link
+                      href="/about#experience"
+                      onClick={() => setShowQuickAccess(false)}
+                      className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-[#1E2735]/50 hover:bg-[#1E2735] transition-all"
+                    >
+                      <Briefcase className="w-4 h-4 text-[#00D4AA]" />
+                      <span className="text-xs text-[#F5F6F5]">Experience</span>
+                    </Link>
+                    <Link
+                      href="/about#certifications"
+                      onClick={() => setShowQuickAccess(false)}
+                      className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-[#1E2735]/50 hover:bg-[#1E2735] transition-all"
+                    >
+                      <GraduationCap className="w-4 h-4 text-[#8247E5]" />
+                      <span className="text-xs text-[#F5F6F5]">Certifications</span>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Social Links Footer */}
+                <div className="px-6 pb-6">
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-[#1E2735]/80 to-[#252D3C]/50 border border-[rgba(240,185,11,0.1)]">
+                    <p className="text-[10px] text-[#848E9C] uppercase tracking-wider mb-3 text-center">Connect With Me</p>
+                    <div className="flex justify-center gap-3">
+                      <a
+                        href={personalInfo.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowQuickAccess(false)}
+                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#F5F6F5] hover:bg-[#1E2735] transition-all hover:scale-110"
+                      >
+                        <Github className="w-5 h-5" />
+                      </a>
+                      <a
+                        href={personalInfo.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowQuickAccess(false)}
+                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#0A66C2] hover:bg-[#1E2735] transition-all hover:scale-110"
+                      >
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                      <a
+                        href={personalInfo.blog}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowQuickAccess(false)}
+                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#F0B90B] hover:bg-[#1E2735] transition-all hover:scale-110"
+                      >
+                        <Globe className="w-5 h-5" />
+                      </a>
+                      <a
+                        href={`mailto:${personalInfo.email}`}
+                        onClick={() => setShowQuickAccess(false)}
+                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#8247E5] hover:bg-[#1E2735] transition-all hover:scale-110"
+                      >
+                        <Mail className="w-5 h-5" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Keyboard Hint */}
+                <div className="px-6 pb-4 flex justify-center">
+                  <span className="text-[10px] text-[#5E6673]">Press ESC or click outside to close</span>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
