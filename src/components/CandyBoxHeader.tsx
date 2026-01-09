@@ -288,7 +288,7 @@ export default function CandyBoxHeader() {
           <div ref={searchRef} className="hidden md:flex flex-1 relative" style={{ marginRight: '48px' }}>
             <form onSubmit={handleSearchSubmit} className="w-full max-w-lg">
               <div className="relative w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" style={{ zIndex: 10 }} />
                 <input
                   ref={inputRef}
                   type="text"
@@ -299,7 +299,8 @@ export default function CandyBoxHeader() {
                     setShowSearch(true);
                   }}
                   onFocus={() => setShowSearch(true)}
-                  className="w-full h-11 pl-12 pr-4 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-base text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
+                  className="w-full h-11 pr-4 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-base text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
+                  style={{ paddingLeft: '48px' }}
                 />
                 {searchQuery && (
                   <button
@@ -490,14 +491,15 @@ export default function CandyBoxHeader() {
               <div className="flex items-center gap-3 mb-4">
                 <form onSubmit={handleSearchSubmit} className="flex-1">
                   <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" style={{ zIndex: 10 }} />
                     <input
                       ref={mobileInputRef}
                       type="text"
                       placeholder="Search everything..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full h-12 pl-12 pr-10 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-base text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
+                      className="w-full h-12 pr-10 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-base text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
+                      style={{ paddingLeft: '48px' }}
                     />
                     {searchQuery && (
                       <button

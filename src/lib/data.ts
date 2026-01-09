@@ -313,7 +313,7 @@ export const quickActions = [
   { id: "skills", label: "Skills", icon: "sparkles", href: "/skills", color: "#627EEA" },
   { id: "wins", label: "Wins", icon: "trophy", href: "/about", color: "#FF6B00" },
   { id: "certs", label: "Certs", icon: "academic", href: "/about", color: "#8247E5" },
-  { id: "blockchain", label: "Blockchain", icon: "cube", href: "/projects", color: "#F6465D" },
+  { id: "blockchain", label: "Blockchain", icon: "cube", href: "https://testnet-wallet-teal.vercel.app/", color: "#F6465D", external: true },
   { id: "resume", label: "Resume", icon: "document", href: "/resume.pdf", color: "#00FFA3", external: true },
   { id: "contact", label: "Contact", icon: "mail", href: "/contact", color: "#5546FF" },
 ];

@@ -66,13 +66,14 @@ export default function ProjectsPage() {
       >
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" style={{ zIndex: 10 }} />
           <input
             type="text"
             placeholder="Search projects..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-12 pl-12 pr-4 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
+            className="w-full h-12 pr-4 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
+            style={{ paddingLeft: '48px' }}
           />
         </div>
 
