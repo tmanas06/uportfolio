@@ -328,8 +328,8 @@ export default function CandyBoxHeader() {
             </Link>
           </div>
 
-          {/* Center: Search (Desktop) */}
-          <div ref={searchRef} className="hidden md:flex flex-1 max-w-xl mx-8 relative">
+          {/* Center: Search (Desktop) - Hidden on mobile */}
+          <div ref={searchRef} className="hidden lg:flex flex-1 max-w-xl mx-8 relative">
             <form onSubmit={handleSearchSubmit} className="w-full">
               <div className="relative group">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted group-focus-within:text-yellow-500 transition-colors" style={{ zIndex: 10 }} />
@@ -433,8 +433,8 @@ export default function CandyBoxHeader() {
               <Search className="w-5 h-5" />
             </button>
 
-            {/* Notifications */}
-            <div className="relative">
+            {/* Notifications - Hidden on small screens */}
+            <div className="relative hidden sm:block">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
                 className="w-11 h-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-secondary hover:text-white transition-all hover:bg-white/10 relative group"

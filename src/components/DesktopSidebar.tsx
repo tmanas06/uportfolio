@@ -112,7 +112,7 @@ export default function DesktopSidebar() {
         animate={{
           x: isHidden ? -SIDEBAR_WIDTH : 0,
           opacity: isHidden ? 0 : 1,
-          width: isMobile ? SIDEBAR_WIDTH : currentWidth
+          width: isMobile ? Math.min(280, window.innerWidth * 0.8) : currentWidth
         }}
         initial={false}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}

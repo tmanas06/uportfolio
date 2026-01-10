@@ -64,17 +64,17 @@ export default function ContactPage() {
           className="lg:col-span-1 flex flex-col gap-6"
         >
           {/* Quick Contact */}
-          <div className="glass-card p-8 rounded-3xl">
-            <h2 className="text-xl font-bold text-white mb-6 font-heading">Direct Contact</h2>
+          <div className="glass-card p-6 sm:p-8 rounded-3xl">
+            <h2 className="text-xl font-bold text-white mb-6 font-heading text-center lg:text-left">Direct Contact</h2>
             <div className="flex flex-col gap-4">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
+                className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
               >
                 <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                   <Mail className="w-5 h-5 text-yellow-500" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 text-center sm:text-left">
                   <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Email</p>
                   <p className="text-white group-hover:text-yellow-500 transition-colors text-sm truncate font-medium">
                     {personalInfo.email}
@@ -84,12 +84,12 @@ export default function ContactPage() {
 
               <a
                 href={`tel:${personalInfo.phone}`}
-                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
+                className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
               >
                 <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                   <Phone className="w-5 h-5 text-emerald-500" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Phone</p>
                   <p className="text-white group-hover:text-emerald-500 transition-colors text-sm font-medium">
                     {personalInfo.phone}
@@ -97,11 +97,11 @@ export default function ContactPage() {
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 p-4">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 p-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-5 h-5 text-blue-500" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Location</p>
                   <p className="text-white text-sm font-medium">{personalInfo.location}</p>
                 </div>
@@ -110,8 +110,8 @@ export default function ContactPage() {
           </div>
 
           {/* Social Links */}
-          <div className="glass-card p-8 rounded-3xl">
-            <h2 className="text-xl font-bold text-white mb-6 font-heading">Ecosystem</h2>
+          <div className="glass-card p-6 sm:p-8 rounded-3xl">
+            <h2 className="text-xl font-bold text-white mb-6 font-heading text-center lg:text-left">Ecosystem</h2>
             <div className="grid grid-cols-2 gap-3">
               {[
                 { icon: Github, label: "GitHub", href: personalInfo.github, color: "hover:text-white" },
@@ -165,9 +165,9 @@ export default function ContactPage() {
             <div className="flex p-2 bg-white/5 border-b border-white/5 translate-z-0">
               <button
                 onClick={() => setActiveTab("zk")}
-                className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "zk"
-                    ? "text-purple-400 bg-white/5"
-                    : "text-muted hover:text-white"
+                className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-4 rounded-2xl text-xs sm:text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "zk"
+                  ? "text-purple-400 bg-white/5"
+                  : "text-muted hover:text-white"
                   }`}
               >
                 {activeTab === "zk" && (
@@ -182,9 +182,9 @@ export default function ContactPage() {
               </button>
               <button
                 onClick={() => setActiveTab("email")}
-                className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "email"
-                    ? "text-yellow-500 bg-white/5"
-                    : "text-muted hover:text-white"
+                className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-4 rounded-2xl text-xs sm:text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "email"
+                  ? "text-yellow-500 bg-white/5"
+                  : "text-muted hover:text-white"
                   }`}
               >
                 {activeTab === "email" && (
@@ -200,7 +200,7 @@ export default function ContactPage() {
             </div>
 
             {/* Tab Content */}
-            <div className="p-8 sm:p-10 flex-1">
+            <div className="p-6 sm:p-10 flex-1">
               <AnimatePresence mode="wait">
                 {activeTab === "zk" ? (
                   <motion.div

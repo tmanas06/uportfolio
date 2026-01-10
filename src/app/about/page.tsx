@@ -27,7 +27,7 @@ export default function AboutPage() {
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 blur-[100px] -mr-32 -mt-32 group-hover:bg-yellow-500/10 transition-colors duration-700" />
 
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 relative z-10 text-center sm:text-left">
+        <div className="flex flex-col items-center sm:items-start gap-6 sm:gap-8 relative z-10 text-center sm:text-left">
           <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-500">
             <span className="text-black font-bold text-4xl sm:text-5xl font-heading">
               {personalInfo.firstName[0]}
@@ -88,16 +88,16 @@ export default function AboutPage() {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="glass-card p-8 rounded-3xl"
+          className="glass-card p-6 sm:p-8 rounded-3xl"
         >
-          <h2 className="text-2xl font-bold font-heading text-white mb-6 flex items-center gap-3">
+          <h2 className="text-2xl font-bold font-heading text-white mb-6 flex items-center justify-center lg:justify-start gap-3 text-center">
             <GraduationCap className="w-6 h-6 text-yellow-500" />
             Education
           </h2>
-          <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-yellow-500/30 transition-colors">
+          <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-yellow-500/30 transition-colors text-center lg:text-left">
             <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1">{education.degree}</h3>
             <p className="text-yellow-500 font-medium mb-4">{education.university}</p>
-            <div className="flex flex-wrap gap-4 text-sm text-secondary">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-secondary">
               <span className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 {education.period}
@@ -112,9 +112,9 @@ export default function AboutPage() {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-8 rounded-3xl"
+          className="glass-card p-6 sm:p-8 rounded-3xl"
         >
-          <h2 className="text-2xl font-bold font-heading text-white mb-6 flex items-center gap-3">
+          <h2 className="text-2xl font-bold font-heading text-white mb-6 flex items-center justify-center lg:justify-start gap-3 text-center">
             <Award className="w-6 h-6 text-yellow-500" />
             Certifications
           </h2>
@@ -157,7 +157,7 @@ export default function AboutPage() {
         transition={{ duration: 0.8, delay: 0.3 }}
         className="glass-card p-8 sm:p-10 rounded-3xl"
       >
-        <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-8 flex items-center gap-3">
+        <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-8 flex items-center justify-center lg:justify-start gap-3 text-center">
           <Briefcase className="w-6 h-6 text-yellow-500" />
           Professional Experience
         </h2>
@@ -168,8 +168,8 @@ export default function AboutPage() {
               className="p-6 sm:p-8 rounded-2xl bg-white/5 border-l-4 group/exp hover:bg-white/[0.07] transition-all"
               style={{ borderColor: exp.current ? "#0ECB81" : "#F0B90B" }}
             >
-              <div className="flex flex-col sm:flex-row items-start justify-between gap-6 mb-8">
-                <div className="flex items-center gap-6">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 mb-8 text-center sm:text-left">
+                <div className="flex flex-col sm:flex-row items-center gap-6">
                   <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-3 group-hover/exp:scale-110 transition-transform duration-500 shadow-xl overflow-hidden backdrop-blur-sm">
                     {exp.logo ? (
                       <img
@@ -187,7 +187,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <h3 className="text-2xl font-black text-[var(--text-primary)] group-hover/exp:text-yellow-500 transition-colors tracking-tight">{exp.title}</h3>
-                    <div className="flex items-center gap-2 mt-1">
+                    <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
                       <p className="text-yellow-500 font-bold uppercase tracking-widest text-xs">{exp.company}</p>
                       {exp.current && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />}
                     </div>
@@ -195,7 +195,7 @@ export default function AboutPage() {
                 </div>
                 {exp.current && <span className="badge-v2 badge-v2-gold text-[10px] uppercase font-black">Active Role</span>}
               </div>
-              <div className="flex flex-wrap gap-4 text-xs text-secondary mb-6">
+              <div className="flex flex-wrap justify-center sm:justify-start gap-4 text-xs text-secondary mb-6">
                 <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full">
                   <Calendar className="w-3 h-3" />
                   {exp.period}
@@ -226,7 +226,7 @@ export default function AboutPage() {
         transition={{ duration: 0.8 }}
         className="glass-card p-8 sm:p-10 rounded-3xl mb-12"
       >
-        <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-8 flex items-center gap-3">
+        <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-8 flex items-center justify-center gap-3 text-center">
           <Trophy className="w-6 h-6 text-yellow-500" />
           Hackathon Wins & Recognition
         </h2>

@@ -57,7 +57,7 @@ export default function HomePage() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="glass-card p-8 sm:p-10 rounded-[2rem] overflow-hidden relative group"
+        className="glass-card p-6 sm:p-10 rounded-[2rem] overflow-hidden relative group w-full"
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 blur-[100px] -mr-32 -mt-32 group-hover:bg-yellow-500/10 transition-colors duration-700" />
 
@@ -116,14 +116,14 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6"
+        className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6"
       >
         {metrics.map((metric) => (
-          <div key={metric.label} className="metric-v2 group">
-            <p className="metric-v2-value group-hover:gold-text transition-all duration-300">
+          <div key={metric.label} className="metric-v2 group p-4 glass-card rounded-2xl text-center">
+            <p className="metric-v2-value text-2xl sm:text-3xl group-hover:gold-text transition-all duration-300">
               {metric.value}
             </p>
-            <p className="metric-v2-label">
+            <p className="metric-v2-label text-[10px] sm:text-xs">
               {metric.label}
             </p>
           </div>
@@ -135,14 +135,14 @@ export default function HomePage() {
         {/* Left Column - Projects */}
         <div className="lg:col-span-8 flex flex-col gap-12">
           <section>
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold font-heading flex items-center gap-3">
+            <div className="flex items-center justify-center sm:justify-between mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold font-heading flex items-center gap-3 text-center">
                 <Sparkles className="w-6 h-6 text-yellow-500" />
                 Featured Projects
               </h2>
               <Link
                 href="/projects"
-                className="text-sm font-semibold text-yellow-500 flex items-center gap-1 hover:gap-2 transition-all"
+                className="hidden sm:flex text-sm font-semibold text-yellow-500 items-center gap-1 hover:gap-2 transition-all"
               >
                 View all <ChevronRight className="w-4 h-4" />
               </Link>
@@ -163,7 +163,7 @@ export default function HomePage() {
                     </h3>
                     <ExternalLink className="w-5 h-5 text-muted group-hover/card:text-white transition-colors" />
                   </div>
-                  <p className="text-secondary mb-6 line-clamp-3 text-sm flex-1">
+                  <p className="text-secondary mb-6 line-clamp-3 text-sm flex-1 text-center sm:text-left break-words">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -179,8 +179,8 @@ export default function HomePage() {
           </section>
 
           <section>
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold font-heading flex items-center gap-3">
+            <div className="flex items-center justify-center sm:justify-start mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold font-heading flex items-center gap-3 text-center">
                 <Boxes className="w-6 h-6 text-yellow-500" />
                 Ecosystems
               </h2>
@@ -209,7 +209,7 @@ export default function HomePage() {
         {/* Right Column - sidebar-like content */}
         <div className="lg:col-span-4 flex flex-col gap-12">
           <section>
-            <h2 className="text-2xl font-bold font-heading mb-8 flex items-center gap-3">
+            <h2 className="text-2xl font-bold font-heading mb-8 flex items-center justify-center lg:justify-start gap-3 text-center">
               <Trophy className="w-6 h-6 text-yellow-500" />
               Achievements
             </h2>
@@ -237,7 +237,7 @@ export default function HomePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold font-heading mb-8 flex items-center gap-3">
+            <h2 className="text-2xl font-bold font-heading mb-8 flex items-center justify-center lg:justify-start gap-3 text-center">
               <Mail className="w-6 h-6 text-yellow-500" />
               Quick Actions
             </h2>

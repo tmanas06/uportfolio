@@ -41,19 +41,19 @@ export default function SkillsPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-              className="glass-card p-8 rounded-3xl group"
+              className="glass-card p-6 sm:p-8 rounded-3xl group"
             >
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-bold font-heading text-white flex items-center gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold font-heading text-white flex items-center gap-3 sm:gap-4">
                   <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 flex-shrink-0"
                     style={{ backgroundColor: `${category.color}15`, color: category.color }}
                   >
                     {category.icon}
                   </div>
                   {category.title}
                 </h2>
-                <span className="text-xs font-bold text-muted uppercase tracking-widest">{categorySkills.length} SKILLS</span>
+                <span className="text-[10px] sm:text-xs font-bold text-muted uppercase tracking-widest">{categorySkills.length} SKILLS</span>
               </div>
 
               <div className="flex flex-col gap-6">
@@ -88,7 +88,7 @@ export default function SkillsPage() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="glass-card p-8 sm:p-12 rounded-[2.5rem] grid grid-cols-2 sm:grid-cols-4 gap-8"
+        className="glass-card p-6 sm:p-12 rounded-[2.5rem] grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8"
       >
         <div className="metric-v2 text-center items-center">
           <p className="metric-v2-value text-yellow-500">{skills.languages?.length || 0}</p>
