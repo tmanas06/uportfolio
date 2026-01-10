@@ -135,6 +135,10 @@ body {
   background-clip: text;
 }
 
+.bg-gold-gradient {
+  background: var(--gold-gradient);
+}
+
 /* Background Elements */
 .bg-glow {
   position: fixed;
