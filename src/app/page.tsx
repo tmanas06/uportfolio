@@ -204,15 +204,18 @@ export default function HomePage() {
                   {[...chains, ...chains, ...chains, ...chains].map((chain, index) => (
                     <div key={`${chain.name}-${index}`} className="flex flex-col items-center gap-4 min-w-[100px] shrink-0 group/chain cursor-pointer">
                       <div
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-sm font-bold text-white shadow-xl transition-all duration-500 group-hover/chain:scale-110 group-hover/chain:-translate-y-2"
+                        className="w-20 h-20 rounded-3xl flex items-center justify-center bg-white/5 border border-white/10 shadow-lg transition-all duration-500 group-hover/chain:scale-110 group-hover/chain:-translate-y-2 group-hover/chain:border-white/20"
                         style={{
-                          backgroundColor: chain.color,
-                          boxShadow: `0 10px 30px -10px ${chain.color}66`
+                          boxShadow: `0 10px 30px -10px ${chain.color}33`
                         }}
                       >
-                        {chain.name}
+                        <img
+                          src={chain.logo}
+                          alt={chain.fullName}
+                          className="w-10 h-10 object-contain drop-shadow-md"
+                        />
                       </div>
-                      <span className="text-xs font-semibold text-secondary group-hover/chain:text-white transition-colors">{chain.fullName}</span>
+                      <span className="text-xs font-bold text-secondary group-hover/chain:text-white transition-colors uppercase tracking-wider">{chain.fullName}</span>
                     </div>
                   ))}
                 </motion.div>

@@ -333,13 +333,13 @@ export const quickActions = [
 ];
 
 export const chains = [
-  { name: "ETH", fullName: "Ethereum", color: "#627EEA" },
-  { name: "SOL", fullName: "Solana", color: "#00FFA3" },
-  { name: "MATIC", fullName: "Polygon", color: "#8247E5" },
-  { name: "BSV", fullName: "Bitcoin SV", color: "#FF6B00" },
-  { name: "STX", fullName: "Stacks", color: "#5546FF" },
-  { name: "APT", fullName: "Aptos", color: "#00D4AA" },
-  { name: "MONAD", fullName: "Monad", color: "#9945FF" },
+  { name: "ETH", fullName: "Ethereum", color: "#627EEA", logo: "/logos/chains/eth.svg" },
+  { name: "SOL", fullName: "Solana", color: "#00FFA3", logo: "/logos/chains/sol.svg" },
+  { name: "MATIC", fullName: "Polygon", color: "#8247E5", logo: "/logos/chains/matic.svg" },
+  { name: "BSV", fullName: "Bitcoin SV", color: "#FF6B00", logo: "/logos/chains/bsv.svg" },
+  { name: "STX", fullName: "Stacks", color: "#5546FF", logo: "/logos/chains/stx.svg" },
+  { name: "APT", fullName: "Aptos", color: "#00D4AA", logo: "/logos/chains/apt.svg" },
+  { name: "MONAD", fullName: "Monad", color: "#9945FF", logo: "/logos/chains/monad.svg" },
 ];
 
 export const notifications = [
