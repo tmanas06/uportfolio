@@ -321,7 +321,7 @@ export default function CandyBoxHeader() {
               </div>
               <div className="hidden sm:flex flex-col">
                 <span className="text-[var(--text-primary)] font-black text-xl tracking-tight leading-none group-hover:text-yellow-500 transition-colors">
-                  {personalInfo.firstName.split(' ').pop()}
+                  {personalInfo.firstName}
                 </span>
                 <span className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mt-1">Portfolio</span>
               </div>
