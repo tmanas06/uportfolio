@@ -17,7 +17,7 @@ import { personalInfo, education, experience, achievements, certifications } fro
 
 export default function AboutPage() {
   return (
-    <div className="container-v2 py-12 flex flex-col gap-12 sm:gap-16">
+    <div className="container-v2 py-8 sm:py-12 flex flex-col gap-8 sm:gap-16">
       {/* Profile Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -27,24 +27,24 @@ export default function AboutPage() {
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 blur-[100px] -mr-32 -mt-32 group-hover:bg-yellow-500/10 transition-colors duration-700" />
 
-        <div className="flex flex-col sm:flex-row gap-8 relative z-10">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 relative z-10 text-center sm:text-left">
           <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-500">
             <span className="text-black font-bold text-4xl sm:text-5xl font-heading">
               {personalInfo.firstName[0]}
             </span>
           </div>
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-4 mb-4">
-              <h1 className="text-3xl sm:text-4xl font-bold font-heading text-[var(--text-primary)]">
+          <div className="flex-1 w-full">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mb-4">
+              <h1 className="text-2xl sm:text-4xl font-bold font-heading text-[var(--text-primary)]">
                 {personalInfo.name}
               </h1>
               <span className="badge-v2 badge-v2-gold animate-pulse">Available for hire</span>
             </div>
-            <p className="text-xl text-yellow-500 font-medium mb-4">{personalInfo.title}</p>
-            <p className="text-secondary text-lg max-w-3xl mb-6 leading-relaxed">
+            <p className="text-lg sm:text-xl text-yellow-500 font-medium mb-4">{personalInfo.title}</p>
+            <p className="text-secondary text-base sm:text-lg max-w-3xl mb-6 leading-relaxed">
               {personalInfo.summary}
             </p>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-secondary">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-6 text-sm text-secondary">
               <span className="flex items-center gap-2 group/info">
                 <MapPin className="w-4 h-4 text-yellow-500 group-hover/info:scale-110 transition-transform" />
                 {personalInfo.location}
@@ -54,7 +54,7 @@ export default function AboutPage() {
                 {education.cgpa} CGPA
               </span>
             </div>
-            <div className="flex items-center gap-4 mt-8">
+            <div className="flex items-center justify-center sm:justify-start gap-4 mt-8">
               <a
                 href={personalInfo.github}
                 target="_blank"

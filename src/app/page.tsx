@@ -51,7 +51,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="container-v2 py-12 flex flex-col gap-12 sm:gap-16">
+    <div className="container-v2 py-8 sm:py-12 flex flex-col gap-8 sm:gap-16">
       {/* Profile Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -70,12 +70,12 @@ export default function HomePage() {
 
           <div className="flex-1 text-center md:text-left">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-4">
-              <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[var(--text-primary)]">
+              <h1 className="text-3xl sm:text-5xl font-bold font-heading text-[var(--text-primary)]">
                 {personalInfo.name}
               </h1>
               <span className="badge-v2 badge-v2-gold animate-pulse">Available for Projects</span>
             </div>
-            <p className="text-xl sm:text-2xl text-secondary max-w-2xl mb-8 leading-relaxed">
+            <p className="text-lg sm:text-2xl text-secondary max-w-2xl mb-8 leading-relaxed">
               {personalInfo.title}
             </p>
 
@@ -263,7 +263,7 @@ export default function HomePage() {
               {/* Theme Toggle */}
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="glass-card p-4 rounded-2xl flex flex-col items-center gap-3 text-center group/action cursor-pointer"
+                className="glass-card p-4 rounded-2xl flex flex-col items-center gap-3 text-center group/action cursor-pointer col-span-2 md:col-span-1"
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover/action:scale-110 bg-yellow-500/10"

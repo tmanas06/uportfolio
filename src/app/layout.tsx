@@ -4,7 +4,7 @@ import "./globals.css";
 import CandyBoxHeader from "@/components/CandyBoxHeader";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import DesktopSidebar from "@/components/DesktopSidebar";
-import Web3Provider from "@/components/Web3Provider";
+// import Web3Provider from "@/components/Web3Provider"; // Removed in favor of dynamic import
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +56,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "next-themes";
+import ClientWeb3Provider from "@/components/ClientWeb3Provider";
 
 export default function RootLayout({
   children,
@@ -67,14 +68,14 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased selection:bg-yellow-500/20`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <div className="bg-glow" />
-          <Web3Provider>
+          <ClientWeb3Provider>
             <CandyBoxHeader />
             <DesktopSidebar />
             <MobileBottomNav />
             <main className="page-wrapper min-h-screen relative z-10">
               {children}
             </main>
-          </Web3Provider>
+          </ClientWeb3Provider>
         </ThemeProvider>
       </body>
     </html>

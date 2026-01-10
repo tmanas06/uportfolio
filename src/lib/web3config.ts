@@ -13,7 +13,8 @@ const metadata = {
 
 const chains = [mainnet, polygon, arbitrum, optimism, bsc] as const;
 
-export const wagmiConfig = defaultWagmiConfig({
+// Initialized only when needed
+export const getWagmiConfig = () => defaultWagmiConfig({
   chains,
   projectId,
   metadata,

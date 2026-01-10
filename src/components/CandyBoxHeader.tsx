@@ -44,6 +44,7 @@ import {
 } from "@/lib/data";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface SearchResult {
   id: string;
@@ -68,6 +69,7 @@ export default function CandyBoxHeader() {
   const quickAccessRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
+  const isMobile = useIsMobile();
 
   // WalletConnect hooks
   const { open } = useWeb3Modal();
@@ -300,16 +302,15 @@ export default function CandyBoxHeader() {
       <header
         className="fixed top-0 right-0 z-50 h-[var(--header-height)] glass-effect border-b border-white/5 transition-all duration-500 ease-[0.16,1,0.3,1]"
         style={{
-          left: 'var(--sidebar-current-width, 0px)',
-          width: 'calc(100% - var(--sidebar-current-width, 0px))'
+          left: 'var(--sidebar-current-width, 0px)'
         }}
       >
-        <div className="h-full px-4 lg:px-8 flex items-center justify-between">
+        <div className="h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2">
           {/* Left: Logo & Sidebar Toggle */}
           <div className="flex items-center gap-4 flex-shrink-0">
             <button
               onClick={() => window.dispatchEvent(new CustomEvent("sidebar-global-toggle"))}
-              className="hidden lg:flex w-11 h-11 rounded-xl bg-white/5 border border-white/5 items-center justify-center text-secondary hover:text-white hover:bg-white/10 transition-all active:scale-95"
+              className="flex w-11 h-11 rounded-xl bg-white/5 border border-white/5 items-center justify-center text-secondary hover:text-white hover:bg-white/10 transition-all active:scale-95"
               title="Toggle Sidebar"
             >
               <Menu className="w-5 h-5" />
@@ -501,10 +502,10 @@ export default function CandyBoxHeader() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => open()}
-                  className="h-11 px-6 rounded-xl bg-gold-gradient items-center gap-3 text-black font-black shadow-[0_0_20px_rgba(240,185,11,0.2)] hover:shadow-[0_0_30px_rgba(240,185,11,0.4)] transition-all flex sweep-effect"
+                  className={`${isMobile ? 'w-11 px-0' : 'h-11 px-6'} rounded-xl bg-gold-gradient flex items-center justify-center gap-3 text-black font-black shadow-[0_0_20px_rgba(240,185,11,0.2)] hover:shadow-[0_0_30px_rgba(240,185,11,0.4)] transition-all sweep-effect`}
                 >
                   <Wallet className="w-4 h-4" />
-                  <span className="text-sm tracking-tight font-black uppercase">Connect</span>
+                  {!isMobile && <span className="text-sm tracking-tight font-black uppercase">Connect</span>}
                 </motion.button>
               )}
             </div>

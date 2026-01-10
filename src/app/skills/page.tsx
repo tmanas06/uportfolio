@@ -100,7 +100,7 @@ export default function SkillsPage() {
         </div>
         <div className="metric-v2 text-center items-center">
           <p className="metric-v2-value text-blue-500">{skills.blockchain?.length || 0}</p>
-          <p className="metric-v2-label">Blochain</p>
+          <p className="metric-v2-label">Blockchain</p>
         </div>
         <div className="metric-v2 text-center items-center">
           <p className="metric-v2-value text-purple-500">{skills.tools?.length || 0}</p>
