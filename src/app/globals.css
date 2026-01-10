@@ -225,7 +225,7 @@ h4,
   display: flex;
   flex-direction: column;
   width: 100%;
-  transition: padding-left 0.3s ease-in-out;
+  transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 1024px) {

@@ -297,7 +297,13 @@ export default function CandyBoxHeader() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 h-[var(--header-height)] glass-effect border-b border-white/5">
+      <header
+        className="fixed top-0 right-0 z-50 h-[var(--header-height)] glass-effect border-b border-white/5 transition-all duration-500 ease-[0.16,1,0.3,1]"
+        style={{
+          left: 'var(--sidebar-current-width, 0px)',
+          width: 'calc(100% - var(--sidebar-current-width, 0px))'
+        }}
+      >
         <div className="h-full px-4 lg:px-8 flex items-center justify-between">
           {/* Left: Logo & Sidebar Toggle */}
           <div className="flex items-center gap-4 flex-shrink-0">
