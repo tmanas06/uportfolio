@@ -148,7 +148,7 @@ export default function DesktopSidebar() {
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <Zap className="w-3 h-3 text-amber-400 fill-amber-400/20" />
                     <span className="text-[11px] font-black text-muted uppercase tracking-widest truncate">
-                      Senior Developer
+                      Developer
                     </span>
                   </div>
                 </motion.div>

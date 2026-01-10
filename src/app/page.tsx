@@ -73,7 +73,7 @@ export default function HomePage() {
               <h1 className="text-3xl sm:text-5xl font-bold font-heading text-[var(--text-primary)]">
                 {personalInfo.name}
               </h1>
-              <span className="badge-v2 badge-v2-gold animate-pulse">Available for Projects</span>
+              <span className="badge-v2 bg-emerald-500/10 text-emerald-500 border-emerald-500/20 border animate-pulse">Available for Projects</span>
             </div>
             <p className="text-lg sm:text-2xl text-secondary max-w-2xl mb-8 leading-relaxed">
               {personalInfo.title}
