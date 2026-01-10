@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import {
   Code,
   Briefcase,
@@ -15,6 +16,8 @@ import {
   Github,
   Linkedin,
   ExternalLink,
+  Sun,
+  Moon,
 } from "lucide-react";
 import {
   personalInfo,
@@ -24,6 +27,7 @@ import {
   quickActions,
   chains,
 } from "@/lib/data";
+import { useEffect, useState } from "react";
 
 const iconMap: { [key: string]: React.ReactNode } = {
   code: <Code className="w-5 h-5" />,
@@ -38,6 +42,13 @@ const iconMap: { [key: string]: React.ReactNode } = {
 
 export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="container-v2 py-12 flex flex-col gap-12 sm:gap-16">
@@ -59,7 +70,7 @@ export default function HomePage() {
 
           <div className="flex-1 text-center md:text-left">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-4">
-              <h1 className="text-4xl sm:text-5xl font-bold font-heading text-white">
+              <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[var(--text-primary)]">
                 {personalInfo.name}
               </h1>
               <span className="badge-v2 badge-v2-gold animate-pulse">Available for Projects</span>
@@ -107,7 +118,7 @@ export default function HomePage() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6"
       >
-        {metrics.map((metric, idx) => (
+        {metrics.map((metric) => (
           <div key={metric.label} className="metric-v2 group">
             <p className="metric-v2-value group-hover:gold-text transition-all duration-300">
               {metric.value}
@@ -147,7 +158,7 @@ export default function HomePage() {
                   className="glass-card p-6 rounded-3xl flex flex-col h-full group/card"
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold text-white group-hover/card:text-yellow-500 transition-colors line-clamp-1">
+                    <h3 className="text-xl font-bold text-[var(--text-primary)] group-hover/card:text-yellow-500 transition-colors line-clamp-1">
                       {project.title}
                     </h3>
                     <ExternalLink className="w-5 h-5 text-muted group-hover/card:text-white transition-colors" />
@@ -212,7 +223,7 @@ export default function HomePage() {
                     {achievement.icon === "gold" ? "🥇" : achievement.icon === "silver" ? "🥈" : "🥉"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-white truncate group-hover/win:text-yellow-500 transition-colors">
+                    <p className="text-sm font-bold text-[var(--text-primary)] truncate group-hover/win:text-yellow-500 transition-colors">
                       {achievement.title}
                     </p>
                     <p className="text-xs text-secondary mt-1">{achievement.position}</p>
@@ -248,6 +259,26 @@ export default function HomePage() {
                   </span>
                 </Link>
               ))}
+
+              {/* Theme Toggle */}
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="glass-card p-4 rounded-2xl flex flex-col items-center gap-3 text-center group/action cursor-pointer"
+              >
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover/action:scale-110 bg-yellow-500/10"
+                >
+                  {mounted && (theme === "dark" ? (
+                    <Sun className="w-5 h-5 text-yellow-500" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-yellow-500" />
+                  ))}
+                  {!mounted && <Sun className="w-5 h-5 text-yellow-500" />}
+                </div>
+                <span className="text-xs font-bold text-secondary group-hover/action:text-white">
+                  {mounted ? (theme === "dark" ? "Light Mode" : "Dark Mode") : "Theme"}
+                </span>
+              </button>
             </div>
           </section>
         </div>

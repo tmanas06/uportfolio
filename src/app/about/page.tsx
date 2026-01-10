@@ -35,7 +35,7 @@ export default function AboutPage() {
           </div>
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-4 mb-4">
-              <h1 className="text-3xl sm:text-4xl font-bold font-heading text-white">
+              <h1 className="text-3xl sm:text-4xl font-bold font-heading text-[var(--text-primary)]">
                 {personalInfo.name}
               </h1>
               <span className="badge-v2 badge-v2-gold animate-pulse">Available for hire</span>
@@ -59,7 +59,7 @@ export default function AboutPage() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 border border-white/5 transition-all"
+                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-[var(--text-primary)] hover:bg-white/10 border border-white/5 transition-all"
               >
                 <Github className="w-5 h-5" />
               </a>
@@ -67,13 +67,13 @@ export default function AboutPage() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 border border-white/5 transition-all"
+                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-[var(--text-primary)] hover:bg-white/10 border border-white/5 transition-all"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 border border-white/5 transition-all"
+                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-[var(--text-primary)] hover:bg-white/10 border border-white/5 transition-all"
               >
                 <Mail className="w-5 h-5" />
               </a>
@@ -95,7 +95,7 @@ export default function AboutPage() {
             Education
           </h2>
           <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-yellow-500/30 transition-colors">
-            <h3 className="text-lg font-bold text-white mb-1">{education.degree}</h3>
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1">{education.degree}</h3>
             <p className="text-yellow-500 font-medium mb-4">{education.university}</p>
             <div className="flex flex-wrap gap-4 text-sm text-secondary">
               <span className="flex items-center gap-2">
@@ -140,7 +140,7 @@ export default function AboutPage() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-white text-sm group-hover/cert:text-yellow-500 transition-colors uppercase tracking-tight">{cert.name}</h3>
+                  <h3 className="font-bold text-[var(--text-primary)] text-sm group-hover/cert:text-yellow-500 transition-colors uppercase tracking-tight">{cert.name}</h3>
                   <p className="text-[10px] text-muted font-black uppercase tracking-widest mt-1">{cert.issuer} • {cert.year}</p>
                 </div>
                 <ExternalLink className="w-4 h-4 text-muted group-hover/cert:text-white transition-colors" />
@@ -186,7 +186,7 @@ export default function AboutPage() {
                     )}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-black text-white group-hover/exp:text-yellow-500 transition-colors tracking-tight">{exp.title}</h3>
+                    <h3 className="text-2xl font-black text-[var(--text-primary)] group-hover/exp:text-yellow-500 transition-colors tracking-tight">{exp.title}</h3>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-yellow-500 font-bold uppercase tracking-widest text-xs">{exp.company}</p>
                       {exp.current && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />}
@@ -244,7 +244,7 @@ export default function AboutPage() {
                     : "🥉"}
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white mb-1 group-hover/win:text-yellow-500 transition-colors leading-tight">
+                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1 group-hover/win:text-yellow-500 transition-colors leading-tight">
                   {achievement.title}
                 </h3>
                 <p className="text-yellow-500 font-medium text-sm">{achievement.position}</p>

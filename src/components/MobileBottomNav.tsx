@@ -40,7 +40,7 @@ export default function MobileBottomNav() {
                   />
                 )}
               </div>
-              <span className={`text-[9px] font-black uppercase tracking-widest transition-colors ${isActive ? 'text-white' : 'text-muted'}`}>
+              <span className={`text-[9px] font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[var(--text-primary)]' : 'text-muted'}`}>
                 {item.name}
               </span>
 

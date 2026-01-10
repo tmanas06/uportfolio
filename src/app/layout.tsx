@@ -55,23 +55,27 @@ export const metadata: Metadata = {
   },
 };
 
+import { ThemeProvider } from "next-themes";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-[#05070A] text-white selection:bg-yellow-500/20`}>
-        <div className="bg-glow" />
-        <Web3Provider>
-          <CandyBoxHeader />
-          <DesktopSidebar />
-          <MobileBottomNav />
-          <main className="page-wrapper min-h-screen relative z-10">
-            {children}
-          </main>
-        </Web3Provider>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased selection:bg-yellow-500/20`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <div className="bg-glow" />
+          <Web3Provider>
+            <CandyBoxHeader />
+            <DesktopSidebar />
+            <MobileBottomNav />
+            <main className="page-wrapper min-h-screen relative z-10">
+              {children}
+            </main>
+          </Web3Provider>
+        </ThemeProvider>
       </body>
     </html>
   );

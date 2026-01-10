@@ -112,7 +112,7 @@ export default function DesktopSidebar() {
                     animate={{ opacity: 1, x: 0 }}
                     className="flex-1 min-w-0"
                   >
-                    <h3 className="font-black text-white text-sm tracking-tight truncate leading-tight">
+                    <h3 className="font-black text-[var(--text-primary)] text-sm tracking-tight truncate leading-tight">
                       {personalInfo.name}
                     </h3>
                     <div className="flex items-center gap-1.5 mt-0.5">
@@ -143,11 +143,11 @@ export default function DesktopSidebar() {
                         <Link
                           href={item.href}
                           className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 group ${isActive
-                              ? "bg-white/5 text-white border border-white/10 shadow-lg ring-1 ring-white/5"
-                              : "text-muted hover:bg-white/[0.03] hover:text-white border border-transparent"
+                            ? "bg-white/5 text-[var(--text-primary)] border border-white/10 shadow-lg ring-1 ring-white/5"
+                            : "text-muted hover:bg-white/[0.03] hover:text-[var(--text-primary)] border border-transparent"
                             }`}
                         >
-                          <div className={`relative ${isActive ? item.color : 'text-muted group-hover:text-white'}`}>
+                          <div className={`relative ${isActive ? item.color : 'text-muted group-hover:text-[var(--text-primary)]'}`}>
                             <Icon className={`w-5 h-5 transition-transform duration-500 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
                             {isActive && (
                               <div className={`absolute -inset-2 blur-md opacity-20 -z-10 ${item.color.replace('text', 'bg')}`} />
@@ -192,7 +192,7 @@ export default function DesktopSidebar() {
                     >
                       <tool.icon className={`w-4 h-4 text-muted transition-all duration-300 ${tool.color} group-hover/tool:scale-110`} />
                       {showExpanded && (
-                        <span className="text-[9px] font-black text-muted/50 uppercase tracking-tighter group-hover/tool:text-white transition-colors">
+                        <span className="text-[9px] font-black text-muted/50 uppercase tracking-tighter group-hover/tool:text-[var(--text-primary)] transition-colors">
                           {tool.label}
                         </span>
                       )}
@@ -216,14 +216,14 @@ export default function DesktopSidebar() {
                         <Trophy className="w-4 h-4 text-amber-500" />
                         <span className="text-[10px] font-black text-muted/80 uppercase">Wins</span>
                       </div>
-                      <span className="text-xs font-black text-white">{achievements.length}</span>
+                      <span className="text-xs font-black text-[var(--text-primary)]">{achievements.length}</span>
                     </div>
                     <div className="flex items-center justify-between px-2">
                       <div className="flex items-center gap-2">
                         <Briefcase className="w-4 h-4 text-emerald-500" />
                         <span className="text-[10px] font-black text-muted/80 uppercase">Experience</span>
                       </div>
-                      <span className="text-xs font-black text-white">{experience.length}</span>
+                      <span className="text-xs font-black text-[var(--text-primary)]">{experience.length}</span>
                     </div>
 
                     <button className="w-full flex items-center justify-center gap-2 p-3 rounded-2xl bg-gold-gradient text-black font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_20px_rgba(240,185,11,0.3)] transition-all active:scale-95">

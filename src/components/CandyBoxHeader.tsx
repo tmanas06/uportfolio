@@ -319,7 +319,7 @@ export default function CandyBoxHeader() {
                 <span className="text-[#05070A] font-black text-2xl">M</span>
               </div>
               <div className="hidden sm:flex flex-col">
-                <span className="text-white font-black text-xl tracking-tight leading-none group-hover:text-yellow-500 transition-colors">
+                <span className="text-[var(--text-primary)] font-black text-xl tracking-tight leading-none group-hover:text-yellow-500 transition-colors">
                   {personalInfo.firstName.split(' ').pop()}
                 </span>
                 <span className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mt-1">Portfolio</span>
@@ -342,7 +342,7 @@ export default function CandyBoxHeader() {
                     setShowSearch(true);
                   }}
                   onFocus={() => setShowSearch(true)}
-                  className="w-full h-12 pr-12 bg-white/5 border border-white/10 rounded-2xl text-base text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all backdrop-blur-md"
+                  className="w-full h-12 pr-12 bg-white/5 border border-white/10 rounded-2xl text-base text-[var(--text-primary)] placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all backdrop-blur-md"
                   style={{ paddingLeft: '56px' }}
                 />
                 <AnimatePresence>
@@ -396,7 +396,7 @@ export default function CandyBoxHeader() {
                                   <span style={{ color: result.color }}>{result.icon}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-bold text-white group-hover/res:text-yellow-500 transition-colors">
+                                  <p className="text-sm font-bold text-[var(--text-primary)] group-hover/res:text-yellow-500 transition-colors">
                                     {result.title}
                                   </p>
                                   <p className="text-xs text-secondary truncate font-medium">{result.subtitle}</p>
@@ -413,7 +413,7 @@ export default function CandyBoxHeader() {
                       <div className="w-16 h-16 bg-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-4">
                         <Search className="w-8 h-8 text-muted" />
                       </div>
-                      <p className="text-white font-bold text-lg">No results for "{searchQuery}"</p>
+                      <p className="text-[var(--text-primary)] font-bold text-lg">No results for "{searchQuery}"</p>
                       <p className="text-xs text-secondary mt-1">Refine your search parameters</p>
                     </div>
                   )}
@@ -455,7 +455,7 @@ export default function CandyBoxHeader() {
                     className="absolute right-0 top-12 w-80 glass-card p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border-white/10 rounded-3xl"
                   >
                     <div className="flex items-center justify-between p-2 mb-4">
-                      <h3 className="font-bold text-white">Activity</h3>
+                      <h3 className="font-bold text-[var(--text-primary)]">Activity</h3>
                       <button className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest hover:underline">Mark read</button>
                     </div>
                     <div className="flex flex-col gap-1 max-h-80 overflow-y-auto p-1 custom-scrollbar">
@@ -468,7 +468,7 @@ export default function CandyBoxHeader() {
                             {getNotificationIcon(notif.type)}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-white group-hover:text-yellow-500 transition-colors">{notif.message}</p>
+                            <p className="text-sm font-bold text-[var(--text-primary)] group-hover/res:text-yellow-500 transition-colors">{notif.message}</p>
                             <p className="text-xs text-muted font-medium mt-1">{notif.time}</p>
                           </div>
                         </div>
@@ -486,7 +486,7 @@ export default function CandyBoxHeader() {
                   <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
                     <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                   </div>
-                  <span className="text-xs font-black text-white px-1">
+                  <span className="text-xs font-black text-[var(--text-primary)] px-1">
                     {formatAddress(address as string)}
                   </span>
                   <button
@@ -541,7 +541,7 @@ export default function CandyBoxHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-[#05070A]/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-[60] bg-[var(--bg-primary)]/95 backdrop-blur-xl md:hidden"
           >
             <div ref={mobileSearchRef} className="p-6">
               <div className="flex items-center gap-4 mb-8">
@@ -554,7 +554,7 @@ export default function CandyBoxHeader() {
                       placeholder="Search everything..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full h-14 pr-12 bg-white/5 border border-white/10 rounded-2xl text-lg text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
+                      className="w-full h-14 pr-12 bg-white/5 border border-white/10 rounded-2xl text-lg text-[var(--text-primary)] placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
                       style={{ paddingLeft: '56px' }}
                     />
                     <AnimatePresence>
@@ -578,7 +578,7 @@ export default function CandyBoxHeader() {
                     setShowMobileSearch(false);
                     setSearchQuery("");
                   }}
-                  className="text-white font-bold text-sm tracking-tight px-2"
+                  className="text-[var(--text-primary)] font-bold text-sm tracking-tight px-2"
                 >
                   Cancel
                 </button>
@@ -609,7 +609,7 @@ export default function CandyBoxHeader() {
                                   <span style={{ color: result.color }}>{result.icon}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-base font-bold text-white">{result.title}</p>
+                                  <p className="text-base font-bold text-[var(--text-primary)]">{result.title}</p>
                                   <p className="text-xs text-secondary font-medium truncate">{result.subtitle}</p>
                                 </div>
                                 <ArrowRight className="w-5 h-5 text-muted" />
@@ -624,7 +624,7 @@ export default function CandyBoxHeader() {
                       <div className="w-20 h-20 bg-white/5 rounded-[2.5rem] flex items-center justify-center mx-auto mb-6 shadow-2xl">
                         <Search className="w-10 h-10 text-muted" />
                       </div>
-                      <p className="text-white font-black text-2xl">No findings</p>
+                      <p className="text-[var(--text-primary)] font-black text-2xl">No findings</p>
                       <p className="text-secondary mt-2 font-medium">Try different search terms</p>
                     </div>
                   )}
@@ -652,7 +652,7 @@ export default function CandyBoxHeader() {
                         <div className={`w-12 h-12 rounded-2xl ${item.bg} flex items-center justify-center transition-transform group-active:scale-110`}>
                           <item.icon className={`w-6 h-6 ${item.color}`} />
                         </div>
-                        <span className="text-base font-bold text-white">{item.label}</span>
+                        <span className="text-base font-bold text-[var(--text-primary)]">{item.label}</span>
                       </Link>
                     ))}
                   </div>
@@ -672,7 +672,7 @@ export default function CandyBoxHeader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[70] bg-[#05070A]/80 backdrop-blur-xl"
+              className="fixed inset-0 z-[70] bg-[var(--bg-primary)]/80 backdrop-blur-xl"
               onClick={() => setShowQuickAccess(false)}
             />
 
@@ -695,7 +695,7 @@ export default function CandyBoxHeader() {
                         <LayoutGrid className="w-7 h-7 text-black" />
                       </div>
                       <div>
-                        <h2 className="text-2xl font-black text-white tracking-tight leading-none">Command Center</h2>
+                        <h2 className="text-2xl font-black text-[var(--text-primary)] tracking-tight leading-none">Command Center</h2>
                         <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mt-2">DApp Navigation</p>
                       </div>
                     </div>
@@ -731,7 +731,7 @@ export default function CandyBoxHeader() {
                           }`}>
                           <item.icon className={`w-7 h-7 ${pathname === item.href ? item.color : "text-muted"}`} />
                         </div>
-                        <span className={`text-xs font-black tracking-widest uppercase ${pathname === item.href ? "text-white" : "text-secondary"}`}>
+                        <span className={`text-xs font-black tracking-widest uppercase ${pathname === item.href ? "text-[var(--text-primary)]" : "text-secondary"}`}>
                           {item.label}
                         </span>
                       </Link>
@@ -763,7 +763,7 @@ export default function CandyBoxHeader() {
                           <Boxes className="w-6 h-6 text-blue-500" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-black text-white leading-tight">Casper Hub</p>
+                          <p className="text-sm font-black text-[var(--text-primary)] leading-tight">Casper Hub</p>
                           <p className="text-[10px] font-bold text-muted truncate mt-1">Institutional Suite</p>
                         </div>
                       </a>
@@ -777,7 +777,7 @@ export default function CandyBoxHeader() {
                           <Github className="w-6 h-6 text-white" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-black text-white leading-tight">Open Source</p>
+                          <p className="text-sm font-black text-[var(--text-primary)] leading-tight">Open Source</p>
                           <p className="text-[10px] font-bold text-muted truncate mt-1">GitHub Portfolio</p>
                         </div>
                       </a>
