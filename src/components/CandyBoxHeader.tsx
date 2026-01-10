@@ -31,6 +31,7 @@ import {
   Github,
   Linkedin,
   Globe,
+  Menu
 } from "lucide-react";
 import {
   personalInfo,
@@ -296,45 +297,62 @@ export default function CandyBoxHeader() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#0A0E17] border-b border-[rgba(240,185,11,0.15)]">
-        <div className="h-full px-4 lg:px-6 flex items-center">
-          {/* Left: Logo */}
-          <Link href="/" className="flex items-center gap-3 flex-shrink-0" style={{ marginRight: '48px' }}>
-            <div className="w-11 h-11 rounded-xl gradient-gold flex items-center justify-center glow-gold-sm">
-              <span className="text-[#0A0E17] font-bold text-2xl">M</span>
-            </div>
-            <span className="text-[#F0B90B] font-bold text-2xl hidden sm:block whitespace-nowrap">
-              {personalInfo.firstName}
-            </span>
-          </Link>
+      <header className="fixed top-0 left-0 right-0 z-50 h-[var(--header-height)] glass-effect border-b border-white/5">
+        <div className="h-full px-4 lg:px-8 flex items-center justify-between">
+          {/* Left: Logo & Sidebar Toggle */}
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("sidebar-global-toggle"))}
+              className="hidden lg:flex w-11 h-11 rounded-xl bg-white/5 border border-white/5 items-center justify-center text-secondary hover:text-white hover:bg-white/10 transition-all active:scale-95"
+              title="Toggle Sidebar"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <Link href="/" className="flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-gold-gradient flex items-center justify-center shadow-[0_0_20px_rgba(240,185,11,0.3)] group-hover:scale-110 transition-transform duration-500">
+                <span className="text-[#05070A] font-black text-2xl">M</span>
+              </div>
+              <div className="hidden sm:flex flex-col">
+                <span className="text-white font-black text-xl tracking-tight leading-none group-hover:text-yellow-500 transition-colors">
+                  {personalInfo.firstName.split(' ').pop()}
+                </span>
+                <span className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mt-1">Portfolio</span>
+              </div>
+            </Link>
+          </div>
 
           {/* Center: Search (Desktop) */}
-          <div ref={searchRef} className="hidden md:flex flex-1 relative" style={{ marginRight: '48px' }}>
-            <form onSubmit={handleSearchSubmit} className="w-full max-w-lg">
-              <div className="relative w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" style={{ zIndex: 10 }} />
+          <div ref={searchRef} className="hidden md:flex flex-1 max-w-xl mx-8 relative">
+            <form onSubmit={handleSearchSubmit} className="w-full">
+              <div className="relative group">
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted group-focus-within:text-yellow-500 transition-colors" style={{ zIndex: 10 }} />
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Search projects, skills, experience..."
+                  placeholder="Search projects, skills, ecosystems..."
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setShowSearch(true);
                   }}
                   onFocus={() => setShowSearch(true)}
-                  className="w-full h-11 pr-4 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-base text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
-                  style={{ paddingLeft: '48px' }}
+                  className="w-full h-12 pr-12 bg-white/5 border border-white/10 rounded-2xl text-base text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all backdrop-blur-md"
+                  style={{ paddingLeft: '56px' }}
                 />
-                {searchQuery && (
-                  <button
-                    type="button"
-                    onClick={() => setSearchQuery("")}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#848E9C] hover:text-[#F5F6F5]"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
+                <AnimatePresence>
+                  {searchQuery && (
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      type="button"
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-white p-1 hover:bg-white/10 rounded-lg transition-all"
+                    >
+                      <X className="w-4 h-4" />
+                    </motion.button>
+                  )}
+                </AnimatePresence>
               </div>
             </form>
 
@@ -342,38 +360,42 @@ export default function CandyBoxHeader() {
             <AnimatePresence>
               {showSearch && searchQuery && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute top-14 left-0 right-0 glass p-4 shadow-2xl max-h-[70vh] overflow-y-auto"
+                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 10, scale: 1 }}
+                  exit={{ opacity: 0, y: 15, scale: 0.98 }}
+                  className="absolute top-12 left-0 right-0 glass-card p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border-white/10 max-h-[70vh] overflow-y-auto rounded-[2rem]"
                 >
                   {searchResults.length > 0 ? (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-6 p-2">
                       {Object.entries(groupedResults).map(([category, results]) => (
                         <div key={category}>
-                          <p className="text-[10px] text-[#848E9C] uppercase tracking-wider mb-2 px-2">
-                            {categoryLabels[category]}
-                          </p>
+                          <div className="flex items-center gap-3 mb-3 px-2">
+                            <div className="h-px flex-1 bg-white/5" />
+                            <p className="text-[10px] text-muted font-black uppercase tracking-[0.2em]">
+                              {categoryLabels[category]}
+                            </p>
+                            <div className="h-px flex-1 bg-white/5" />
+                          </div>
                           <div className="flex flex-col gap-1">
                             {results.map((result) => (
                               <button
                                 key={result.id}
                                 onClick={() => handleResultClick(result)}
-                                className="flex items-center gap-3 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors text-left w-full group"
+                                className="flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-all text-left w-full group/res"
                               >
                                 <div
-                                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover/res:scale-110"
                                   style={{ backgroundColor: `${result.color}15` }}
                                 >
                                   <span style={{ color: result.color }}>{result.icon}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm text-[#F5F6F5] truncate group-hover:text-[#F0B90B] transition-colors">
+                                  <p className="text-sm font-bold text-white group-hover/res:text-yellow-500 transition-colors">
                                     {result.title}
                                   </p>
-                                  <p className="text-xs text-[#848E9C] truncate">{result.subtitle}</p>
+                                  <p className="text-xs text-secondary truncate font-medium">{result.subtitle}</p>
                                 </div>
-                                <ArrowRight className="w-4 h-4 text-[#848E9C] opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <ArrowRight className="w-4 h-4 text-muted opacity-0 -translate-x-2 group-hover/res:opacity-100 group-hover/res:translate-x-0 transition-all" />
                               </button>
                             ))}
                           </div>
@@ -381,10 +403,12 @@ export default function CandyBoxHeader() {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-8">
-                      <Search className="w-10 h-10 text-[#848E9C] mx-auto mb-3" />
-                      <p className="text-[#848E9C]">No results found for "{searchQuery}"</p>
-                      <p className="text-xs text-[#5E6673] mt-1">Try searching for projects, skills, or experience</p>
+                    <div className="text-center py-12">
+                      <div className="w-16 h-16 bg-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-4">
+                        <Search className="w-8 h-8 text-muted" />
+                      </div>
+                      <p className="text-white font-bold text-lg">No results for "{searchQuery}"</p>
+                      <p className="text-xs text-secondary mt-1">Refine your search parameters</p>
                     </div>
                   )}
                 </motion.div>
@@ -392,12 +416,12 @@ export default function CandyBoxHeader() {
             </AnimatePresence>
           </div>
 
-          {/* Right: Actions - ml-auto ensures it stays on the right even when center search is hidden */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 ml-auto">
+          {/* Right: Actions */}
+          <div className="flex items-center gap-3">
             {/* Search (Mobile) */}
             <button
               onClick={() => setShowMobileSearch(true)}
-              className="md:hidden w-11 h-11 rounded-xl bg-[#1E2735] flex items-center justify-center text-[#848E9C] hover:text-[#F0B90B] transition-colors"
+              className="md:hidden w-11 h-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-secondary hover:text-white transition-all hover:bg-white/10"
             >
               <Search className="w-5 h-5" />
             </button>
@@ -406,11 +430,11 @@ export default function CandyBoxHeader() {
             <div className="relative">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="w-11 h-11 rounded-xl bg-[#1E2735] flex items-center justify-center text-[#848E9C] hover:text-[#F0B90B] transition-colors relative"
+                className="w-11 h-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-secondary hover:text-white transition-all hover:bg-white/10 relative group"
               >
-                <Bell className="w-5 h-5" />
+                <Bell className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#F6465D] rounded-full text-[10px] font-bold text-white flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-500 rounded-lg text-[10px] font-black text-black flex items-center justify-center shadow-lg border-2 border-[#05070A]">
                     {unreadCount}
                   </span>
                 )}
@@ -419,27 +443,27 @@ export default function CandyBoxHeader() {
               <AnimatePresence>
                 {showNotifications && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute right-0 top-14 w-80 glass p-4 shadow-2xl"
+                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 10, scale: 1 }}
+                    exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                    className="absolute right-0 top-12 w-80 glass-card p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border-white/10 rounded-3xl"
                   >
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-semibold text-base text-[#F5F6F5]">Notifications</h3>
-                      <span className="badge badge-gold">{unreadCount} new</span>
+                    <div className="flex items-center justify-between p-2 mb-4">
+                      <h3 className="font-bold text-white">Activity</h3>
+                      <button className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest hover:underline">Mark read</button>
                     </div>
-                    <div className="flex flex-col gap-3 max-h-80 overflow-y-auto">
+                    <div className="flex flex-col gap-1 max-h-80 overflow-y-auto p-1 custom-scrollbar">
                       {notifications.map((notif) => (
                         <div
                           key={notif.id}
-                          className="flex items-start gap-3 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] cursor-pointer transition-colors"
+                          className="flex items-start gap-4 p-3 rounded-2xl hover:bg-white/5 cursor-pointer transition-all border border-transparent hover:border-white/5 group"
                         >
-                          <div className="w-9 h-9 rounded-lg bg-[#131B27] flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                             {getNotificationIcon(notif.type)}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm text-[#F5F6F5] truncate">{notif.message}</p>
-                            <p className="text-xs text-[#848E9C] mt-1">{notif.time}</p>
+                            <p className="text-sm font-bold text-white group-hover:text-yellow-500 transition-colors">{notif.message}</p>
+                            <p className="text-xs text-muted font-medium mt-1">{notif.time}</p>
                           </div>
                         </div>
                       ))}
@@ -449,86 +473,59 @@ export default function CandyBoxHeader() {
               </AnimatePresence>
             </div>
 
-            {/* Connect Wallet Button */}
-            {isConnected && address ? (
-              <>
-                {/* Mobile: Compact wallet button */}
-                <button
-                  onClick={() => open()}
-                  className="sm:hidden w-11 h-11 rounded-xl bg-[#1E2735] border border-[rgba(240,185,11,0.3)] flex items-center justify-center text-[#F0B90B] hover:bg-[#252D3C] transition-all"
-                  title={formatAddress(address)}
-                >
-                  <Wallet className="w-5 h-5" />
-                </button>
-                {/* Desktop: Full wallet display */}
-                <div className="hidden sm:flex items-center gap-2">
+            {/* Wallet & Quick Access Split */}
+            <div className="h-8 w-px bg-white/10 mx-1 hidden sm:block" />
+
+            <div className="hidden sm:flex items-center gap-3">
+              {isConnected && address ? (
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => open()}
-                    className="h-11 px-4 rounded-xl bg-[#1E2735] border border-[rgba(240,185,11,0.3)] flex items-center gap-2 text-[#F0B90B] font-medium hover:bg-[#252D3C] transition-all"
+                    className="h-11 px-4 rounded-xl bg-white/5 border border-yellow-500/20 flex items-center gap-3 text-yellow-500 font-bold hover:bg-yellow-500/10 transition-all group"
                   >
-                    <Wallet className="w-4 h-4" />
-                    <span className="text-sm">{formatAddress(address)}</span>
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                    <span className="text-sm tracking-tight">{formatAddress(address)}</span>
                   </button>
                   <button
                     onClick={() => disconnect()}
-                    className="h-11 w-11 rounded-xl bg-[#1E2735] flex items-center justify-center text-[#848E9C] hover:text-[#F6465D] hover:bg-[#252D3C] transition-all"
+                    className="h-11 w-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-secondary hover:text-red-400 hover:bg-red-400/10 transition-all hover:border-red-400/20"
                     title="Disconnect"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
                 </div>
-              </>
-            ) : (
-              <>
-                {/* Mobile: Compact connect button */}
+              ) : (
                 <button
                   onClick={() => open()}
-                  className="sm:hidden w-11 h-11 rounded-xl gradient-gold flex items-center justify-center text-[#0A0E17] hover:shadow-[0_0_20px_rgba(240,185,11,0.4)] transition-all"
-                  title="Connect Wallet"
+                  className="h-11 px-6 rounded-xl bg-gold-gradient items-center gap-3 text-black font-black hover:shadow-[0_0_30px_rgba(240,185,11,0.4)] transition-all flex active:scale-95"
                 >
-                  <Wallet className="w-5 h-5" />
+                  <Wallet className="w-4 h-4" />
+                  <span className="text-sm tracking-tight">Connect</span>
                 </button>
-                {/* Desktop: Full connect button */}
-                <button
-                  onClick={() => open()}
-                  className="hidden sm:flex h-11 px-5 rounded-xl gradient-gold items-center gap-2 text-[#0A0E17] font-semibold hover:shadow-[0_0_20px_rgba(240,185,11,0.4)] transition-all"
-                >
-                  <Wallet className="w-5 h-5" />
-                  <span className="text-sm">Connect</span>
-                </button>
-              </>
-            )}
+              )}
+            </div>
 
             {/* Quick Access (Candy Box) Button */}
             <button
               onClick={() => setShowQuickAccess(!showQuickAccess)}
-              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all ${
-                showQuickAccess
-                  ? "bg-[#F0B90B] text-[#0A0E17] shadow-[0_0_20px_rgba(240,185,11,0.5)]"
-                  : "bg-[#1E2735] text-[#848E9C] hover:text-[#F0B90B] hover:bg-[#252D3C]"
-              }`}
+              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500 ${showQuickAccess
+                ? "bg-yellow-500 text-black shadow-[0_0_30px_rgba(240,185,11,0.5)] scale-110"
+                : "bg-white/5 text-secondary border border-white/5 hover:text-white hover:bg-white/10"
+                }`}
               title="Quick Access"
             >
-              <LayoutGrid className="w-5 h-5" />
+              <LayoutGrid className="w-5 h-5 transition-transform group-hover:rotate-90" />
             </button>
 
-            {/* Profile */}
+            {/* Profile (Mobile) */}
             <Link
               href="/about"
-              className="w-11 h-11 rounded-xl gradient-gold flex items-center justify-center glow-gold-sm"
+              className="sm:hidden w-11 h-11 rounded-xl bg-gold-gradient flex items-center justify-center shadow-lg active:scale-90 transition-transform"
             >
-              <span className="text-[#0A0E17] font-bold text-base">M</span>
+              <span className="text-black font-black text-sm">M</span>
             </Link>
           </div>
         </div>
-
-        {/* Click outside to close notifications */}
-        {showNotifications && (
-          <div
-            className="fixed inset-0 z-[-1]"
-            onClick={() => setShowNotifications(false)}
-          />
-        )}
       </header>
 
       {/* Mobile Search Overlay */}
@@ -538,30 +535,29 @@ export default function CandyBoxHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-[#0A0E17]/95 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-[60] bg-[#05070A]/95 backdrop-blur-xl md:hidden"
           >
-            <div ref={mobileSearchRef} className="p-4">
-              {/* Mobile Search Header */}
-              <div className="flex items-center gap-3 mb-4">
+            <div ref={mobileSearchRef} className="p-6">
+              <div className="flex items-center gap-4 mb-8">
                 <form onSubmit={handleSearchSubmit} className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#848E9C]" style={{ zIndex: 10 }} />
+                  <div className="relative group">
+                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted group-focus-within:text-yellow-500 transition-colors" style={{ zIndex: 10 }} />
                     <input
                       ref={mobileInputRef}
                       type="text"
                       placeholder="Search everything..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full h-12 pr-10 bg-[#131B27] border border-[rgba(240,185,11,0.15)] rounded-xl text-base text-[#F5F6F5] placeholder-[#848E9C] focus:outline-none focus:border-[#F0B90B] transition-colors"
-                      style={{ paddingLeft: '48px' }}
+                      className="w-full h-14 pr-12 bg-white/5 border border-white/10 rounded-2xl text-lg text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
+                      style={{ paddingLeft: '56px' }}
                     />
                     {searchQuery && (
                       <button
                         type="button"
                         onClick={() => setSearchQuery("")}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-[#848E9C] hover:text-[#F5F6F5]"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-muted p-2 hover:bg-white/10 rounded-xl"
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-5 h-5" />
                       </button>
                     )}
                   </div>
@@ -571,40 +567,41 @@ export default function CandyBoxHeader() {
                     setShowMobileSearch(false);
                     setSearchQuery("");
                   }}
-                  className="text-[#848E9C] hover:text-[#F5F6F5] text-sm font-medium"
+                  className="text-white font-bold text-sm tracking-tight px-2"
                 >
                   Cancel
                 </button>
               </div>
 
-              {/* Mobile Search Results */}
               {searchQuery && (
-                <div className="max-h-[calc(100vh-100px)] overflow-y-auto">
+                <div className="max-h-[calc(100vh-180px)] overflow-y-auto px-1 custom-scrollbar">
                   {searchResults.length > 0 ? (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-8">
                       {Object.entries(groupedResults).map(([category, results]) => (
                         <div key={category}>
-                          <p className="text-[10px] text-[#848E9C] uppercase tracking-wider mb-2 px-2">
-                            {categoryLabels[category]}
-                          </p>
-                          <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-3 mb-4">
+                            <p className="text-[10px] text-muted font-black uppercase tracking-[0.2em]">
+                              {categoryLabels[category]}
+                            </p>
+                          </div>
+                          <div className="grid grid-cols-1 gap-3">
                             {results.map((result) => (
                               <button
                                 key={result.id}
                                 onClick={() => handleResultClick(result)}
-                                className="flex items-center gap-3 p-4 rounded-xl bg-[#131B27] border border-[rgba(240,185,11,0.1)] text-left w-full"
+                                className="flex items-center gap-4 p-4 rounded-[1.5rem] bg-white/5 border border-white/5 text-left w-full active:scale-[0.98] transition-all"
                               >
                                 <div
-                                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                                  className="w-12 h-12 rounded-[1rem] flex items-center justify-center flex-shrink-0 shadow-lg"
                                   style={{ backgroundColor: `${result.color}15` }}
                                 >
                                   <span style={{ color: result.color }}>{result.icon}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm text-[#F5F6F5] truncate">{result.title}</p>
-                                  <p className="text-xs text-[#848E9C] truncate">{result.subtitle}</p>
+                                  <p className="text-base font-bold text-white">{result.title}</p>
+                                  <p className="text-xs text-secondary font-medium truncate">{result.subtitle}</p>
                                 </div>
-                                <ArrowRight className="w-4 h-4 text-[#848E9C]" />
+                                <ArrowRight className="w-5 h-5 text-muted" />
                               </button>
                             ))}
                           </div>
@@ -612,54 +609,41 @@ export default function CandyBoxHeader() {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-12">
-                      <Search className="w-12 h-12 text-[#848E9C] mx-auto mb-4" />
-                      <p className="text-[#848E9C]">No results found</p>
-                      <p className="text-xs text-[#5E6673] mt-1">Try different keywords</p>
+                    <div className="text-center py-20">
+                      <div className="w-20 h-20 bg-white/5 rounded-[2.5rem] flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                        <Search className="w-10 h-10 text-muted" />
+                      </div>
+                      <p className="text-white font-black text-2xl">No findings</p>
+                      <p className="text-secondary mt-2 font-medium">Try different search terms</p>
                     </div>
                   )}
                 </div>
               )}
 
-              {/* Quick Links when no search */}
               {!searchQuery && (
-                <div className="mt-4">
-                  <p className="text-[10px] text-[#848E9C] uppercase tracking-wider mb-3 px-2">
-                    Quick Links
+                <div className="mt-8">
+                  <p className="text-[10px] text-muted font-black uppercase tracking-[0.2em] mb-6 px-4">
+                    Quick Navigation
                   </p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <Link
-                      href="/projects"
-                      onClick={() => setShowMobileSearch(false)}
-                      className="flex items-center gap-3 p-4 rounded-xl bg-[#131B27] border border-[rgba(240,185,11,0.1)]"
-                    >
-                      <FolderKanban className="w-5 h-5 text-[#F0B90B]" />
-                      <span className="text-sm text-[#F5F6F5]">Projects</span>
-                    </Link>
-                    <Link
-                      href="/skills"
-                      onClick={() => setShowMobileSearch(false)}
-                      className="flex items-center gap-3 p-4 rounded-xl bg-[#131B27] border border-[rgba(240,185,11,0.1)]"
-                    >
-                      <Sparkles className="w-5 h-5 text-[#00D4AA]" />
-                      <span className="text-sm text-[#F5F6F5]">Skills</span>
-                    </Link>
-                    <Link
-                      href="/about"
-                      onClick={() => setShowMobileSearch(false)}
-                      className="flex items-center gap-3 p-4 rounded-xl bg-[#131B27] border border-[rgba(240,185,11,0.1)]"
-                    >
-                      <User className="w-5 h-5 text-[#627EEA]" />
-                      <span className="text-sm text-[#F5F6F5]">About</span>
-                    </Link>
-                    <Link
-                      href="/contact"
-                      onClick={() => setShowMobileSearch(false)}
-                      className="flex items-center gap-3 p-4 rounded-xl bg-[#131B27] border border-[rgba(240,185,11,0.1)]"
-                    >
-                      <MessageSquare className="w-5 h-5 text-[#8247E5]" />
-                      <span className="text-sm text-[#F5F6F5]">Contact</span>
-                    </Link>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { href: "/projects", icon: FolderKanban, label: "Projects", color: "text-yellow-500", bg: "bg-yellow-500/10" },
+                      { href: "/skills", icon: Sparkles, label: "Skills", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                      { href: "/about", icon: User, label: "Profile", color: "text-blue-500", bg: "bg-blue-500/10" },
+                      { href: "/contact", icon: Mail, label: "Message", color: "text-purple-500", bg: "bg-purple-500/10" },
+                    ].map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={() => setShowMobileSearch(false)}
+                        className="flex flex-col gap-4 p-6 rounded-[2rem] bg-white/5 border border-white/5 active:scale-95 transition-all group"
+                      >
+                        <div className={`w-12 h-12 rounded-2xl ${item.bg} flex items-center justify-center transition-transform group-active:scale-110`}>
+                          <item.icon className={`w-6 h-6 ${item.color}`} />
+                        </div>
+                        <span className="text-base font-bold text-white">{item.label}</span>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               )}
@@ -677,228 +661,117 @@ export default function CandyBoxHeader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[70] bg-[#0A0E17]/80 backdrop-blur-md"
+              className="fixed inset-0 z-[70] bg-[#05070A]/80 backdrop-blur-xl"
               onClick={() => setShowQuickAccess(false)}
             />
 
             {/* Floating Widget */}
             <motion.div
               ref={quickAccessRef}
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[80] w-[90vw] max-w-md"
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              className="fixed left-4 right-4 top-1/2 -translate-y-1/2 z-[80] sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-[500px]"
             >
-              {/* Widget Container */}
-              <div className="bg-[#0D1320] border border-[rgba(240,185,11,0.2)] rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.6),0_0_40px_rgba(240,185,11,0.1)] overflow-hidden">
-                {/* Header with glow effect */}
-                <div className="relative px-6 pt-6 pb-4">
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#F0B90B]/5 to-transparent" />
+              <div className="glass-card rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7)] border-white/10 overflow-hidden">
+                {/* Header */}
+                <div className="relative p-8 pb-4">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gold-gradient blur-lg opacity-50" />
                   <div className="relative flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl gradient-gold flex items-center justify-center">
-                        <LayoutGrid className="w-5 h-5 text-[#0A0E17]" />
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-[1.5rem] bg-gold-gradient flex items-center justify-center shadow-2xl">
+                        <LayoutGrid className="w-7 h-7 text-black" />
                       </div>
                       <div>
-                        <h2 className="text-lg font-bold text-[#F5F6F5]">Quick Access</h2>
-                        <p className="text-[10px] text-[#848E9C] uppercase tracking-wider">Navigation Hub</p>
+                        <h2 className="text-2xl font-black text-white tracking-tight leading-none">Command Center</h2>
+                        <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mt-2">DApp Navigation</p>
                       </div>
                     </div>
                     <button
                       onClick={() => setShowQuickAccess(false)}
-                      className="w-9 h-9 rounded-xl bg-[#1E2735] flex items-center justify-center text-[#848E9C] hover:text-[#F5F6F5] hover:bg-[#252D3C] transition-all"
+                      className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-muted hover:text-white hover:bg-white/10 transition-all active:scale-95"
                     >
-                      <X className="w-5 h-5" />
+                      <X className="w-6 h-6" />
                     </button>
                   </div>
                 </div>
 
                 {/* Navigation Grid */}
-                <div className="px-6 pb-4">
-                  <div className="grid grid-cols-4 gap-3">
-                    <Link
-                      href="/"
-                      onClick={() => setShowQuickAccess(false)}
-                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
-                        pathname === "/"
-                          ? "bg-gradient-to-br from-[#F0B90B]/20 to-[#F0B90B]/5 border border-[#F0B90B]/30 shadow-[0_0_20px_rgba(240,185,11,0.2)]"
-                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/" ? "bg-[#F0B90B]/20" : "bg-[#252D3C]"}`}>
-                        <Home className={`w-5 h-5 ${pathname === "/" ? "text-[#F0B90B]" : "text-[#848E9C]"}`} />
-                      </div>
-                      <span className={`text-xs font-medium ${pathname === "/" ? "text-[#F0B90B]" : "text-[#F5F6F5]"}`}>Home</span>
-                    </Link>
-
-                    <Link
-                      href="/projects"
-                      onClick={() => setShowQuickAccess(false)}
-                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
-                        pathname === "/projects"
-                          ? "bg-gradient-to-br from-[#F0B90B]/20 to-[#F0B90B]/5 border border-[#F0B90B]/30 shadow-[0_0_20px_rgba(240,185,11,0.2)]"
-                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/projects" ? "bg-[#F0B90B]/20" : "bg-[#252D3C]"}`}>
-                        <FolderKanban className={`w-5 h-5 ${pathname === "/projects" ? "text-[#F0B90B]" : "text-[#848E9C]"}`} />
-                      </div>
-                      <span className={`text-xs font-medium ${pathname === "/projects" ? "text-[#F0B90B]" : "text-[#F5F6F5]"}`}>Projects</span>
-                    </Link>
-
-                    <Link
-                      href="/skills"
-                      onClick={() => setShowQuickAccess(false)}
-                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
-                        pathname === "/skills"
-                          ? "bg-gradient-to-br from-[#00D4AA]/20 to-[#00D4AA]/5 border border-[#00D4AA]/30 shadow-[0_0_20px_rgba(0,212,170,0.2)]"
-                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/skills" ? "bg-[#00D4AA]/20" : "bg-[#252D3C]"}`}>
-                        <Sparkles className={`w-5 h-5 ${pathname === "/skills" ? "text-[#00D4AA]" : "text-[#848E9C]"}`} />
-                      </div>
-                      <span className={`text-xs font-medium ${pathname === "/skills" ? "text-[#00D4AA]" : "text-[#F5F6F5]"}`}>Skills</span>
-                    </Link>
-
-                    <Link
-                      href="/about"
-                      onClick={() => setShowQuickAccess(false)}
-                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
-                        pathname === "/about"
-                          ? "bg-gradient-to-br from-[#627EEA]/20 to-[#627EEA]/5 border border-[#627EEA]/30 shadow-[0_0_20px_rgba(98,126,234,0.2)]"
-                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/about" ? "bg-[#627EEA]/20" : "bg-[#252D3C]"}`}>
-                        <User className={`w-5 h-5 ${pathname === "/about" ? "text-[#627EEA]" : "text-[#848E9C]"}`} />
-                      </div>
-                      <span className={`text-xs font-medium ${pathname === "/about" ? "text-[#627EEA]" : "text-[#F5F6F5]"}`}>About</span>
-                    </Link>
-
-                    <Link
-                      href="/contact"
-                      onClick={() => setShowQuickAccess(false)}
-                      className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all hover:scale-105 ${
-                        pathname === "/contact"
-                          ? "bg-gradient-to-br from-[#8247E5]/20 to-[#8247E5]/5 border border-[#8247E5]/30 shadow-[0_0_20px_rgba(130,71,229,0.2)]"
-                          : "bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent"
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${pathname === "/contact" ? "bg-[#8247E5]/20" : "bg-[#252D3C]"}`}>
-                        <Mail className={`w-5 h-5 ${pathname === "/contact" ? "text-[#8247E5]" : "text-[#848E9C]"}`} />
-                      </div>
-                      <span className={`text-xs font-medium ${pathname === "/contact" ? "text-[#8247E5]" : "text-[#F5F6F5]"}`}>Contact</span>
-                    </Link>
-
+                <div className="p-8 pt-4">
+                  <div className="grid grid-cols-3 gap-4">
+                    {[
+                      { href: "/", icon: Home, label: "Home", color: "text-yellow-500", bg: "bg-yellow-500/10" },
+                      { href: "/projects", icon: FolderKanban, label: "Projects", color: "text-yellow-500", bg: "bg-yellow-500/10" },
+                      { href: "/skills", icon: Sparkles, label: "Skills", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                      { href: "/about", icon: User, label: "Profile", color: "text-blue-500", bg: "bg-blue-500/10" },
+                      { href: "/contact", icon: Mail, label: "Contact", color: "text-purple-500", bg: "bg-purple-500/10" },
+                    ].map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={() => setShowQuickAccess(false)}
+                        className={`flex flex-col items-center gap-3 p-6 rounded-[2rem] transition-all duration-300 group ${pathname === item.href
+                          ? "bg-white/10 border border-white/10 shadow-2xl scale-105"
+                          : "bg-white/5 border border-transparent hover:bg-white/10 hover:border-white/5 active:scale-95"
+                          }`}
+                      >
+                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 ${pathname === item.href ? item.bg : "bg-white/5 group-hover:scale-110"
+                          }`}>
+                          <item.icon className={`w-7 h-7 ${pathname === item.href ? item.color : "text-muted"}`} />
+                        </div>
+                        <span className={`text-xs font-black tracking-widest uppercase ${pathname === item.href ? "text-white" : "text-secondary"}`}>
+                          {item.label}
+                        </span>
+                      </Link>
+                    ))}
                     <a
                       href="/resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => setShowQuickAccess(false)}
-                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent transition-all hover:scale-105"
+                      className="flex flex-col items-center gap-3 p-6 rounded-[2rem] bg-white/5 border border-transparent hover:bg-white/10 hover:border-white/5 active:scale-95 transition-all group"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-[#252D3C] flex items-center justify-center">
-                        <FileText className="w-5 h-5 text-[#00FFA3]" />
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+                        <FileText className="w-7 h-7 text-muted group-hover:text-yellow-500" />
                       </div>
-                      <span className="text-xs font-medium text-[#F5F6F5]">Resume</span>
+                      <span className="text-xs font-black tracking-widest uppercase text-secondary group-hover:text-white">Resume</span>
                     </a>
-
-                    <a
-                      href="https://testnet-wallet-teal.vercel.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setShowQuickAccess(false)}
-                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent transition-all hover:scale-105"
-                    >
-                      <div className="w-10 h-10 rounded-xl bg-[#252D3C] flex items-center justify-center">
-                        <Boxes className="w-5 h-5 text-[#F6465D]" />
-                      </div>
-                      <span className="text-xs font-medium text-[#F5F6F5]">Blockchain</span>
-                    </a>
-
-                    <Link
-                      href="/about#achievements"
-                      onClick={() => setShowQuickAccess(false)}
-                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#1E2735]/50 hover:bg-[#1E2735] border border-transparent transition-all hover:scale-105"
-                    >
-                      <div className="w-10 h-10 rounded-xl bg-[#252D3C] flex items-center justify-center">
-                        <Trophy className="w-5 h-5 text-[#FF6B00]" />
-                      </div>
-                      <span className="text-xs font-medium text-[#F5F6F5]">Wins</span>
-                    </Link>
                   </div>
-                </div>
 
-                {/* Quick Actions Row */}
-                <div className="px-6 pb-4">
-                  <div className="flex gap-2">
-                    <Link
-                      href="/about#experience"
-                      onClick={() => setShowQuickAccess(false)}
-                      className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-[#1E2735]/50 hover:bg-[#1E2735] transition-all"
-                    >
-                      <Briefcase className="w-4 h-4 text-[#00D4AA]" />
-                      <span className="text-xs text-[#F5F6F5]">Experience</span>
-                    </Link>
-                    <Link
-                      href="/about#certifications"
-                      onClick={() => setShowQuickAccess(false)}
-                      className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-[#1E2735]/50 hover:bg-[#1E2735] transition-all"
-                    >
-                      <GraduationCap className="w-4 h-4 text-[#8247E5]" />
-                      <span className="text-xs text-[#F5F6F5]">Certifications</span>
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Social Links Footer */}
-                <div className="px-6 pb-6">
-                  <div className="p-4 rounded-2xl bg-gradient-to-r from-[#1E2735]/80 to-[#252D3C]/50 border border-[rgba(240,185,11,0.1)]">
-                    <p className="text-[10px] text-[#848E9C] uppercase tracking-wider mb-3 text-center">Connect With Me</p>
-                    <div className="flex justify-center gap-3">
+                  {/* Ecosystem Section */}
+                  <div className="mt-8 pt-8 border-t border-white/10">
+                    <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mb-6 px-1">Ecosystem Tools</p>
+                    <div className="grid grid-cols-2 gap-4">
                       <a
-                        href={personalInfo.github}
+                        href="https://testnet-wallet-teal.vercel.app/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => setShowQuickAccess(false)}
-                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#F5F6F5] hover:bg-[#1E2735] transition-all hover:scale-110"
+                        className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group"
                       >
-                        <Github className="w-5 h-5" />
+                        <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg">
+                          <Boxes className="w-6 h-6 text-blue-500" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-black text-white leading-tight">Casper Hub</p>
+                          <p className="text-[10px] font-bold text-muted truncate mt-1">Institutional Suite</p>
+                        </div>
                       </a>
                       <a
-                        href={personalInfo.linkedin}
+                        href="https://github.com/tmanas06"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => setShowQuickAccess(false)}
-                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#0A66C2] hover:bg-[#1E2735] transition-all hover:scale-110"
+                        className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group"
                       >
-                        <Linkedin className="w-5 h-5" />
-                      </a>
-                      <a
-                        href={personalInfo.blog}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setShowQuickAccess(false)}
-                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#F0B90B] hover:bg-[#1E2735] transition-all hover:scale-110"
-                      >
-                        <Globe className="w-5 h-5" />
-                      </a>
-                      <a
-                        href={`mailto:${personalInfo.email}`}
-                        onClick={() => setShowQuickAccess(false)}
-                        className="w-11 h-11 rounded-xl bg-[#0A0E17] flex items-center justify-center text-[#848E9C] hover:text-[#8247E5] hover:bg-[#1E2735] transition-all hover:scale-110"
-                      >
-                        <Mail className="w-5 h-5" />
+                        <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg">
+                          <Github className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-black text-white leading-tight">Open Source</p>
+                          <p className="text-[10px] font-bold text-muted truncate mt-1">GitHub Portfolio</p>
+                        </div>
                       </a>
                     </div>
                   </div>
-                </div>
-
-                {/* Keyboard Hint */}
-                <div className="px-6 pb-4 flex justify-center">
-                  <span className="text-[10px] text-[#5E6673]">Press ESC or click outside to close</span>
                 </div>
               </div>
             </motion.div>

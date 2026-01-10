@@ -38,76 +38,45 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container-main py-6 flex flex-col gap-6">
-      {/* Spacer for visual separation from header */}
-      <div className="h-6" />
-
-      {/* Hero Banner Card */}
+    <div className="container-v2 py-12 flex flex-col gap-12 sm:gap-16">
+      {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="card p-6 md:p-8 relative overflow-hidden"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="text-center max-w-2xl mx-auto"
       >
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[rgba(240,185,11,0.1)] to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[rgba(130,71,229,0.1)] to-transparent rounded-full blur-3xl" />
-
-        <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl gradient-gold flex items-center justify-center glow-gold-sm">
-              <MessageSquare className="w-6 h-6 text-[#0A0E17]" />
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#F5F6F5]">Get in Touch</h1>
-              <p className="text-[#848E9C] text-sm">Let's connect and discuss opportunities</p>
-            </div>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="flex flex-wrap gap-3 mt-5">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(0,212,170,0.1)] border border-[rgba(0,212,170,0.2)]">
-              <Zap className="w-3.5 h-3.5 text-[#00D4AA]" />
-              <span className="text-xs text-[#00D4AA] font-medium">Fast Response</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(130,71,229,0.1)] border border-[rgba(130,71,229,0.2)]">
-              <Shield className="w-3.5 h-3.5 text-[#8247E5]" />
-              <span className="text-xs text-[#8247E5] font-medium">ZK Anonymous Option</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(240,185,11,0.1)] border border-[rgba(240,185,11,0.2)]">
-              <Sparkles className="w-3.5 h-3.5 text-[#F0B90B]" />
-              <span className="text-xs text-[#F0B90B] font-medium">Open to Work</span>
-            </div>
-          </div>
-        </div>
+        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-white mb-6">
+          Get in <span className="gold-text">Touch</span>
+        </h1>
+        <p className="text-secondary text-lg">
+          Whether you have a project in mind or just want to chat about Web3, I'm always open to new connections.
+        </p>
       </motion.div>
 
-      {/* Spacer */}
-      <div className="h-2" />
-
       {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left Column - Contact Info */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="lg:col-span-1 flex flex-col gap-5"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="lg:col-span-1 flex flex-col gap-6"
         >
           {/* Quick Contact */}
-          <div className="card p-5">
-            <h2 className="text-base font-semibold text-[#F5F6F5] mb-4">Contact Info</h2>
-            <div className="flex flex-col gap-3">
+          <div className="glass-card p-8 rounded-3xl">
+            <h2 className="text-xl font-bold text-white mb-6 font-heading">Direct Contact</h2>
+            <div className="flex flex-col gap-4">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-3 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors group"
+                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
               >
-                <div className="w-10 h-10 rounded-lg bg-[rgba(240,185,11,0.1)] flex items-center justify-center">
-                  <Mail className="w-4 h-4 text-[#F0B90B]" />
+                <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <Mail className="w-5 h-5 text-yellow-500" />
                 </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs text-[#848E9C]">Email</p>
-                  <p className="text-[#F5F6F5] group-hover:text-[#F0B90B] transition-colors text-sm truncate">
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Email</p>
+                  <p className="text-white group-hover:text-yellow-500 transition-colors text-sm truncate font-medium">
                     {personalInfo.email}
                   </p>
                 </div>
@@ -115,312 +84,269 @@ export default function ContactPage() {
 
               <a
                 href={`tel:${personalInfo.phone}`}
-                className="flex items-center gap-3 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors group"
+                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
               >
-                <div className="w-10 h-10 rounded-lg bg-[rgba(0,212,170,0.1)] flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-[#00D4AA]" />
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <Phone className="w-5 h-5 text-emerald-500" />
                 </div>
                 <div>
-                  <p className="text-xs text-[#848E9C]">Phone</p>
-                  <p className="text-[#F5F6F5] group-hover:text-[#00D4AA] transition-colors text-sm">
+                  <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Phone</p>
+                  <p className="text-white group-hover:text-emerald-500 transition-colors text-sm font-medium">
                     {personalInfo.phone}
                   </p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#1E2735]">
-                <div className="w-10 h-10 rounded-lg bg-[rgba(98,126,234,0.1)] flex items-center justify-center">
-                  <MapPin className="w-4 h-4 text-[#627EEA]" />
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 p-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-5 h-5 text-blue-500" />
                 </div>
                 <div>
-                  <p className="text-xs text-[#848E9C]">Location</p>
-                  <p className="text-[#F5F6F5] text-sm">{personalInfo.location}</p>
+                  <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Location</p>
+                  <p className="text-white text-sm font-medium">{personalInfo.location}</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Decorative Spacer Card */}
-          <div className="card p-4 bg-gradient-to-r from-[rgba(240,185,11,0.05)] to-[rgba(130,71,229,0.05)] border-dashed">
-            <div className="flex items-center justify-center gap-3 text-[#848E9C]">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[rgba(240,185,11,0.3)] to-transparent" />
-              <Sparkles className="w-4 h-4 text-[#F0B90B]" />
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[rgba(130,71,229,0.3)] to-transparent" />
-            </div>
-          </div>
-
           {/* Social Links */}
-          <div className="card p-5">
-            <h2 className="text-base font-semibold text-[#F5F6F5] mb-4">Connect</h2>
-            <div className="grid grid-cols-2 gap-2">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors group"
-              >
-                <Github className="w-4 h-4 text-[#848E9C] group-hover:text-[#F0B90B] transition-colors" />
-                <span className="text-sm text-[#F5F6F5]">GitHub</span>
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors group"
-              >
-                <Linkedin className="w-4 h-4 text-[#848E9C] group-hover:text-[#F0B90B] transition-colors" />
-                <span className="text-sm text-[#F5F6F5]">LinkedIn</span>
-              </a>
-              <a
-                href={personalInfo.portfolio}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors group"
-              >
-                <Globe className="w-4 h-4 text-[#848E9C] group-hover:text-[#F0B90B] transition-colors" />
-                <span className="text-sm text-[#F5F6F5]">Portfolio</span>
-              </a>
-              <a
-                href={personalInfo.blog}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 p-3 rounded-xl bg-[#1E2735] hover:bg-[#252D3C] transition-colors group"
-              >
-                <MessageSquare className="w-4 h-4 text-[#848E9C] group-hover:text-[#F0B90B] transition-colors" />
-                <span className="text-sm text-[#F5F6F5]">Blog</span>
-              </a>
+          <div className="glass-card p-8 rounded-3xl">
+            <h2 className="text-xl font-bold text-white mb-6 font-heading">Ecosystem</h2>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { icon: Github, label: "GitHub", href: personalInfo.github, color: "hover:text-white" },
+                { icon: Linkedin, label: "LinkedIn", href: personalInfo.linkedin, color: "hover:text-blue-400" },
+                { icon: Globe, label: "Portfolio", href: personalInfo.portfolio, color: "hover:text-yellow-500" },
+                { icon: MessageSquare, label: "Blog", href: personalInfo.blog, color: "hover:text-purple-400" },
+              ].map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 ${social.color}`}
+                >
+                  <social.icon className="w-4 h-4 text-muted group-hover:current transition-colors" />
+                  <span className="text-sm font-bold text-secondary group-hover:text-white transition-colors">{social.label}</span>
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Availability */}
-          <div className="card p-5 border-[rgba(0,212,170,0.3)]">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#00D4AA] animate-pulse" />
-              <h2 className="text-base font-semibold text-[#F5F6F5]">Available</h2>
-            </div>
-            <p className="text-sm text-[#848E9C] mb-3">
-              Open for internships, full-time positions, and freelance opportunities.
-            </p>
-            <div className="flex items-center gap-2 text-xs text-[#848E9C]">
-              <Clock className="w-3.5 h-3.5" />
-              <span>Usually responds within 24 hours</span>
+          {/* Availability Status */}
+          <div className="glass-card p-6 rounded-3xl border-emerald-500/20 bg-emerald-500/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 blur-2xl rounded-full -mr-12 -mt-12 group-hover:bg-emerald-500/20 transition-colors duration-700" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                <h2 className="text-lg font-bold text-white">Open for Opportunities</h2>
+              </div>
+              <p className="text-sm text-secondary leading-relaxed mb-4">
+                Available for internships, full-time positions, and freelance Web3 development.
+              </p>
+              <div className="flex items-center gap-2 text-xs font-bold text-muted uppercase tracking-widest">
+                <Clock className="w-4 h-4" />
+                <span>Responds within 24h</span>
+              </div>
             </div>
           </div>
         </motion.div>
 
         {/* Right Column - Messaging */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="lg:col-span-2 flex flex-col gap-5"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="lg:col-span-2 flex flex-col gap-8"
         >
-          {/* Tab Card */}
-          <div className="card overflow-hidden">
+          {/* Messaging Card */}
+          <div className="glass-card rounded-[2.5rem] overflow-hidden flex flex-col h-full border-white/10">
             {/* Tab Header */}
-            <div className="flex border-b border-[rgba(240,185,11,0.15)]">
+            <div className="flex p-2 bg-white/5 border-b border-white/5 translate-z-0">
               <button
                 onClick={() => setActiveTab("zk")}
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-4 text-sm font-medium transition-all ${
-                  activeTab === "zk"
-                    ? "text-[#8247E5] border-b-2 border-[#8247E5] bg-[rgba(130,71,229,0.05)]"
-                    : "text-[#848E9C] hover:text-[#F5F6F5] hover:bg-[#1E2735]"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "zk"
+                    ? "text-purple-400 bg-white/5"
+                    : "text-muted hover:text-white"
+                  }`}
               >
-                <Shield className="w-4 h-4" />
-                <span>Anonymous (ZK)</span>
+                {activeTab === "zk" && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-purple-500/10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <Shield className={`w-4 h-4 transition-transform duration-500 ${activeTab === "zk" ? "scale-110" : "group-hover:scale-110"}`} />
+                <span className="relative z-10">Anonymous (ZK)</span>
               </button>
               <button
                 onClick={() => setActiveTab("email")}
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-4 text-sm font-medium transition-all ${
-                  activeTab === "email"
-                    ? "text-[#F0B90B] border-b-2 border-[#F0B90B] bg-[rgba(240,185,11,0.05)]"
-                    : "text-[#848E9C] hover:text-[#F5F6F5] hover:bg-[#1E2735]"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "email"
+                    ? "text-yellow-500 bg-white/5"
+                    : "text-muted hover:text-white"
+                  }`}
               >
-                <Mail className="w-4 h-4" />
-                <span>Email</span>
+                {activeTab === "email" && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-yellow-500/10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <Mail className={`w-4 h-4 transition-transform duration-500 ${activeTab === "email" ? "scale-110" : "group-hover:scale-110"}`} />
+                <span className="relative z-10">Direct Email</span>
               </button>
             </div>
 
             {/* Tab Content */}
-            <div className="p-6">
+            <div className="p-8 sm:p-10 flex-1">
               <AnimatePresence mode="wait">
                 {activeTab === "zk" ? (
                   <motion.div
                     key="zk"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex flex-col h-full"
                   >
-                    {/* ZK Header */}
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-[rgba(130,71,229,0.15)] flex items-center justify-center">
-                          <Shield className="w-5 h-5 text-[#8247E5]" />
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center flex-shrink-0 border border-purple-500/20">
+                          <Shield className="w-7 h-7 text-purple-400" />
                         </div>
                         <div>
-                          <h2 className="text-base font-semibold text-[#F5F6F5]">Send Anonymous Message</h2>
-                          <p className="text-xs text-[#848E9C]">Powered by Zero-Knowledge Proofs</p>
+                          <h2 className="text-2xl font-bold text-white font-heading">ZK Message</h2>
+                          <p className="text-secondary text-sm">Powered by Zero-Knowledge Proofs</p>
                         </div>
                       </div>
-                      <a
-                        href="https://github.com/tmanas06/ZKWhisper"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs text-[#848E9C] hover:text-[#F0B90B] transition-colors"
-                      >
-                        <Github className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">Source</span>
-                      </a>
-                    </div>
-
-                    {/* ZK Features */}
-                    <div className="grid grid-cols-3 gap-2 mb-5">
-                      <div className="p-2.5 rounded-lg bg-[#1E2735] border border-[rgba(130,71,229,0.2)] text-center">
-                        <Lock className="w-4 h-4 text-[#8247E5] mx-auto mb-1" />
-                        <p className="text-xs font-medium text-[#F5F6F5]">Private</p>
-                      </div>
-                      <div className="p-2.5 rounded-lg bg-[#1E2735] border border-[rgba(0,212,170,0.2)] text-center">
-                        <Shield className="w-4 h-4 text-[#00D4AA] mx-auto mb-1" />
-                        <p className="text-xs font-medium text-[#F5F6F5]">ZK Verified</p>
-                      </div>
-                      <div className="p-2.5 rounded-lg bg-[#1E2735] border border-[rgba(240,185,11,0.2)] text-center">
-                        <MessageSquare className="w-4 h-4 text-[#F0B90B] mx-auto mb-1" />
-                        <p className="text-xs font-medium text-[#F5F6F5]">Decentralized</p>
+                      <div className="hidden sm:flex gap-3">
+                        <div className="flex flex-col items-center gap-1">
+                          <div className="p-2 bg-white/5 rounded-lg border border-white/5">
+                            <Lock className="w-4 h-4 text-purple-400" />
+                          </div>
+                          <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Private</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-1">
+                          <div className="p-2 bg-white/5 rounded-lg border border-white/5">
+                            <Zap className="w-4 h-4 text-emerald-400" />
+                          </div>
+                          <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Fast</span>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Embedded ZKWhisper */}
-                    <div className="rounded-xl overflow-hidden border border-[rgba(130,71,229,0.3)] bg-[#0A0E17]">
+                    <div className="glass-card rounded-3xl overflow-hidden border-purple-500/20 shadow-2xl bg-black/80 mb-6">
                       <iframe
                         src="https://zk-whisper.vercel.app?embedded=true"
-                        className="w-full h-[500px] border-0"
-                        title="ZKWhisper - Anonymous Messaging"
+                        className="w-full h-[450px] border-0"
+                        title="ZKWhisper"
                         allow="clipboard-write; encrypted-media; camera; microphone; fullscreen"
                       />
                     </div>
 
-                    {/* Open in New Tab - if iframe has issues */}
-                    <a
-                      href="https://zk-whisper.vercel.app"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 py-3 mt-4 rounded-xl border border-[rgba(130,71,229,0.3)] text-[#8247E5] hover:bg-[rgba(130,71,229,0.1)] transition-colors text-sm font-medium"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Having issues? Open in New Tab
-                    </a>
-
-                    <p className="text-xs text-[#848E9C] mt-3 text-center">
-                      Messages are sent using Zero-Knowledge Proofs. Your identity remains completely anonymous.
-                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <a
+                        href="https://zk-whisper.vercel.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 btn-premium btn-outline rounded-2xl py-4 group/zk"
+                      >
+                        <ExternalLink className="w-4 h-4 group-hover/zk:rotate-45 transition-transform" />
+                        Open Original Site
+                      </a>
+                      <a
+                        href="https://github.com/tmanas06/ZKWhisper"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 btn-premium btn-zinc rounded-2xl py-4 group/code"
+                      >
+                        <Github className="w-4 h-4" />
+                        View Protocol Source
+                      </a>
+                    </div>
                   </motion.div>
                 ) : (
                   <motion.div
                     key="email"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
                   >
-                    {/* Email Header */}
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="w-10 h-10 rounded-xl bg-[rgba(240,185,11,0.15)] flex items-center justify-center">
-                        <Mail className="w-5 h-5 text-[#F0B90B]" />
+                    <div className="flex items-center gap-4 mb-8">
+                      <div className="w-14 h-14 rounded-2xl bg-yellow-500/10 flex items-center justify-center flex-shrink-0 border border-yellow-500/20">
+                        <Mail className="w-7 h-7 text-yellow-500" />
                       </div>
                       <div>
-                        <h2 className="text-base font-semibold text-[#F5F6F5]">Send via Email</h2>
-                        <p className="text-xs text-[#848E9C]">Traditional communication method</p>
+                        <h2 className="text-2xl font-bold text-white font-heading">Send Email</h2>
+                        <p className="text-secondary text-sm">Formal inquiries & collaborations</p>
                       </div>
                     </div>
 
-                    {/* Email Form */}
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-xs text-[#848E9C] mb-1.5">Name</label>
-                          <input
-                            type="text"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            placeholder="Your name"
-                            required
-                            className="w-full h-11 px-4 bg-[#1E2735] border border-[rgba(240,185,11,0.15)] rounded-xl text-sm text-[#F5F6F5] placeholder-[#5E6673] focus:outline-none focus:border-[#F0B90B] transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs text-[#848E9C] mb-1.5">Email</label>
-                          <input
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            placeholder="your@email.com"
-                            required
-                            className="w-full h-11 px-4 bg-[#1E2735] border border-[rgba(240,185,11,0.15)] rounded-xl text-sm text-[#F5F6F5] placeholder-[#5E6673] focus:outline-none focus:border-[#F0B90B] transition-colors"
-                          />
-                        </div>
+                    <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Full Name</label>
+                        <input
+                          type="text"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="Manas Chakravarty"
+                          required
+                          className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
+                        />
                       </div>
-                      <div>
-                        <label className="block text-xs text-[#848E9C] mb-1.5">Subject</label>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Email Address</label>
+                        <input
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="manas@example.com"
+                          required
+                          className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
+                        />
+                      </div>
+                      <div className="sm:col-span-2 space-y-2">
+                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Subject</label>
                         <input
                           type="text"
                           value={formData.subject}
                           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          placeholder="What's this about?"
+                          placeholder="Let's build something epic together"
                           required
-                          className="w-full h-11 px-4 bg-[#1E2735] border border-[rgba(240,185,11,0.15)] rounded-xl text-sm text-[#F5F6F5] placeholder-[#5E6673] focus:outline-none focus:border-[#F0B90B] transition-colors"
+                          className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
                         />
                       </div>
-                      <div>
-                        <label className="block text-xs text-[#848E9C] mb-1.5">Message</label>
+                      <div className="sm:col-span-2 space-y-2">
+                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Message Body</label>
                         <textarea
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                          placeholder="Your message..."
+                          placeholder="Tell me about your project, goals, and how I can help..."
                           required
-                          rows={5}
-                          className="w-full px-4 py-3 bg-[#1E2735] border border-[rgba(240,185,11,0.15)] rounded-xl text-sm text-[#F5F6F5] placeholder-[#5E6673] focus:outline-none focus:border-[#F0B90B] transition-colors resize-none"
+                          rows={6}
+                          className="w-full px-6 py-5 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium resize-none leading-relaxed"
                         />
                       </div>
-                      <button
-                        type="submit"
-                        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#F0B90B] to-[#F7CA47] text-[#0A0E17] font-semibold text-sm hover:shadow-[0_0_20px_rgba(240,185,11,0.3)] transition-all"
-                      >
-                        <Send className="w-4 h-4" />
-                        Send Message
-                      </button>
+                      <div className="sm:col-span-2 mt-2">
+                        <button
+                          type="submit"
+                          className="btn-premium w-full rounded-2xl py-5 text-base shadow-[0_20px_40px_-15px_rgba(240,185,11,0.2)]"
+                        >
+                          <Send className="w-5 h-5" />
+                          Transmit Message
+                        </button>
+                      </div>
                     </form>
-
-                    <p className="text-xs text-[#848E9C] mt-4 text-center">
-                      This will open your default email client with the message pre-filled.
-                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </div>
-
-          {/* Bottom Info Card */}
-          <div className="card p-5 bg-gradient-to-r from-[rgba(130,71,229,0.05)] to-[rgba(240,185,11,0.05)]">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[rgba(240,185,11,0.1)] flex items-center justify-center flex-shrink-0">
-                <Zap className="w-5 h-5 text-[#F0B90B]" />
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-[#F5F6F5] mb-1">Quick Tip</h3>
-                <p className="text-xs text-[#848E9C]">
-                  For faster response, use the ZK messaging option. For formal inquiries or collaborations, email works best.
-                </p>
-              </div>
-            </div>
-          </div>
         </motion.div>
       </div>
-
-      {/* Bottom Spacer */}
-      <div className="h-8" />
     </div>
   );
 }

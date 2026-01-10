@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import CandyBoxHeader from "@/components/CandyBoxHeader";
 import MobileBottomNav from "@/components/MobileBottomNav";
@@ -10,6 +10,12 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
@@ -56,12 +62,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} font-sans antialiased bg-[#0A0E17]`}>
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-[#05070A] text-white selection:bg-yellow-500/20`}>
+        <div className="bg-glow" />
         <Web3Provider>
           <CandyBoxHeader />
           <DesktopSidebar />
           <MobileBottomNav />
-          <main className="page-wrapper">
+          <main className="page-wrapper min-h-screen relative z-10">
             {children}
           </main>
         </Web3Provider>
