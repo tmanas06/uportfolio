@@ -19,7 +19,7 @@ export const metrics = [
   { label: "Chains Deployed", value: "7", icon: "chains", change: "+40%" },
   { label: "Hackathons Won", value: "5", icon: "trophy", change: "+100%" },
   { label: "Smart Contracts", value: "50+", icon: "contract", change: "+35%" },
-  { label: "Certifications", value: "14", icon: "cert", change: "+20%" },
+  { label: "Certifications", value: "15", icon: "cert", change: "+20%" },
 ];
 
 export const skills = {
@@ -191,6 +191,7 @@ export const experience = [
       "Building scalable backend services and responsive frontend interfaces for AI-driven solutions",
     ],
     current: true,
+    logo: "/logos/exp/dvk_communications.jpg"
   },
   {
     title: "Uniswap Hook Incubator Trainee",
@@ -202,6 +203,7 @@ export const experience = [
       "Developing custom hooks and integrations for automated market maker (AMM) functionality",
     ],
     current: true,
+    logo: "/logos/exp/atrium_academy.png"
   },
   {
     title: "Software Developer",
@@ -213,6 +215,7 @@ export const experience = [
       "Built and optimized full-stack functionalities using Flutter/Dart frontend and Next.js/MongoDB backend",
     ],
     current: false,
+    logo: "/logos/exp/goodbreach.png"
   },
   {
     title: "Software Developer Intern",
@@ -224,6 +227,7 @@ export const experience = [
       "Identified and documented critical bugs; collaborated with team to implement fixes improving site performance",
     ],
     current: false,
+    logo: "/logos/exp/coforge.png"
   },
   {
     title: "G&PS DGA Intern",
@@ -235,6 +239,7 @@ export const experience = [
       "Prepared detailed RFPs and client presentations, supporting strategic discussions for project acquisition",
     ],
     current: false,
+    logo: "/logos/exp/kpmg.png"
   },
   {
     title: "Blockchain Developer",
@@ -247,6 +252,7 @@ export const experience = [
       "Led frontend development for Deep Revenue Sharing System MVP, enhancing investor transparency",
     ],
     current: false,
+    logo: "/logos/exp/timechain_labs.png"
   },
   {
     title: "Full Stack Developer",
@@ -269,6 +275,7 @@ export const experience = [
       "Delivered blockchain and data engineering contributions to enhance platform capabilities",
     ],
     current: false,
+    logo: "/logos/exp/snowflake.png"
   },
 ];
 
@@ -282,14 +289,21 @@ export const achievements = [
 ];
 
 export const certifications = [
-  { name: "CEH (Certified Ethical Hacker)", issuer: "EC-Council", year: "2025" },
-  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "2025" },
-  { name: "Red Hat Certified Enterprise Application Developer", issuer: "Red Hat", year: "2024" },
-  { name: "CCNA: Introduction to Networks", issuer: "Cisco", year: "2025" },
-  { name: "Google Cloud Engineering Certificate", issuer: "Google Cloud", year: "2025" },
-  { name: "Fortinet Certified Associate Cybersecurity", issuer: "Fortinet", year: "2024" },
-  { name: "Oracle Cloud Infrastructure 2025 Foundations Associate", issuer: "Oracle", year: "2025" },
-  { name: "Advanced Automation Professional", issuer: "Automation Anywhere", year: "2024" },
+  { name: "CEH (Certified Ethical Hacker)", issuer: "EC-Council", year: "2025", logo: "/logos/certs/ceh.png" },
+  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "2025", logo: "/logos/certs/aws-certified-cloud-practitioner.png" },
+  { name: "Red Hat Certified Enterprise Application Developer", issuer: "Red Hat", year: "2024", logo: "/logos/certs/red-hat-certified-enterprise-application-developer.png" },
+  { name: "CCNA: Introduction to Networks", issuer: "Cisco", year: "2025", logo: "/logos/certs/ccna-introduction-to-networks.png" },
+  { name: "Google Cloud Engineering Certificate", issuer: "Google Cloud", year: "2025", logo: "/logos/certs/google-cloud-engineering-certificate.png" },
+  { name: "Fortinet Certified Associate Cybersecurity", issuer: "Fortinet", year: "2024", logo: "/logos/certs/fortinet-certified-associate-cybersecurity.1.png" },
+  { name: "Oracle Cloud Infrastructure 2025 Foundations Associate", issuer: "Oracle", year: "2025", logo: "/logos/certs/OCI25FNDCFA.jpeg" },
+  { name: "Oracle Cloud Infrastructure 2025 AI Foundations Associate", issuer: "Oracle", year: "2025", logo: "/logos/certs/OCI25AICFA.jpeg" },
+  { name: "Advanced Automation Professional", issuer: "Automation Anywhere", year: "2024", logo: "/logos/certs/advanced.png" },
+  { name: "AWS Academy Graduate - Cloud Security Builder", issuer: "AWS Academy", year: "2025", logo: "/logos/certs/aws-academy-graduate-cloud-security-builder-trainin.png" },
+  { name: "AWS Educate - Introduction to Generative AI", issuer: "AWS Educate", year: "2025", logo: "/logos/certs/aws-educate-introduction-to-generative-ai-training-.png" },
+  { name: "Fortinet - FortiGate 7.4 Operator", issuer: "Fortinet", year: "2024", logo: "/logos/certs/fortinet-fortigate-7-4-operator.png" },
+  { name: "Postman API Fundamentals Student Expert", issuer: "Postman", year: "2024", logo: "/logos/certs/postman.png" },
+  { name: "Cybersecurity Essentials", issuer: "Cisco Networking Academy", year: "2024", logo: "/logos/certs/essential.png" },
+  { name: "Lifelong Learning Certificate", issuer: "Various", year: "2024", logo: "/logos/certs/lifelong-learning.png" },
 ];
 
 export const education = {

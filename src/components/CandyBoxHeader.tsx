@@ -479,49 +479,49 @@ export default function CandyBoxHeader() {
               </AnimatePresence>
             </div>
 
-            {/* Wallet & Quick Access Split */}
-            <div className="h-8 w-px bg-white/10 mx-1 hidden sm:block" />
-
-            <div className="hidden sm:flex items-center gap-3">
+            {/* Wallet Connect */}
+            <div className="flex items-center gap-2">
               {isConnected && address ? (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => open()}
-                    className="h-11 px-4 rounded-xl bg-white/5 border border-yellow-500/20 flex items-center gap-3 text-yellow-500 font-bold hover:bg-yellow-500/10 transition-all group"
-                  >
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                    <span className="text-sm tracking-tight">{formatAddress(address)}</span>
-                  </button>
+                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-1 pr-3">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                  </div>
+                  <span className="text-xs font-black text-white px-1">
+                    {formatAddress(address as string)}
+                  </span>
                   <button
                     onClick={() => disconnect()}
-                    className="h-11 w-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-secondary hover:text-red-400 hover:bg-red-400/10 transition-all hover:border-red-400/20"
-                    title="Disconnect"
+                    className="p-1.5 hover:bg-white/10 rounded-lg text-muted hover:text-red-400 transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
                 </div>
               ) : (
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => open()}
-                  className="h-11 px-6 rounded-xl bg-gold-gradient items-center gap-3 text-black font-black hover:shadow-[0_0_30px_rgba(240,185,11,0.4)] transition-all flex active:scale-95"
+                  className="h-11 px-6 rounded-xl bg-gold-gradient items-center gap-3 text-black font-black shadow-[0_0_20px_rgba(240,185,11,0.2)] hover:shadow-[0_0_30px_rgba(240,185,11,0.4)] transition-all flex sweep-effect"
                 >
                   <Wallet className="w-4 h-4" />
-                  <span className="text-sm tracking-tight">Connect</span>
-                </button>
+                  <span className="text-sm tracking-tight font-black uppercase">Connect</span>
+                </motion.button>
               )}
             </div>
 
             {/* Quick Access (Candy Box) Button */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setShowQuickAccess(!showQuickAccess)}
-              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500 ${showQuickAccess
-                ? "bg-yellow-500 text-black shadow-[0_0_30px_rgba(240,185,11,0.5)] scale-110"
+              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 ${showQuickAccess
+                ? "bg-yellow-500 text-black shadow-[0_0_30px_rgba(240,185,11,0.5)]"
                 : "bg-white/5 text-secondary border border-white/5 hover:text-white hover:bg-white/10"
                 }`}
               title="Quick Access"
             >
-              <LayoutGrid className="w-5 h-5 transition-transform group-hover:rotate-90" />
-            </button>
+              <LayoutGrid className="w-5 h-5" />
+            </motion.button>
 
             {/* Profile (Mobile) */}
             <Link
@@ -557,15 +557,20 @@ export default function CandyBoxHeader() {
                       className="w-full h-14 pr-12 bg-white/5 border border-white/10 rounded-2xl text-lg text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
                       style={{ paddingLeft: '56px' }}
                     />
-                    {searchQuery && (
-                      <button
-                        type="button"
-                        onClick={() => setSearchQuery("")}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-muted p-2 hover:bg-white/10 rounded-xl"
-                      >
-                        <X className="w-5 h-5" />
-                      </button>
-                    )}
+                    <AnimatePresence>
+                      {searchQuery && (
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          type="button"
+                          onClick={() => setSearchQuery("")}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-muted p-2 hover:bg-white/10 rounded-xl"
+                        >
+                          <X className="w-5 h-5" />
+                        </motion.button>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </form>
                 <button

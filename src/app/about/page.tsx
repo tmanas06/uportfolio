@@ -122,11 +122,26 @@ export default function AboutPage() {
             {certifications.map((cert) => (
               <div
                 key={cert.name}
-                className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/20 flex items-center justify-between group/cert transition-all"
+                className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/20 flex items-center gap-4 group/cert transition-all"
               >
-                <div>
-                  <h3 className="font-bold text-white text-sm group-hover/cert:text-yellow-500 transition-colors">{cert.name}</h3>
-                  <p className="text-xs text-secondary mt-1">{cert.issuer} • {cert.year}</p>
+                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center p-2 group-hover/cert:scale-110 transition-transform duration-500">
+                  {cert.logo ? (
+                    <img
+                      src={cert.logo}
+                      alt={cert.issuer}
+                      className="w-full h-full object-contain filter brightness-110"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                        (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-xs text-muted">Cert</span>';
+                      }}
+                    />
+                  ) : (
+                    <Award className="w-6 h-6 text-muted" />
+                  )}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-white text-sm group-hover/cert:text-yellow-500 transition-colors uppercase tracking-tight">{cert.name}</h3>
+                  <p className="text-[10px] text-muted font-black uppercase tracking-widest mt-1">{cert.issuer} • {cert.year}</p>
                 </div>
                 <ExternalLink className="w-4 h-4 text-muted group-hover/cert:text-white transition-colors" />
               </div>
@@ -153,12 +168,32 @@ export default function AboutPage() {
               className="p-6 sm:p-8 rounded-2xl bg-white/5 border-l-4 group/exp hover:bg-white/[0.07] transition-all"
               style={{ borderColor: exp.current ? "#0ECB81" : "#F0B90B" }}
             >
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white group-hover/exp:text-yellow-500 transition-colors">{exp.title}</h3>
-                  <p className="text-yellow-500 font-medium">{exp.company}</p>
+              <div className="flex flex-col sm:flex-row items-start justify-between gap-6 mb-8">
+                <div className="flex items-center gap-6">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-3 group-hover/exp:scale-110 transition-transform duration-500 shadow-xl overflow-hidden backdrop-blur-sm">
+                    {exp.logo ? (
+                      <img
+                        src={exp.logo}
+                        alt={exp.company}
+                        className="w-full h-full object-contain filter brightness-125"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                          (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-xl font-bold text-muted">${exp.company[0]}</span>`;
+                        }}
+                      />
+                    ) : (
+                      <span className="text-2xl font-bold text-muted group-hover/exp:text-yellow-500 transition-colors">{exp.company[0]}</span>
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black text-white group-hover/exp:text-yellow-500 transition-colors tracking-tight">{exp.title}</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-yellow-500 font-bold uppercase tracking-widest text-xs">{exp.company}</p>
+                      {exp.current && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />}
+                    </div>
+                  </div>
                 </div>
-                {exp.current && <span className="badge-v2 bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[10px] uppercase">Current</span>}
+                {exp.current && <span className="badge-v2 badge-v2-gold text-[10px] uppercase font-black">Active Role</span>}
               </div>
               <div className="flex flex-wrap gap-4 text-xs text-secondary mb-6">
                 <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full">
