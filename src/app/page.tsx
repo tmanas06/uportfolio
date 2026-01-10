@@ -187,8 +187,8 @@ export default function HomePage() {
             </div>
             <div className="glass-card p-8 rounded-3xl overflow-hidden relative group/marquee">
               {/* Gradient Masks */}
-              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--background)] to-transparent z-10 pointer-events-none" />
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none hidden sm:block" />
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--background)] to-transparent z-10 pointer-events-none hidden sm:block" />
 
               <div className="flex overflow-hidden">
                 <motion.div
@@ -254,7 +254,7 @@ export default function HomePage() {
             </div>
           </section>
 
-          <section>
+          <section className="hidden lg:block">
             <h2 className="text-2xl font-bold font-heading mb-8 flex items-center justify-center lg:justify-start gap-3 text-center">
               <Mail className="w-6 h-6 text-yellow-500" />
               Quick Actions
