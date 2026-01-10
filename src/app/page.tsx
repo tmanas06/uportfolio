@@ -185,22 +185,37 @@ export default function HomePage() {
                 Ecosystems
               </h2>
             </div>
-            <div className="glass-card p-8 rounded-3xl">
-              <div className="flex gap-8 overflow-x-auto hide-scrollbar pb-2">
-                {chains.map((chain) => (
-                  <div key={chain.name} className="flex flex-col items-center gap-4 min-w-[100px] shrink-0 group/chain">
-                    <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center text-sm font-bold text-white shadow-xl transition-all duration-500 group-hover/chain:scale-110 group-hover/chain:-translate-y-2"
-                      style={{
-                        backgroundColor: chain.color,
-                        boxShadow: `0 10px 30px -10px ${chain.color}66`
-                      }}
-                    >
-                      {chain.name}
+            <div className="glass-card p-8 rounded-3xl overflow-hidden relative group/marquee">
+              {/* Gradient Masks */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--background)] to-transparent z-10 pointer-events-none" />
+
+              <div className="flex overflow-hidden">
+                <motion.div
+                  className="flex gap-8 px-4"
+                  animate={{ x: "-50%" }}
+                  transition={{
+                    duration: 20,
+                    ease: "linear",
+                    repeat: Infinity,
+                  }}
+                  whileHover={{ animationPlayState: "paused" }} // Note: Framer Motion handles this differently, but we can stick to simple CSS pause if needed, or just let it run. For true pause on hover with simple Framer Motion loop, it's tricky without controlling the time. Let's stick to a smooth continuous loop first. Alternatively, we can use a duplicated array.
+                >
+                  {[...chains, ...chains, ...chains, ...chains].map((chain, index) => (
+                    <div key={`${chain.name}-${index}`} className="flex flex-col items-center gap-4 min-w-[100px] shrink-0 group/chain cursor-pointer">
+                      <div
+                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-sm font-bold text-white shadow-xl transition-all duration-500 group-hover/chain:scale-110 group-hover/chain:-translate-y-2"
+                        style={{
+                          backgroundColor: chain.color,
+                          boxShadow: `0 10px 30px -10px ${chain.color}66`
+                        }}
+                      >
+                        {chain.name}
+                      </div>
+                      <span className="text-xs font-semibold text-secondary group-hover/chain:text-white transition-colors">{chain.fullName}</span>
                     </div>
-                    <span className="text-xs font-semibold text-secondary group-hover/chain:text-white transition-colors">{chain.fullName}</span>
-                  </div>
-                ))}
+                  ))}
+                </motion.div>
               </div>
             </div>
           </section>

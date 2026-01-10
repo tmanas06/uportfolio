@@ -5,9 +5,9 @@ import { mainnet, polygon, arbitrum, optimism, bsc } from "wagmi/chains";
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "demo";
 
 const metadata = {
-  name: "Manav Portfolio",
+  name: "Manas Portfolio",
   description: "Blockchain Developer Portfolio",
-  url: "https://manavportfolio.com",
+  url: "https://portfolio-tmanas.vercel.app/",
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
