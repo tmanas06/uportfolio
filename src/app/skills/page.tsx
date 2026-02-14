@@ -25,7 +25,7 @@ export default function SkillsPage() {
   };
 
   return (
-    <div className="container-v2 py-12 sm:py-24 space-y-16 sm:space-y-20 pb-24">
+    <div className="container-v2 pt-[calc(var(--navbar-height)+3rem)] sm:pt-[calc(var(--navbar-height)+5rem)] py-12 sm:py-24 space-y-16 sm:space-y-20 pb-24">
       {/* ═══ HEADER ═══ */}
       <motion.div {...fadeUp} transition={{ duration: 0.5 }}>
         <div className="flex items-center gap-4 mb-3">

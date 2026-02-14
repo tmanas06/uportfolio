@@ -30,10 +30,10 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="container-v2 py-12 sm:py-24 space-y-16 sm:space-y-20 pb-24">
+    <div className="container-v2 pt-[calc(var(--navbar-height)+3rem)] sm:pt-[calc(var(--navbar-height)+5rem)] py-16 sm:py-24 space-y-16 sm:space-y-20 pb-24">
 
       {/* ═══ PROFILE HEADER ═══ */}
-      <motion.div {...fadeUp} className="border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] overflow-hidden">
+      <motion.div {...fadeUp} className="border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] bg-[var(--card-bg)]">
         {/* Title Bar */}
         <div className="px-6 py-3 bg-[var(--accent)] border-b-[4px] border-[var(--border-color)] flex items-center gap-3">
           <div className="flex gap-1.5">
@@ -41,13 +41,13 @@ export default function AboutPage() {
             <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-3)]" />
             <div className="w-3 h-3 border-[2px] border-black bg-white" />
           </div>
-          <span className="text-[0.75rem] font-black text-black uppercase tracking-widest font-mono">/// PROFILE_DATA.tsx</span>
+          <span className="text-[0.875rem] font-black text-black uppercase tracking-widest font-mono">/// PROFILE_DATA.tsx</span>
         </div>
 
-        <div className="p-6 sm:p-10">
-          <div className="flex flex-col sm:flex-row gap-8 items-start">
+        <div className="p-8 sm:p-12 lg:p-16">
+          <div className="flex flex-col md:flex-row gap-10 md:items-center">
             {/* Avatar */}
-            <div className="relative w-28 h-28 sm:w-36 sm:h-36 border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] flex-shrink-0 overflow-hidden">
+            <div className="relative w-32 h-32 md:w-44 md:h-44 border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] flex-shrink-0 overflow-hidden bg-white">
               <Image
                 src="/my.jpg"
                 alt={personalInfo.name}
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <h1 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-black uppercase font-heading tracking-tight text-[var(--text-primary)]">
+              <h1 className="text-[2.25rem] sm:text-[3.5rem] lg:text-[4.5rem] font-black uppercase font-heading tracking-tighter text-[var(--text-primary)] leading-[0.95]">
                 {personalInfo.name}
               </h1>
               <p className="text-[1.125rem] font-bold text-[var(--accent)] mt-2 uppercase font-heading">
@@ -109,11 +109,11 @@ export default function AboutPage() {
       >
         <div className="flex items-center gap-4 mb-8">
           <GraduationCap className="w-6 h-6 text-[var(--accent)]" />
-          <h2 className="text-[1.25rem] sm:text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Education</h2>
+          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Education</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all">
+          <div className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all">
             <h3 className="text-[1rem] font-black text-[var(--text-primary)] uppercase font-heading">{education.degree}</h3>
             <p className="text-[1rem] font-bold text-[var(--accent)] mt-1 font-mono">{education.university}</p>
             <div className="flex items-center gap-4 mt-3">
@@ -136,14 +136,14 @@ export default function AboutPage() {
       >
         <div className="flex items-center gap-4 mb-8">
           <Award className="w-6 h-6 text-[var(--accent-3)]" />
-          <h2 className="text-[1.25rem] sm:text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Certifications</h2>
+          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Certifications</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {certifications.map((cert, index) => (
             <div
               key={index}
-              className="border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
+              className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
             >
               <h3 className="text-[0.9375rem] font-black text-[var(--text-primary)] uppercase font-heading">{cert.name}</h3>
               <p className="text-[0.875rem] font-bold text-[var(--accent)] mt-1 uppercase font-mono">{cert.issuer}</p>
@@ -161,7 +161,7 @@ export default function AboutPage() {
       >
         <div className="flex items-center gap-4 mb-8">
           <Briefcase className="w-6 h-6 text-[var(--accent)]" />
-          <h2 className="text-[1.25rem] sm:text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Experience_Log</h2>
+          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Experience_Log</h2>
         </div>
 
         <div className="space-y-5">
@@ -171,7 +171,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.25 + index * 0.05, duration: 0.4 }}
-              className="border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all overflow-hidden"
+              className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all overflow-hidden"
             >
               <div className="flex">
                 <div className={`w-2 flex-shrink-0 ${exp.current ? 'bg-[var(--accent)]' : 'bg-[var(--accent-2)]'}`} />
@@ -207,7 +207,7 @@ export default function AboutPage() {
       >
         <div className="flex items-center gap-4 mb-8">
           <Trophy className="w-6 h-6 text-[var(--accent-2)]" />
-          <h2 className="text-[1.25rem] sm:text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Hackathon_Wins</h2>
+          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Hackathon_Wins</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -217,7 +217,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 + index * 0.04, duration: 0.3 }}
-              className="border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
+              className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-[var(--accent-2)] border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
