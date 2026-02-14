@@ -121,9 +121,9 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           METRICS GRID
           ═══════════════════════════════════════════ */}
-      <section id="stats" className="container-v2 py-16 sm:py-24">
+      <section id="stats" className="container-v2 py-20 sm:py-28">
         <motion.div {...fadeUp}>
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-12">
             <Terminal className="w-6 h-6 text-[var(--accent)]" />
             <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
               /// System_Stats
@@ -154,9 +154,9 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           FEATURED PROJECTS
           ═══════════════════════════════════════════ */}
-      <section id="projects" className="container-v2 py-16 sm:py-24">
+      <section id="projects" className="container-v2 py-20 sm:py-28">
         <motion.div {...fadeUp}>
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center justify-between mb-12">
             <div className="flex items-center gap-4">
               <Code2 className="w-6 h-6 text-[var(--accent)]" />
               <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
@@ -193,7 +193,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Body */}
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-7 flex flex-col flex-1">
                   <h3 className="text-[1.125rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
                     {project.title}
                   </h3>
@@ -219,7 +219,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between mt-auto pt-5 border-t-[2px] border-[var(--border-color)] mt-6">
+                  <div className="flex items-center justify-between mt-auto pt-5 border-t-[2px] border-[var(--border-color)]">
                     <div className="flex items-center gap-3">
                       <a
                         href={project.github}
@@ -251,9 +251,9 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           TECH STACK — 4-card grid
           ═══════════════════════════════════════════ */}
-      <section id="stack" className="container-v2 py-16 sm:py-24">
+      <section id="stack" className="container-v2 py-20 sm:py-28">
         <motion.div {...fadeUp}>
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-12">
             <Layers className="w-6 h-6 text-[var(--accent)]" />
             <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
               /// Tech_Stack
@@ -300,7 +300,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           ECOSYSTEM MARQUEE
           ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-16 sm:py-24">
+      <section className="container-v2 py-20 sm:py-28">
         <motion.div {...fadeUp}>
           <div className="flex items-center gap-4 mb-8">
             <Link2 className="w-6 h-6 text-[var(--accent)]" />
@@ -338,7 +338,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           ACHIEVEMENTS
           ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-16 sm:py-24">
+      <section className="container-v2 py-20 sm:py-28">
         <motion.div {...fadeUp}>
           <div className="flex items-center gap-4 mb-8">
             <Trophy className="w-6 h-6 text-[var(--accent-2)]" />
@@ -378,7 +378,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           FOOTER CTA
           ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-16 sm:py-24 pb-24">
+      <section className="container-v2 py-24 sm:py-32 pb-28">
         <motion.div
           {...fadeUp}
           className="border-[4px] border-[var(--border-color)] p-8 sm:p-12 shadow-[6px_6px_0px_var(--shadow-color)]"

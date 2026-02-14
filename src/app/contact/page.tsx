@@ -30,7 +30,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container-v2 py-12 sm:py-20 space-y-10 sm:space-y-12 pb-24">
+    <div className="container-v2 py-16 sm:py-24 space-y-10 sm:space-y-12 pb-24">
       {/* ═══ HEADER ═══ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -48,7 +48,7 @@ export default function ContactPage() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* ═══ LEFT COLUMN: Contact Info ═══ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

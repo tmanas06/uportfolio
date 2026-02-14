@@ -26,7 +26,7 @@
   --shadow-color: rgba(255, 255, 255, 0.9);
 
   --navbar-height: 72px;
-  --section-gap: 48px;
+  --section-gap: 64px;
   --card-padding: 32px;
 }
 
@@ -217,9 +217,9 @@ h4,
    ═══════════════════════════════════════════ */
 .container-v2 {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 @media (min-width: 768px) {

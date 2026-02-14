@@ -39,7 +39,7 @@ function ProjectsContent() {
   });
 
   return (
-    <div className="container-v2 py-12 sm:py-20 space-y-10 pb-24">
+    <div className="container-v2 py-16 sm:py-24 space-y-10 pb-24">
       {/* ═══ HEADER ═══ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
