@@ -1,332 +1,321 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import {
-  Code,
-  Briefcase,
-  Sparkles,
-  Trophy,
-  GraduationCap,
-  Boxes,
-  FileText,
-  Mail,
-  ChevronRight,
   Github,
   Linkedin,
+  Mail,
   ExternalLink,
+  Trophy,
+  Briefcase,
+  Code2,
+  Layers,
+  ArrowRight,
+  Star,
+  GitFork,
+  Globe,
   Sun,
   Moon,
+  Zap,
+  Terminal,
+  Box,
+  ChevronRight,
 } from "lucide-react";
 import {
   personalInfo,
   metrics,
   projects,
   achievements,
-  quickActions,
   chains,
 } from "@/lib/data";
-import { useEffect, useState } from "react";
-
-const iconMap: { [key: string]: React.ReactNode } = {
-  code: <Code className="w-5 h-5" />,
-  briefcase: <Briefcase className="w-5 h-5" />,
-  sparkles: <Sparkles className="w-5 h-5" />,
-  trophy: <Trophy className="w-5 h-5" />,
-  academic: <GraduationCap className="w-5 h-5" />,
-  cube: <Boxes className="w-5 h-5" />,
-  document: <FileText className="w-5 h-5" />,
-  mail: <Mail className="w-5 h-5" />,
-};
 
 export default function HomePage() {
-  const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const fadeUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  };
+
+  const featuredProjects = projects.filter((p) => p.featured);
 
   return (
-    <div className="container-v2 py-8 sm:py-12 flex flex-col gap-8 sm:gap-16">
-      {/* Profile Card */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="glass-card p-6 sm:p-10 rounded-[2rem] overflow-hidden relative group w-full"
-      >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 blur-[100px] -mr-32 -mt-32 group-hover:bg-yellow-500/10 transition-colors duration-700" />
+    <div className="container-v2 py-10 sm:py-16 space-y-12 sm:space-y-16 pb-24">
 
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-8 relative z-10">
-          <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center flex-shrink-0 shadow-[0_0_50px_-12px_rgba(240,185,11,0.5)] group-hover:scale-105 transition-transform duration-500">
-            <span className="text-black font-bold text-5xl sm:text-6xl font-heading">
-              {personalInfo.firstName[0]}
-            </span>
-          </div>
+      {/* ═══ HERO / PROFILE CARD ═══ */}
+      <motion.div {...fadeUp} className="border-[3px] border-[var(--border-color)] p-6 sm:p-10 overflow-hidden relative shadow-[6px_6px_0px_var(--shadow-color)]">
 
-          <div className="flex-1 text-center md:text-left">
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-4">
-              <h1 className="text-3xl sm:text-5xl font-bold font-heading text-[var(--text-primary)]">
-                {personalInfo.name}
-              </h1>
-              <span className="badge-v2 bg-emerald-500/10 text-emerald-500 border-emerald-500/20 border animate-pulse">Available for Projects</span>
+        {/* Theme Toggle */}
+        <motion.button
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="absolute top-6 right-6 z-20 w-12 h-12 border-[3px] border-[var(--border-color)] bg-[var(--bg-primary)] flex items-center justify-center text-[var(--text-primary)] hover:bg-[var(--accent)] hover:text-black transition-all shadow-[3px_3px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--shadow-color)]"
+        >
+          {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+        </motion.button>
+
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+          {/* Avatar */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="relative w-28 h-28 sm:w-36 sm:h-36 border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] flex-shrink-0 overflow-hidden"
+          >
+            <Image
+              src="/my.jpg"
+              alt={personalInfo.name}
+              fill
+              className="object-cover"
+              priority
+            />
+          </motion.div>
+
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-[10px] font-black text-[var(--accent)] border-[2px] border-[var(--accent)] px-3 py-1 uppercase tracking-[0.2em]">
+                /// ACTIVE
+              </span>
             </div>
-            <p className="text-lg sm:text-2xl text-secondary max-w-2xl mb-8 leading-relaxed">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none uppercase font-heading text-[var(--text-primary)]">
+              {personalInfo.name}
+            </h1>
+            <p className="text-lg sm:text-xl font-bold text-[var(--accent)] mt-3 uppercase tracking-wide font-heading">
               {personalInfo.title}
             </p>
+            <p className="text-sm text-[var(--text-secondary)] mt-4 leading-relaxed max-w-2xl font-mono">
+              {personalInfo.summary}
+            </p>
 
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 border border-white/5 transition-all duration-300"
-              >
-                <Github className="w-6 h-6" />
+            {/* Social Links */}
+            <div className="flex flex-wrap gap-3 mt-6">
+              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 bg-[var(--accent)] text-black font-black text-xs border-[3px] border-[var(--border-color)] shadow-[3px_3px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase tracking-widest">
+                <Github className="w-4 h-4" /> GitHub
               </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 border border-white/5 transition-all duration-300"
-              >
-                <Linkedin className="w-6 h-6" />
+              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 border-[3px] border-[var(--border-color)] text-[var(--text-primary)] font-black text-xs shadow-[3px_3px_0px_var(--shadow-color)] hover:bg-[var(--accent)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase tracking-widest">
+                <Linkedin className="w-4 h-4" /> LinkedIn
               </a>
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-secondary hover:text-white hover:bg-white/10 border border-white/5 transition-all duration-300"
-              >
-                <Mail className="w-6 h-6" />
-              </a>
-              <div className="h-8 w-px bg-white/10 mx-2 hidden sm:block" />
-              <Link href="/contact" className="btn-premium btn-gold py-3 px-6 rounded-2xl text-sm">
-                Get in Touch
+              <Link href="/contact" className="flex items-center gap-2 px-5 py-3 border-[3px] border-[var(--border-color)] text-[var(--text-primary)] font-black text-xs shadow-[3px_3px_0px_var(--shadow-color)] hover:bg-[var(--accent)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase tracking-widest">
+                <Mail className="w-4 h-4" /> Contact
               </Link>
             </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Metrics Grid */}
+      {/* ═══ METRICS GRID ═══ */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6"
+        transition={{ delay: 0.15, duration: 0.5 }}
       >
-        {metrics.map((metric) => (
-          <div key={metric.label} className="metric-v2 group p-4 glass-card rounded-2xl text-center">
-            <p className="metric-v2-value text-2xl sm:text-3xl group-hover:gold-text transition-all duration-300">
-              {metric.value}
-            </p>
-            <p className="metric-v2-label text-[10px] sm:text-xs">
-              {metric.label}
-            </p>
-          </div>
-        ))}
+        <div className="flex items-center gap-4 mb-8">
+          <Terminal className="w-5 h-5 text-[var(--accent)]" />
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// System_Stats</h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          {metrics.map((metric, index) => (
+            <motion.div
+              key={metric.label}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + index * 0.05, duration: 0.4 }}
+              className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
+            >
+              <div className="text-3xl sm:text-4xl font-black text-[var(--accent)] font-heading">{metric.value}</div>
+              <div className="text-[10px] font-black text-[var(--text-muted)] mt-2 uppercase tracking-[0.15em] font-mono">
+                {metric.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
 
-      {/* Main Content Sections */}
-      <div className="grid lg:grid-cols-12 gap-12 sm:gap-16">
-        {/* Left Column - Projects */}
-        <div className="lg:col-span-8 flex flex-col gap-12">
-          <section>
-            <div className="flex items-center justify-center sm:justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold font-heading flex items-center gap-3 text-center">
-                <Sparkles className="w-6 h-6 text-yellow-500" />
-                Featured Projects
-              </h2>
-              <Link
-                href="/projects"
-                className="hidden sm:flex text-sm font-semibold text-yellow-500 items-center gap-1 hover:gap-2 transition-all"
-              >
-                View all <ChevronRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-6">
-              {featuredProjects.map((project) => (
-                <a
-                  key={project.id}
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass-card p-6 rounded-3xl flex flex-col h-full group/card"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold text-[var(--text-primary)] group-hover/card:text-yellow-500 transition-colors line-clamp-1">
-                      {project.title}
-                    </h3>
-                    <ExternalLink className="w-5 h-5 text-muted group-hover/card:text-white transition-colors" />
-                  </div>
-                  <p className="text-secondary mb-6 line-clamp-3 text-sm flex-1 text-center sm:text-left break-words">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.slice(0, 3).map((tech) => (
-                      <span key={tech} className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-white/5 rounded-md text-secondary border border-white/5">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-
-          <section>
-            <div className="flex items-center justify-center sm:justify-start mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold font-heading flex items-center gap-3 text-center">
-                <Boxes className="w-6 h-6 text-yellow-500" />
-                Ecosystems
-              </h2>
-            </div>
-            <div className="glass-card p-8 rounded-3xl overflow-hidden relative group/marquee">
-              {/* Gradient Masks */}
-              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none hidden sm:block" />
-              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--background)] to-transparent z-10 pointer-events-none hidden sm:block" />
-
-              <div className="flex overflow-hidden">
-                <motion.div
-                  className="flex gap-8 px-4"
-                  animate={{ x: "-50%" }}
-                  transition={{
-                    duration: 20,
-                    ease: "linear",
-                    repeat: Infinity,
-                  }}
-                  whileHover={{ animationPlayState: "paused" }} // Note: Framer Motion handles this differently, but we can stick to simple CSS pause if needed, or just let it run. For true pause on hover with simple Framer Motion loop, it's tricky without controlling the time. Let's stick to a smooth continuous loop first. Alternatively, we can use a duplicated array.
-                >
-                  {[...chains, ...chains, ...chains, ...chains].map((chain, index) => (
-                    <div key={`${chain.name}-${index}`} className="flex flex-col items-center gap-4 min-w-[100px] shrink-0 group/chain cursor-pointer">
-                      <div
-                        className="w-20 h-20 rounded-3xl flex items-center justify-center bg-white/5 border border-white/10 shadow-lg transition-all duration-500 group-hover/chain:scale-110 group-hover/chain:-translate-y-2 group-hover/chain:border-white/20"
-                        style={{
-                          boxShadow: `0 10px 30px -10px ${chain.color}33`
-                        }}
-                      >
-                        <img
-                          src={chain.logo}
-                          alt={chain.fullName}
-                          className="w-10 h-10 object-contain drop-shadow-md"
-                        />
-                      </div>
-                      <span className="text-xs font-bold text-secondary group-hover/chain:text-white transition-colors uppercase tracking-wider">{chain.fullName}</span>
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* Right Column - sidebar-like content */}
-        <div className="lg:col-span-4 flex flex-col gap-12">
-          <section>
-            <h2 className="text-2xl font-bold font-heading mb-8 flex items-center justify-center lg:justify-start gap-3 text-center">
-              <Trophy className="w-6 h-6 text-yellow-500" />
-              Achievements
-            </h2>
-            <div className="flex flex-col gap-4">
-              {achievements.slice(0, 3).map((achievement) => (
-                <div
-                  key={achievement.title}
-                  className="glass-card p-5 rounded-2xl flex items-center gap-4 group/win"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-2xl shrink-0">
-                    {achievement.icon === "gold" ? "🥇" : achievement.icon === "silver" ? "🥈" : "🥉"}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-[var(--text-primary)] truncate group-hover/win:text-yellow-500 transition-colors">
-                      {achievement.title}
-                    </p>
-                    <p className="text-xs text-secondary mt-1">{achievement.position}</p>
-                  </div>
-                </div>
-              ))}
-              <Link href="/about" className="text-center text-sm font-semibold text-muted hover:text-yellow-500 transition-colors mt-2">
-                View all achievements
-              </Link>
-            </div>
-          </section>
-
-          <section className="hidden lg:block">
-            <h2 className="text-2xl font-bold font-heading mb-8 flex items-center justify-center lg:justify-start gap-3 text-center">
-              <Mail className="w-6 h-6 text-yellow-500" />
-              Quick Actions
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {quickActions.slice(0, 4).map((action) => (
-                <Link
-                  key={action.id}
-                  href={action.href}
-                  className="glass-card p-4 rounded-2xl flex flex-col items-center gap-3 text-center group/action"
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover/action:scale-110"
-                    style={{ backgroundColor: `${action.color}15` }}
-                  >
-                    <span style={{ color: action.color }}>{iconMap[action.icon]}</span>
-                  </div>
-                  <span className="text-xs font-bold text-secondary group-hover/action:text-white">
-                    {action.label}
-                  </span>
-                </Link>
-              ))}
-
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="glass-card p-4 rounded-2xl flex flex-col items-center gap-3 text-center group/action cursor-pointer col-span-2 md:col-span-1"
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover/action:scale-110 bg-yellow-500/10"
-                >
-                  {mounted && (theme === "dark" ? (
-                    <Sun className="w-5 h-5 text-yellow-500" />
-                  ) : (
-                    <Moon className="w-5 h-5 text-yellow-500" />
-                  ))}
-                  {!mounted && <Sun className="w-5 h-5 text-yellow-500" />}
-                </div>
-                <span className="text-xs font-bold text-secondary group-hover/action:text-white">
-                  {mounted ? (theme === "dark" ? "Light Mode" : "Dark Mode") : "Theme"}
-                </span>
-              </button>
-            </div>
-          </section>
-        </div>
-      </div>
-
-      {/* Footer CTA */}
+      {/* ═══ FEATURED PROJECTS ═══ */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="glass-card p-10 sm:p-16 rounded-[3rem] text-center relative overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25, duration: 0.5 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500/10 via-transparent to-transparent" />
-        <div className="relative z-10 max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold font-heading mb-6">
-            Building the <span className="gold-text">Decentralized Future</span>
-          </h2>
-          <p className="text-secondary text-lg mb-10">
-            I'm currently looking for new opportunities and collaborations in the Web3 space.
-            Let's build something extraordinary together.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/contact" className="btn-premium btn-gold w-full sm:w-auto px-10">
-              Hire Me
-            </Link>
-            <Link href="/projects" className="btn-premium btn-outline w-full sm:w-auto px-10">
-              View Work
-            </Link>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <Code2 className="w-5 h-5 text-[var(--accent)]" />
+            <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Selected_Works</h2>
           </div>
+          <Link
+            href="/projects"
+            className="flex items-center gap-2 text-xs font-black text-[var(--accent)] hover:text-[var(--accent-2)] transition-colors uppercase tracking-widest"
+          >
+            View All <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+          {featuredProjects.slice(0, 4).map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.08, duration: 0.4 }}
+              className="border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all group"
+            >
+              {/* Project Header Bar */}
+              <div className="px-5 py-3 bg-[var(--accent)] border-b-[3px] border-[var(--border-color)] flex items-center gap-3">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-2)]" />
+                  <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-3)]" />
+                  <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent)]" />
+                </div>
+                <span className="text-[10px] font-black text-black uppercase tracking-widest font-mono">
+                  PROJECT_{String(project.id).padStart(2, '0')}
+                </span>
+              </div>
+
+              {/* Project Body */}
+              <div className="p-6">
+                <h3 className="text-xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-[var(--text-secondary)] mt-3 leading-relaxed line-clamp-2 font-mono">
+                  {project.description}
+                </p>
+
+                {/* Tech Tags */}
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {project.tech.slice(0, 4).map((tech) => (
+                    <span key={tech} className="text-[10px] font-black text-[var(--text-primary)] px-3 py-1.5 border-[2px] border-[var(--border-color)] uppercase tracking-widest font-mono">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div className="flex items-center justify-between mt-6 pt-4 border-t-[2px] border-[var(--border-color)]">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
+                      <Star className="w-3.5 h-3.5" />
+                      <span className="text-xs font-black font-mono">{project.metrics?.stars || 0}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
+                      <GitFork className="w-3.5 h-3.5" />
+                      <span className="text-xs font-black font-mono">{project.metrics?.forks || 0}</span>
+                    </div>
+                  </div>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-xs font-black text-[var(--accent)] hover:text-[var(--accent-2)] uppercase tracking-widest transition-colors"
+                  >
+                    Source <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ═══ ECOSYSTEM MARQUEE ═══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35, duration: 0.5 }}
+      >
+        <div className="flex items-center gap-4 mb-6">
+          <Layers className="w-5 h-5 text-[var(--accent)]" />
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Ecosystems</h2>
+        </div>
+
+        <div className="border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] overflow-hidden">
+          <div className="py-6 overflow-hidden">
+            <div className="marquee-track gap-8">
+              {[...chains, ...chains].map((chain, idx) => (
+                <div
+                  key={`${chain.name}-${idx}`}
+                  className="flex items-center gap-4 px-6 py-3 border-[2px] border-[var(--border-color)] hover:bg-[var(--accent)] hover:text-black transition-all flex-shrink-0 group cursor-default"
+                >
+                  <Image
+                    src={chain.logo}
+                    alt={chain.name}
+                    width={28}
+                    height={28}
+                    className="object-contain"
+                  />
+                  <span className="text-xs font-black text-[var(--text-primary)] uppercase tracking-widest whitespace-nowrap group-hover:text-black font-mono">
+                    {chain.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* ═══ ACHIEVEMENTS ═══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
+        <div className="flex items-center gap-4 mb-6">
+          <Trophy className="w-5 h-5 text-[var(--accent-2)]" />
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Achievement_Log</h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {achievements.slice(0, 6).map((achievement, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 + index * 0.05, duration: 0.3 }}
+              className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-[var(--accent-2)] border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
+                  <Trophy className="w-5 h-5 text-white" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm font-black text-[var(--text-primary)] uppercase font-heading truncate">{achievement.title}</h3>
+                  <p className="text-[10px] font-black text-[var(--accent)] mt-1 uppercase tracking-widest font-mono">{achievement.position}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ═══ FOOTER CTA ═══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+        className="border-[3px] border-[var(--border-color)] p-8 sm:p-12 shadow-[6px_6px_0px_var(--shadow-color)]"
+      >
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <p className="text-[10px] font-black text-[var(--accent)] uppercase tracking-[0.2em] font-mono mb-2">/// Open_To_Work</p>
+            <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
+              Let&apos;s Talk Code.
+            </h2>
+            <p className="text-sm text-[var(--text-secondary)] mt-2 font-mono">
+              Available for freelance, internships, and collaborations.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="flex items-center gap-3 px-8 py-4 bg-[var(--accent)] text-black font-black text-sm border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase tracking-widest flex-shrink-0"
+          >
+            <Mail className="w-5 h-5" /> Contact <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </motion.div>
     </div>

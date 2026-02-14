@@ -82,7 +82,6 @@ export default function CandyBoxHeader() {
   const searchIndex = useMemo((): SearchResult[] => {
     const results: SearchResult[] = [];
 
-    // Add projects
     projects.forEach((project) => {
       results.push({
         id: `project-${project.id}`,
@@ -91,11 +90,10 @@ export default function CandyBoxHeader() {
         category: "project",
         href: `/projects?search=${encodeURIComponent(project.title)}`,
         icon: <FolderKanban className="w-4 h-4" />,
-        color: "#F0B90B",
+        color: "#BFFF00",
       });
     });
 
-    // Add skills - languages
     skills.languages?.forEach((skill) => {
       results.push({
         id: `skill-lang-${skill.name}`,
@@ -104,11 +102,10 @@ export default function CandyBoxHeader() {
         category: "skill",
         href: "/skills",
         icon: <Sparkles className="w-4 h-4" />,
-        color: "#F0B90B",
+        color: "#BFFF00",
       });
     });
 
-    // Add skills - frameworks
     skills.frameworks?.forEach((skill) => {
       results.push({
         id: `skill-fw-${skill.name}`,
@@ -117,11 +114,10 @@ export default function CandyBoxHeader() {
         category: "skill",
         href: "/skills",
         icon: <Sparkles className="w-4 h-4" />,
-        color: "#00D4AA",
+        color: "#BFFF00",
       });
     });
 
-    // Add skills - blockchain
     skills.blockchain?.forEach((skill) => {
       results.push({
         id: `skill-bc-${skill.name}`,
@@ -130,11 +126,10 @@ export default function CandyBoxHeader() {
         category: "skill",
         href: "/skills",
         icon: <Sparkles className="w-4 h-4" />,
-        color: "#627EEA",
+        color: "#BFFF00",
       });
     });
 
-    // Add skills - tools
     skills.tools?.forEach((skill) => {
       results.push({
         id: `skill-tool-${skill.name}`,
@@ -143,11 +138,10 @@ export default function CandyBoxHeader() {
         category: "skill",
         href: "/skills",
         icon: <Sparkles className="w-4 h-4" />,
-        color: "#8247E5",
+        color: "#BFFF00",
       });
     });
 
-    // Add experience
     experience.forEach((exp, index) => {
       results.push({
         id: `exp-${index}`,
@@ -156,11 +150,10 @@ export default function CandyBoxHeader() {
         category: "experience",
         href: "/about",
         icon: <Briefcase className="w-4 h-4" />,
-        color: "#00D4AA",
+        color: "#BFFF00",
       });
     });
 
-    // Add achievements
     achievements.forEach((achievement, index) => {
       results.push({
         id: `achievement-${index}`,
@@ -169,11 +162,10 @@ export default function CandyBoxHeader() {
         category: "achievement",
         href: "/about",
         icon: <Trophy className="w-4 h-4" />,
-        color: "#F0B90B",
+        color: "#FF3D00",
       });
     });
 
-    // Add certifications
     certifications.forEach((cert, index) => {
       results.push({
         id: `cert-${index}`,
@@ -182,17 +174,15 @@ export default function CandyBoxHeader() {
         category: "certification",
         href: "/about",
         icon: <Award className="w-4 h-4" />,
-        color: "#627EEA",
+        color: "#FFD600",
       });
     });
 
     return results;
   }, []);
 
-  // Filter results based on search query
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
-
     const query = searchQuery.toLowerCase();
     return searchIndex
       .filter(
@@ -201,10 +191,9 @@ export default function CandyBoxHeader() {
           item.subtitle.toLowerCase().includes(query) ||
           item.category.toLowerCase().includes(query)
       )
-      .slice(0, 8); // Limit to 8 results
+      .slice(0, 8);
   }, [searchQuery, searchIndex]);
 
-  // Group results by category
   const groupedResults = useMemo(() => {
     const groups: { [key: string]: SearchResult[] } = {};
     searchResults.forEach((result) => {
@@ -224,7 +213,6 @@ export default function CandyBoxHeader() {
     certification: "Certifications",
   };
 
-  // Handle click outside to close search and quick access
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -234,12 +222,10 @@ export default function CandyBoxHeader() {
         setShowMobileSearch(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Handle ESC key to close quick access
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -247,12 +233,10 @@ export default function CandyBoxHeader() {
         setShowMobileSearch(false);
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Focus input when mobile search opens
   useEffect(() => {
     if (showMobileSearch && mobileInputRef.current) {
       mobileInputRef.current.focus();
@@ -281,15 +265,15 @@ export default function CandyBoxHeader() {
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case "star":
-        return <Star className="w-4 h-4 text-[#F0B90B]" />;
+        return <Star className="w-4 h-4 text-[var(--accent)]" />;
       case "fork":
-        return <GitFork className="w-4 h-4 text-[#627EEA]" />;
+        return <GitFork className="w-4 h-4 text-[var(--accent)]" />;
       case "win":
-        return <Trophy className="w-4 h-4 text-[#00D4AA]" />;
+        return <Trophy className="w-4 h-4 text-[var(--accent-2)]" />;
       case "message":
-        return <MessageSquare className="w-4 h-4 text-[#8247E5]" />;
+        return <MessageSquare className="w-4 h-4 text-[var(--accent)]" />;
       default:
-        return <AlertCircle className="w-4 h-4 text-[#F6465D]" />;
+        return <AlertCircle className="w-4 h-4 text-[var(--accent-2)]" />;
     }
   };
 
@@ -299,51 +283,52 @@ export default function CandyBoxHeader() {
 
   return (
     <>
+      {/* ═══ HEADER BAR ═══ */}
       <header
-        className="fixed top-0 right-0 z-50 h-[var(--header-height)] glass-effect border-b border-white/5 transition-all duration-500 ease-[0.16,1,0.3,1]"
-        style={{
-          left: 'var(--sidebar-current-width, 0px)'
-        }}
+        className="fixed top-0 right-0 z-50 h-[var(--header-height)] bg-[var(--bg-primary)] border-b-[3px] border-[var(--border-color)] transition-all duration-500"
+        style={{ left: 'var(--sidebar-current-width, 0px)' }}
       >
         <div className="h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2">
-          {/* Left: Logo & Sidebar Toggle */}
+          {/* Left: Sidebar Toggle + Logo */}
           <div className="flex items-center gap-4 flex-shrink-0">
             <button
               onClick={() => window.dispatchEvent(new CustomEvent("sidebar-global-toggle"))}
-              className="flex w-11 h-11 rounded-xl bg-white/5 border border-white/5 items-center justify-center text-secondary hover:text-white hover:bg-white/10 transition-all active:scale-95"
+              className="flex w-11 h-11 border-[3px] border-[var(--border-color)] bg-transparent items-center justify-center text-[var(--text-primary)] hover:bg-[var(--accent)] hover:text-black transition-colors active:translate-x-[2px] active:translate-y-[2px]"
               title="Toggle Sidebar"
             >
               <Menu className="w-5 h-5" />
             </button>
             <Link href="/" className="flex items-center gap-4 group">
-              <div className="w-12 h-12 rounded-2xl bg-gold-gradient flex items-center justify-center shadow-[0_0_20px_rgba(240,185,11,0.3)] group-hover:scale-110 transition-transform duration-500">
-                <span className="text-[#05070A] font-black text-2xl">M</span>
+              <div className="w-12 h-12 bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center shadow-[3px_3px_0px_var(--border-color)] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] group-hover:shadow-[5px_5px_0px_var(--border-color)] transition-all">
+                <span className="text-black font-black text-2xl font-heading">M</span>
               </div>
               <div className="hidden sm:flex flex-col">
-                <span className="text-[var(--text-primary)] font-black text-xl tracking-tight leading-none group-hover:text-yellow-500 transition-colors">
+                <span className="text-[var(--text-primary)] font-black text-xl tracking-tight leading-none uppercase font-heading">
                   {personalInfo.firstName}
                 </span>
-                <span className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mt-1">Portfolio</span>
+                <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] mt-1 font-mono">
+                  /// PORTFOLIO
+                </span>
               </div>
             </Link>
           </div>
 
-          {/* Center: Search (Desktop) - Hidden on mobile */}
+          {/* Center: Search (Desktop) */}
           <div ref={searchRef} className="hidden lg:flex flex-1 max-w-xl mx-8 relative">
             <form onSubmit={handleSearchSubmit} className="w-full">
               <div className="relative group">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted group-focus-within:text-yellow-500 transition-colors" style={{ zIndex: 10 }} />
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)] group-focus-within:text-[var(--accent)]" style={{ zIndex: 10 }} />
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Search projects, skills, ecosystems..."
+                  placeholder="SEARCH_QUERY..."
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setShowSearch(true);
                   }}
                   onFocus={() => setShowSearch(true)}
-                  className="w-full h-12 pr-12 bg-white/5 border border-white/10 rounded-2xl text-base text-[var(--text-primary)] placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all backdrop-blur-md"
+                  className="w-full h-12 pr-12 bg-transparent border-[3px] border-[var(--border-color)] text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors font-mono uppercase"
                   style={{ paddingLeft: '56px' }}
                 />
                 <AnimatePresence>
@@ -354,7 +339,7 @@ export default function CandyBoxHeader() {
                       exit={{ opacity: 0, scale: 0.8 }}
                       type="button"
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-white p-1 hover:bg-white/10 rounded-lg transition-all"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--accent-2)] p-1 transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </motion.button>
@@ -367,42 +352,42 @@ export default function CandyBoxHeader() {
             <AnimatePresence>
               {showSearch && searchQuery && (
                 <motion.div
-                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 10, scale: 1 }}
-                  exit={{ opacity: 0, y: 15, scale: 0.98 }}
-                  className="absolute top-12 left-0 right-0 glass-card p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border-white/10 max-h-[70vh] overflow-y-auto rounded-[2rem]"
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className="absolute top-14 left-0 right-0 bg-[var(--bg-primary)] border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--border-color)] p-4 max-h-[70vh] overflow-y-auto z-50"
                 >
                   {searchResults.length > 0 ? (
-                    <div className="flex flex-col gap-6 p-2">
+                    <div className="flex flex-col gap-4">
                       {Object.entries(groupedResults).map(([category, results]) => (
                         <div key={category}>
                           <div className="flex items-center gap-3 mb-3 px-2">
-                            <div className="h-px flex-1 bg-white/5" />
-                            <p className="text-[10px] text-muted font-black uppercase tracking-[0.2em]">
+                            <div className="h-[2px] flex-1 bg-[var(--border-color)]" />
+                            <p className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em]">
                               {categoryLabels[category]}
                             </p>
-                            <div className="h-px flex-1 bg-white/5" />
+                            <div className="h-[2px] flex-1 bg-[var(--border-color)]" />
                           </div>
                           <div className="flex flex-col gap-1">
                             {results.map((result) => (
                               <button
                                 key={result.id}
                                 onClick={() => handleResultClick(result)}
-                                className="flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-all text-left w-full group/res"
+                                className="flex items-center gap-4 p-3 hover:bg-[var(--accent)] hover:text-black border-[2px] border-transparent hover:border-[var(--border-color)] transition-all text-left w-full group/res"
                               >
                                 <div
-                                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover/res:scale-110"
-                                  style={{ backgroundColor: `${result.color}15` }}
+                                  className="w-10 h-10 flex items-center justify-center flex-shrink-0 border-[2px] border-[var(--border-color)]"
+                                  style={{ backgroundColor: `${result.color}33` }}
                                 >
                                   <span style={{ color: result.color }}>{result.icon}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-bold text-[var(--text-primary)] group-hover/res:text-yellow-500 transition-colors">
+                                  <p className="text-sm font-bold text-[var(--text-primary)] group-hover/res:text-black uppercase">
                                     {result.title}
                                   </p>
-                                  <p className="text-xs text-secondary truncate font-medium">{result.subtitle}</p>
+                                  <p className="text-xs text-[var(--text-secondary)] truncate group-hover/res:text-black/70">{result.subtitle}</p>
                                 </div>
-                                <ArrowRight className="w-4 h-4 text-muted opacity-0 -translate-x-2 group-hover/res:opacity-100 group-hover/res:translate-x-0 transition-all" />
+                                <ArrowRight className="w-4 h-4 text-[var(--text-muted)] group-hover/res:text-black" />
                               </button>
                             ))}
                           </div>
@@ -411,11 +396,11 @@ export default function CandyBoxHeader() {
                     </div>
                   ) : (
                     <div className="text-center py-12">
-                      <div className="w-16 h-16 bg-white/5 rounded-[2rem] flex items-center justify-center mx-auto mb-4">
-                        <Search className="w-8 h-8 text-muted" />
+                      <div className="w-16 h-16 border-[3px] border-[var(--border-color)] flex items-center justify-center mx-auto mb-4">
+                        <Search className="w-8 h-8 text-[var(--text-muted)]" />
                       </div>
-                      <p className="text-[var(--text-primary)] font-bold text-lg">No results for "{searchQuery}"</p>
-                      <p className="text-xs text-secondary mt-1">Refine your search parameters</p>
+                      <p className="text-[var(--text-primary)] font-bold text-lg uppercase">NO_RESULTS for &quot;{searchQuery}&quot;</p>
+                      <p className="text-xs text-[var(--text-secondary)] mt-1 uppercase">Refine search parameters</p>
                     </div>
                   )}
                 </motion.div>
@@ -428,20 +413,20 @@ export default function CandyBoxHeader() {
             {/* Search (Mobile) */}
             <button
               onClick={() => setShowMobileSearch(true)}
-              className="md:hidden w-11 h-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-secondary hover:text-white transition-all hover:bg-white/10"
+              className="md:hidden w-11 h-11 border-[3px] border-[var(--border-color)] bg-transparent flex items-center justify-center text-[var(--text-primary)] hover:bg-[var(--accent)] hover:text-black transition-colors"
             >
               <Search className="w-5 h-5" />
             </button>
 
-            {/* Notifications - Hidden on small screens */}
+            {/* Notifications */}
             <div className="relative hidden sm:block">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="w-11 h-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-secondary hover:text-white transition-all hover:bg-white/10 relative group"
+                className="w-11 h-11 border-[3px] border-[var(--border-color)] bg-transparent flex items-center justify-center text-[var(--text-primary)] hover:bg-[var(--accent)] hover:text-black transition-colors relative group"
               >
-                <Bell className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-500 rounded-lg text-[10px] font-black text-black flex items-center justify-center shadow-lg border-2 border-[#05070A]">
+                  <span className="absolute -top-2 -right-2 w-6 h-6 bg-[var(--accent-2)] border-[2px] border-[var(--border-color)] text-[10px] font-black text-white flex items-center justify-center">
                     {unreadCount}
                   </span>
                 )}
@@ -450,27 +435,27 @@ export default function CandyBoxHeader() {
               <AnimatePresence>
                 {showNotifications && (
                   <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 10, scale: 1 }}
-                    exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                    className="absolute right-0 top-12 w-80 glass-card p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border-white/10 rounded-3xl"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    className="absolute right-0 top-14 w-80 bg-[var(--bg-primary)] border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--border-color)] p-4 z-50"
                   >
-                    <div className="flex items-center justify-between p-2 mb-4">
-                      <h3 className="font-bold text-[var(--text-primary)]">Activity</h3>
-                      <button className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest hover:underline">Mark read</button>
+                    <div className="flex items-center justify-between p-2 mb-4 border-b-[2px] border-[var(--border-color)] pb-4">
+                      <h3 className="font-black text-[var(--text-primary)] uppercase text-sm">/// Activity_Log</h3>
+                      <button className="text-[10px] font-black text-[var(--accent)] uppercase tracking-widest hover:text-[var(--accent-2)]">Mark read</button>
                     </div>
-                    <div className="flex flex-col gap-1 max-h-80 overflow-y-auto p-1 custom-scrollbar">
+                    <div className="flex flex-col gap-1 max-h-80 overflow-y-auto">
                       {notifications.map((notif) => (
                         <div
                           key={notif.id}
-                          className="flex items-start gap-4 p-3 rounded-2xl hover:bg-white/5 cursor-pointer transition-all border border-transparent hover:border-white/5 group"
+                          className="flex items-start gap-4 p-3 hover:bg-[var(--accent)] hover:text-black cursor-pointer transition-colors border-[2px] border-transparent hover:border-[var(--border-color)] group"
                         >
-                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                          <div className="w-10 h-10 border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
                             {getNotificationIcon(notif.type)}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-[var(--text-primary)] group-hover/res:text-yellow-500 transition-colors">{notif.message}</p>
-                            <p className="text-xs text-muted font-medium mt-1">{notif.time}</p>
+                            <p className="text-sm font-bold text-[var(--text-primary)] group-hover:text-black">{notif.message}</p>
+                            <p className="text-xs text-[var(--text-muted)] font-mono mt-1 group-hover:text-black/60">{notif.time}</p>
                           </div>
                         </div>
                       ))}
@@ -483,51 +468,47 @@ export default function CandyBoxHeader() {
             {/* Wallet Connect */}
             <div className="flex items-center gap-2">
               {isConnected && address ? (
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-1 pr-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                <div className="flex items-center gap-2 border-[3px] border-[var(--border-color)] p-1 pr-3">
+                  <div className="w-8 h-8 bg-[var(--accent)] flex items-center justify-center border-r-[2px] border-[var(--border-color)]">
+                    <div className="w-3 h-3 bg-black" />
                   </div>
-                  <span className="text-xs font-black text-[var(--text-primary)] px-1">
+                  <span className="text-xs font-black text-[var(--text-primary)] px-1 font-mono">
                     {formatAddress(address as string)}
                   </span>
                   <button
                     onClick={() => disconnect()}
-                    className="p-1.5 hover:bg-white/10 rounded-lg text-muted hover:text-red-400 transition-colors"
+                    className="p-1.5 hover:bg-[var(--accent-2)] hover:text-white text-[var(--text-muted)] transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
                 </div>
               ) : (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   onClick={() => open()}
-                  className={`${isMobile ? 'w-11 px-0' : 'h-11 px-6'} rounded-xl bg-gold-gradient flex items-center justify-center gap-3 text-black font-black shadow-[0_0_20px_rgba(240,185,11,0.2)] hover:shadow-[0_0_30px_rgba(240,185,11,0.4)] transition-all sweep-effect`}
+                  className={`${isMobile ? 'w-11 px-0' : 'h-11 px-6'} bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center gap-3 text-black font-black shadow-[3px_3px_0px_var(--border-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--border-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all`}
                 >
                   <Wallet className="w-4 h-4" />
                   {!isMobile && <span className="text-sm tracking-tight font-black uppercase">Connect</span>}
-                </motion.button>
+                </button>
               )}
             </div>
 
-            {/* Quick Access (Candy Box) Button */}
-            <motion.button
-              whileHover={{ scale: 1.05, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
+            {/* Quick Access Button */}
+            <button
               onClick={() => setShowQuickAccess(!showQuickAccess)}
-              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 ${showQuickAccess
-                ? "bg-yellow-500 text-black shadow-[0_0_30px_rgba(240,185,11,0.5)]"
-                : "bg-white/5 text-secondary border border-white/5 hover:text-white hover:bg-white/10"
+              className={`w-11 h-11 border-[3px] border-[var(--border-color)] flex items-center justify-center transition-all ${showQuickAccess
+                ? "bg-[var(--accent)] text-black shadow-[3px_3px_0px_var(--border-color)]"
+                : "bg-transparent text-[var(--text-primary)] hover:bg-[var(--accent)] hover:text-black"
                 }`}
               title="Quick Access"
             >
               <LayoutGrid className="w-5 h-5" />
-            </motion.button>
+            </button>
 
             {/* Profile (Mobile) */}
             <Link
               href="/about"
-              className="sm:hidden w-11 h-11 rounded-xl bg-gold-gradient flex items-center justify-center shadow-lg active:scale-90 transition-transform"
+              className="sm:hidden w-11 h-11 bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center shadow-[3px_3px_0px_var(--border-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
             >
               <span className="text-black font-black text-sm">M</span>
             </Link>
@@ -535,27 +516,27 @@ export default function CandyBoxHeader() {
         </div>
       </header>
 
-      {/* Mobile Search Overlay */}
+      {/* ═══ MOBILE SEARCH OVERLAY ═══ */}
       <AnimatePresence>
         {showMobileSearch && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-[var(--bg-primary)]/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-[60] bg-[var(--bg-primary)] md:hidden"
           >
             <div ref={mobileSearchRef} className="p-6">
               <div className="flex items-center gap-4 mb-8">
                 <form onSubmit={handleSearchSubmit} className="flex-1">
                   <div className="relative group">
-                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted group-focus-within:text-yellow-500 transition-colors" style={{ zIndex: 10 }} />
+                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" style={{ zIndex: 10 }} />
                     <input
                       ref={mobileInputRef}
                       type="text"
-                      placeholder="Search everything..."
+                      placeholder="SEARCH_QUERY..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full h-14 pr-12 bg-white/5 border border-white/10 rounded-2xl text-lg text-[var(--text-primary)] placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
+                      className="w-full h-14 pr-12 bg-transparent border-[3px] border-[var(--border-color)] text-lg text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] font-mono uppercase font-bold"
                       style={{ paddingLeft: '56px' }}
                     />
                     <AnimatePresence>
@@ -566,7 +547,7 @@ export default function CandyBoxHeader() {
                           exit={{ opacity: 0, scale: 0.8 }}
                           type="button"
                           onClick={() => setSearchQuery("")}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-muted p-2 hover:bg-white/10 rounded-xl"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] p-2"
                         >
                           <X className="w-5 h-5" />
                         </motion.button>
@@ -579,41 +560,39 @@ export default function CandyBoxHeader() {
                     setShowMobileSearch(false);
                     setSearchQuery("");
                   }}
-                  className="text-[var(--text-primary)] font-bold text-sm tracking-tight px-2"
+                  className="text-[var(--text-primary)] font-black text-sm tracking-tight px-2 uppercase"
                 >
                   Cancel
                 </button>
               </div>
 
               {searchQuery && (
-                <div className="max-h-[calc(100vh-180px)] overflow-y-auto px-1 custom-scrollbar">
+                <div className="max-h-[calc(100vh-180px)] overflow-y-auto">
                   {searchResults.length > 0 ? (
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-6">
                       {Object.entries(groupedResults).map(([category, results]) => (
                         <div key={category}>
-                          <div className="flex items-center gap-3 mb-4">
-                            <p className="text-[10px] text-muted font-black uppercase tracking-[0.2em]">
-                              {categoryLabels[category]}
-                            </p>
-                          </div>
+                          <p className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] mb-4 border-b-[2px] border-[var(--border-color)] pb-2">
+                            {categoryLabels[category]}
+                          </p>
                           <div className="grid grid-cols-1 gap-3">
                             {results.map((result) => (
                               <button
                                 key={result.id}
                                 onClick={() => handleResultClick(result)}
-                                className="flex items-center gap-4 p-4 rounded-[1.5rem] bg-white/5 border border-white/5 text-left w-full active:scale-[0.98] transition-all"
+                                className="flex items-center gap-4 p-4 border-[3px] border-[var(--border-color)] shadow-[3px_3px_0px_var(--border-color)] text-left w-full active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all hover:bg-[var(--accent)] hover:text-black"
                               >
                                 <div
-                                  className="w-12 h-12 rounded-[1rem] flex items-center justify-center flex-shrink-0 shadow-lg"
-                                  style={{ backgroundColor: `${result.color}15` }}
+                                  className="w-12 h-12 flex items-center justify-center flex-shrink-0 border-[2px] border-[var(--border-color)]"
+                                  style={{ backgroundColor: `${result.color}33` }}
                                 >
                                   <span style={{ color: result.color }}>{result.icon}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-base font-bold text-[var(--text-primary)]">{result.title}</p>
-                                  <p className="text-xs text-secondary font-medium truncate">{result.subtitle}</p>
+                                  <p className="text-base font-bold text-[var(--text-primary)] uppercase">{result.title}</p>
+                                  <p className="text-xs text-[var(--text-secondary)] font-mono truncate">{result.subtitle}</p>
                                 </div>
-                                <ArrowRight className="w-5 h-5 text-muted" />
+                                <ArrowRight className="w-5 h-5 text-[var(--text-muted)]" />
                               </button>
                             ))}
                           </div>
@@ -622,11 +601,11 @@ export default function CandyBoxHeader() {
                     </div>
                   ) : (
                     <div className="text-center py-20">
-                      <div className="w-20 h-20 bg-white/5 rounded-[2.5rem] flex items-center justify-center mx-auto mb-6 shadow-2xl">
-                        <Search className="w-10 h-10 text-muted" />
+                      <div className="w-20 h-20 border-[3px] border-[var(--border-color)] flex items-center justify-center mx-auto mb-6">
+                        <Search className="w-10 h-10 text-[var(--text-muted)]" />
                       </div>
-                      <p className="text-[var(--text-primary)] font-black text-2xl">No findings</p>
-                      <p className="text-secondary mt-2 font-medium">Try different search terms</p>
+                      <p className="text-[var(--text-primary)] font-black text-2xl uppercase">NO_FINDINGS</p>
+                      <p className="text-[var(--text-secondary)] mt-2 font-mono">Try different search terms</p>
                     </div>
                   )}
                 </div>
@@ -634,26 +613,26 @@ export default function CandyBoxHeader() {
 
               {!searchQuery && (
                 <div className="mt-8">
-                  <p className="text-[10px] text-muted font-black uppercase tracking-[0.2em] mb-6 px-4">
-                    Quick Navigation
+                  <p className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] mb-6 border-b-[2px] border-[var(--border-color)] pb-2">
+                    /// Quick_Nav
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { href: "/projects", icon: FolderKanban, label: "Projects", color: "text-yellow-500", bg: "bg-yellow-500/10" },
-                      { href: "/skills", icon: Sparkles, label: "Skills", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-                      { href: "/about", icon: User, label: "Profile", color: "text-blue-500", bg: "bg-blue-500/10" },
-                      { href: "/contact", icon: Mail, label: "Message", color: "text-purple-500", bg: "bg-purple-500/10" },
+                      { href: "/projects", icon: FolderKanban, label: "Projects", color: "var(--accent)" },
+                      { href: "/skills", icon: Sparkles, label: "Skills", color: "var(--accent)" },
+                      { href: "/about", icon: User, label: "Profile", color: "var(--accent)" },
+                      { href: "/contact", icon: Mail, label: "Message", color: "var(--accent-2)" },
                     ].map((item) => (
                       <Link
                         key={item.label}
                         href={item.href}
                         onClick={() => setShowMobileSearch(false)}
-                        className="flex flex-col gap-4 p-6 rounded-[2rem] bg-white/5 border border-white/5 active:scale-95 transition-all group"
+                        className="flex flex-col gap-4 p-6 border-[3px] border-[var(--border-color)] shadow-[3px_3px_0px_var(--border-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all hover:bg-[var(--accent)] hover:text-black group"
                       >
-                        <div className={`w-12 h-12 rounded-2xl ${item.bg} flex items-center justify-center transition-transform group-active:scale-110`}>
-                          <item.icon className={`w-6 h-6 ${item.color}`} />
+                        <div className="w-12 h-12 border-[2px] border-[var(--border-color)] flex items-center justify-center">
+                          <item.icon className="w-6 h-6" style={{ color: item.color }} />
                         </div>
-                        <span className="text-base font-bold text-[var(--text-primary)]">{item.label}</span>
+                        <span className="text-base font-black text-[var(--text-primary)] uppercase group-hover:text-black">{item.label}</span>
                       </Link>
                     ))}
                   </div>
@@ -664,7 +643,7 @@ export default function CandyBoxHeader() {
         )}
       </AnimatePresence>
 
-      {/* Quick Access Floating Widget */}
+      {/* ═══ QUICK ACCESS MODAL ═══ */}
       <AnimatePresence>
         {showQuickAccess && (
           <>
@@ -673,36 +652,35 @@ export default function CandyBoxHeader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[70] bg-[var(--bg-primary)]/80 backdrop-blur-xl"
+              className="fixed inset-0 z-[70] bg-black/80"
               onClick={() => setShowQuickAccess(false)}
             />
 
-            {/* Floating Widget */}
+            {/* Modal */}
             <motion.div
               ref={quickAccessRef}
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              exit={{ opacity: 0, scale: 0.95, y: 30 }}
               transition={{ type: "spring", damping: 30, stiffness: 400 }}
               className="fixed left-4 right-4 top-1/2 -translate-y-1/2 z-[80] sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-[500px]"
             >
-              <div className="glass-card rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7)] border-white/10 overflow-hidden">
+              <div className="bg-[var(--bg-primary)] border-[3px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--border-color)] overflow-hidden">
                 {/* Header */}
-                <div className="relative p-8 pb-4">
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gold-gradient blur-lg opacity-50" />
-                  <div className="relative flex items-center justify-between">
+                <div className="p-8 pb-4 border-b-[3px] border-[var(--border-color)]">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-[1.5rem] bg-gold-gradient flex items-center justify-center shadow-2xl">
+                      <div className="w-14 h-14 bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center shadow-[3px_3px_0px_var(--border-color)]">
                         <LayoutGrid className="w-7 h-7 text-black" />
                       </div>
                       <div>
-                        <h2 className="text-2xl font-black text-[var(--text-primary)] tracking-tight leading-none">Command Center</h2>
-                        <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mt-2">DApp Navigation</p>
+                        <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading">CMD_Center</h2>
+                        <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mt-1 font-mono">/// Navigation</p>
                       </div>
                     </div>
                     <button
                       onClick={() => setShowQuickAccess(false)}
-                      className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-muted hover:text-white hover:bg-white/10 transition-all active:scale-95"
+                      className="w-12 h-12 border-[3px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-primary)] hover:bg-[var(--accent-2)] hover:text-white transition-colors"
                     >
                       <X className="w-6 h-6" />
                     </button>
@@ -710,29 +688,28 @@ export default function CandyBoxHeader() {
                 </div>
 
                 {/* Navigation Grid */}
-                <div className="p-8 pt-4">
+                <div className="p-8 pt-6">
                   <div className="grid grid-cols-3 gap-4">
                     {[
-                      { href: "/", icon: Home, label: "Home", color: "text-yellow-500", bg: "bg-yellow-500/10" },
-                      { href: "/projects", icon: FolderKanban, label: "Projects", color: "text-yellow-500", bg: "bg-yellow-500/10" },
-                      { href: "/skills", icon: Sparkles, label: "Skills", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-                      { href: "/about", icon: User, label: "Profile", color: "text-blue-500", bg: "bg-blue-500/10" },
-                      { href: "/contact", icon: Mail, label: "Contact", color: "text-purple-500", bg: "bg-purple-500/10" },
+                      { href: "/", icon: Home, label: "Home" },
+                      { href: "/projects", icon: FolderKanban, label: "Projects" },
+                      { href: "/skills", icon: Sparkles, label: "Skills" },
+                      { href: "/about", icon: User, label: "Profile" },
+                      { href: "/contact", icon: Mail, label: "Contact" },
                     ].map((item) => (
                       <Link
                         key={item.label}
                         href={item.href}
                         onClick={() => setShowQuickAccess(false)}
-                        className={`flex flex-col items-center gap-3 p-6 rounded-[2rem] transition-all duration-300 group ${pathname === item.href
-                          ? "bg-white/10 border border-white/10 shadow-2xl scale-105"
-                          : "bg-white/5 border border-transparent hover:bg-white/10 hover:border-white/5 active:scale-95"
-                          }`}
+                        className={`flex flex-col items-center gap-3 p-6 border-[3px] border-[var(--border-color)] transition-all ${pathname === item.href
+                          ? "bg-[var(--accent)] text-black shadow-[4px_4px_0px_var(--border-color)]"
+                          : "hover:bg-[var(--accent)] hover:text-black shadow-[3px_3px_0px_var(--border-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--border-color)]"
+                          } active:translate-x-[2px] active:translate-y-[2px] active:shadow-none`}
                       >
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 ${pathname === item.href ? item.bg : "bg-white/5 group-hover:scale-110"
-                          }`}>
-                          <item.icon className={`w-7 h-7 ${pathname === item.href ? item.color : "text-muted"}`} />
+                        <div className="w-14 h-14 border-[2px] border-[var(--border-color)] flex items-center justify-center">
+                          <item.icon className="w-7 h-7" />
                         </div>
-                        <span className={`text-xs font-black tracking-widest uppercase ${pathname === item.href ? "text-[var(--text-primary)]" : "text-secondary"}`}>
+                        <span className="text-xs font-black tracking-widest uppercase">
                           {item.label}
                         </span>
                       </Link>
@@ -741,45 +718,45 @@ export default function CandyBoxHeader() {
                       href="/resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center gap-3 p-6 rounded-[2rem] bg-white/5 border border-transparent hover:bg-white/10 hover:border-white/5 active:scale-95 transition-all group"
+                      className="flex flex-col items-center gap-3 p-6 border-[3px] border-[var(--border-color)] shadow-[3px_3px_0px_var(--border-color)] hover:bg-[var(--accent)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--border-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
                     >
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
-                        <FileText className="w-7 h-7 text-muted group-hover:text-yellow-500" />
+                      <div className="w-14 h-14 border-[2px] border-[var(--border-color)] flex items-center justify-center">
+                        <FileText className="w-7 h-7" />
                       </div>
-                      <span className="text-xs font-black tracking-widest uppercase text-secondary group-hover:text-white">Resume</span>
+                      <span className="text-xs font-black tracking-widest uppercase">Resume</span>
                     </a>
                   </div>
 
-                  {/* Ecosystem Section */}
-                  <div className="mt-8 pt-8 border-t border-white/10">
-                    <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mb-6 px-1">Ecosystem Tools</p>
+                  {/* Ecosystem Tools */}
+                  <div className="mt-8 pt-6 border-t-[3px] border-[var(--border-color)]">
+                    <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-6 font-mono">/// Ecosystem</p>
                     <div className="grid grid-cols-2 gap-4">
                       <a
                         href="https://testnet-wallet-teal.vercel.app/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group"
+                        className="flex items-center gap-4 p-5 border-[3px] border-[var(--border-color)] shadow-[3px_3px_0px_var(--border-color)] hover:bg-[var(--accent)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--border-color)] transition-all group"
                       >
-                        <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg">
-                          <Boxes className="w-6 h-6 text-blue-500" />
+                        <div className="w-12 h-12 border-[2px] border-[var(--border-color)] flex items-center justify-center">
+                          <Boxes className="w-6 h-6 text-[var(--accent)]" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-black text-[var(--text-primary)] leading-tight">Casper Hub</p>
-                          <p className="text-[10px] font-bold text-muted truncate mt-1">Institutional Suite</p>
+                          <p className="text-sm font-black text-[var(--text-primary)] uppercase group-hover:text-black">Casper Hub</p>
+                          <p className="text-[10px] font-bold text-[var(--text-muted)] font-mono group-hover:text-black/60">Institutional Suite</p>
                         </div>
                       </a>
                       <a
                         href="https://github.com/tmanas06"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group"
+                        className="flex items-center gap-4 p-5 border-[3px] border-[var(--border-color)] shadow-[3px_3px_0px_var(--border-color)] hover:bg-[var(--accent)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_var(--border-color)] transition-all group"
                       >
-                        <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg">
-                          <Github className="w-6 h-6 text-white" />
+                        <div className="w-12 h-12 border-[2px] border-[var(--border-color)] flex items-center justify-center">
+                          <Github className="w-6 h-6 text-[var(--text-primary)]" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-black text-[var(--text-primary)] leading-tight">Open Source</p>
-                          <p className="text-[10px] font-bold text-muted truncate mt-1">GitHub Portfolio</p>
+                          <p className="text-sm font-black text-[var(--text-primary)] uppercase group-hover:text-black">Open Source</p>
+                          <p className="text-[10px] font-bold text-[var(--text-muted)] font-mono group-hover:text-black/60">GitHub Portfolio</p>
                         </div>
                       </a>
                     </div>

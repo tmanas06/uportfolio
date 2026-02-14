@@ -1,255 +1,243 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Github,
   Linkedin,
   Mail,
   MapPin,
-  Calendar,
-  Trophy,
-  Briefcase,
   GraduationCap,
+  Briefcase,
+  Trophy,
   Award,
   ExternalLink,
+  Calendar,
+  Globe,
+  ChevronRight,
+  Terminal,
+  Zap,
 } from "lucide-react";
-import { personalInfo, education, experience, achievements, certifications } from "@/lib/data";
+import {
+  personalInfo,
+  education,
+  experience,
+  achievements,
+  certifications,
+} from "@/lib/data";
 
 export default function AboutPage() {
-  return (
-    <div className="container-v2 py-8 sm:py-12 flex flex-col gap-8 sm:gap-16">
-      {/* Profile Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="glass-card p-8 sm:p-10 rounded-[2rem] overflow-hidden relative group"
-      >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 blur-[100px] -mr-32 -mt-32 group-hover:bg-yellow-500/10 transition-colors duration-700" />
+  const fadeUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  };
 
-        <div className="flex flex-col items-center sm:items-start gap-6 sm:gap-8 relative z-10 text-center sm:text-left">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-500">
-            <span className="text-black font-bold text-4xl sm:text-5xl font-heading">
-              {personalInfo.firstName[0]}
-            </span>
+  return (
+    <div className="container-v2 py-10 sm:py-16 space-y-12 sm:space-y-16 pb-24">
+
+      {/* ═══ PROFILE HEADER ═══ */}
+      <motion.div {...fadeUp} className="border-[3px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] overflow-hidden">
+        {/* Title Bar */}
+        <div className="px-6 py-3 bg-[var(--accent)] border-b-[3px] border-[var(--border-color)] flex items-center gap-3">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-2)]" />
+            <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-3)]" />
+            <div className="w-3 h-3 border-[2px] border-black bg-white" />
           </div>
-          <div className="flex-1 w-full">
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mb-4">
-              <h1 className="text-2xl sm:text-4xl font-bold font-heading text-[var(--text-primary)]">
+          <span className="text-[10px] font-black text-black uppercase tracking-widest font-mono">/// PROFILE_DATA.tsx</span>
+        </div>
+
+        <div className="p-6 sm:p-10">
+          <div className="flex flex-col sm:flex-row gap-8 items-start">
+            {/* Avatar */}
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] flex-shrink-0 overflow-hidden">
+              <Image
+                src="/my.jpg"
+                alt={personalInfo.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* Info */}
+            <div className="flex-1 min-w-0">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase font-heading tracking-tight text-[var(--text-primary)]">
                 {personalInfo.name}
               </h1>
-              <span className="badge-v2 badge-v2-gold animate-pulse">Available for hire</span>
-            </div>
-            <p className="text-lg sm:text-xl text-yellow-500 font-medium mb-4">{personalInfo.title}</p>
-            <p className="text-secondary text-base sm:text-lg max-w-3xl mb-6 leading-relaxed">
-              {personalInfo.summary}
-            </p>
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-6 text-sm text-secondary">
-              <span className="flex items-center gap-2 group/info">
-                <MapPin className="w-4 h-4 text-yellow-500 group-hover/info:scale-110 transition-transform" />
-                {personalInfo.location}
-              </span>
-              <span className="flex items-center gap-2 group/info">
-                <GraduationCap className="w-4 h-4 text-yellow-500 group-hover/info:scale-110 transition-transform" />
-                {education.cgpa} CGPA
-              </span>
-            </div>
-            <div className="flex items-center justify-center sm:justify-start gap-4 mt-8">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-[var(--text-primary)] hover:bg-white/10 border border-white/5 transition-all"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-[var(--text-primary)] hover:bg-white/10 border border-white/5 transition-all"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary hover:text-[var(--text-primary)] hover:bg-white/10 border border-white/5 transition-all"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
+              <p className="text-lg font-bold text-[var(--accent)] mt-2 uppercase font-heading">
+                {personalInfo.title}
+              </p>
+              <p className="text-sm text-[var(--text-secondary)] mt-4 leading-relaxed max-w-2xl font-mono">
+                {personalInfo.summary}
+              </p>
+
+              {/* Contact Info */}
+              <div className="flex flex-wrap gap-4 mt-6">
+                {personalInfo.email && (
+                  <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-2 text-xs font-black text-[var(--text-muted)] border-[2px] border-[var(--border-color)] px-4 py-2 hover:bg-[var(--accent)] hover:text-black transition-all uppercase tracking-widest">
+                    <Mail className="w-3.5 h-3.5" /> {personalInfo.email}
+                  </a>
+                )}
+                {personalInfo.location && (
+                  <span className="flex items-center gap-2 text-xs font-black text-[var(--text-muted)] border-[2px] border-[var(--border-color)] px-4 py-2 uppercase tracking-widest">
+                    <MapPin className="w-3.5 h-3.5" /> {personalInfo.location}
+                  </span>
+                )}
+              </div>
+
+              {/* Social Links */}
+              <div className="flex gap-3 mt-4">
+                <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all">
+                  <Github className="w-4 h-4" />
+                </a>
+                <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                {personalInfo.blog && (
+                  <a href={personalInfo.blog} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all">
+                    <Globe className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Education */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="glass-card p-6 sm:p-8 rounded-3xl"
-        >
-          <h2 className="text-2xl font-bold font-heading text-white mb-6 flex items-center justify-center lg:justify-start gap-3 text-center">
-            <GraduationCap className="w-6 h-6 text-yellow-500" />
-            Education
-          </h2>
-          <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-yellow-500/30 transition-colors text-center lg:text-left">
-            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1">{education.degree}</h3>
-            <p className="text-yellow-500 font-medium mb-4">{education.university}</p>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-secondary">
-              <span className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                {education.period}
+      {/* ═══ EDUCATION ═══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+      >
+        <div className="flex items-center gap-4 mb-8">
+          <GraduationCap className="w-5 h-5 text-[var(--accent)]" />
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Education</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div
+            className="border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
+          >
+            <h3 className="text-base font-black text-[var(--text-primary)] uppercase font-heading">{education.degree}</h3>
+            <p className="text-sm font-bold text-[var(--accent)] mt-1 font-mono">{education.university}</p>
+            <div className="flex items-center gap-4 mt-3">
+              <span className="flex items-center gap-1.5 text-xs font-bold text-[var(--text-muted)] font-mono">
+                <Calendar className="w-3.5 h-3.5" /> {education.period}
               </span>
-              <span className="badge-v2 badge-v2-gold text-[10px]">CGPA: {education.cgpa}</span>
+              <span className="text-xs font-black text-[var(--accent)] border-[2px] border-[var(--accent)] px-2 py-0.5 uppercase font-mono">
+                CGPA: {education.cgpa}
+              </span>
             </div>
           </div>
-        </motion.div>
+        </div>
+      </motion.div>
 
-        {/* Certifications */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-6 sm:p-8 rounded-3xl"
-        >
-          <h2 className="text-2xl font-bold font-heading text-white mb-6 flex items-center justify-center lg:justify-start gap-3 text-center">
-            <Award className="w-6 h-6 text-yellow-500" />
-            Certifications
-          </h2>
-          <div className="grid grid-cols-1 gap-4">
-            {certifications.map((cert) => (
-              <div
-                key={cert.name}
-                className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/20 flex items-center gap-4 group/cert transition-all"
-              >
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center p-2 group-hover/cert:scale-110 transition-transform duration-500">
-                  {cert.logo ? (
-                    <img
-                      src={cert.logo}
-                      alt={cert.issuer}
-                      className="w-full h-full object-contain filter brightness-110"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
-                        (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-xs text-muted">Cert</span>';
-                      }}
-                    />
-                  ) : (
-                    <Award className="w-6 h-6 text-muted" />
-                  )}
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-[var(--text-primary)] text-sm group-hover/cert:text-yellow-500 transition-colors uppercase tracking-tight">{cert.name}</h3>
-                  <p className="text-[10px] text-muted font-black uppercase tracking-widest mt-1">{cert.issuer} • {cert.year}</p>
-                </div>
-                <ExternalLink className="w-4 h-4 text-muted group-hover/cert:text-white transition-colors" />
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Experience */}
+      {/* ═══ CERTIFICATIONS ═══ */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="glass-card p-8 sm:p-10 rounded-3xl"
+        transition={{ delay: 0.15, duration: 0.5 }}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-8 flex items-center justify-center lg:justify-start gap-3 text-center">
-          <Briefcase className="w-6 h-6 text-yellow-500" />
-          Professional Experience
-        </h2>
-        <div className="flex flex-col gap-6">
-          {experience.map((exp, index) => (
+        <div className="flex items-center gap-4 mb-8">
+          <Award className="w-5 h-5 text-[var(--accent-3)]" />
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Certifications</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {certifications.map((cert, index) => (
             <div
-              key={exp.title + exp.company}
-              className="p-6 sm:p-8 rounded-2xl bg-white/5 border-l-4 group/exp hover:bg-white/[0.07] transition-all"
-              style={{ borderColor: exp.current ? "#0ECB81" : "#F0B90B" }}
+              key={index}
+              className="border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all group"
             >
-              <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 mb-8 text-center sm:text-left">
-                <div className="flex flex-col sm:flex-row items-center gap-6">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-3 group-hover/exp:scale-110 transition-transform duration-500 shadow-xl overflow-hidden backdrop-blur-sm">
-                    {exp.logo ? (
-                      <img
-                        src={exp.logo}
-                        alt={exp.company}
-                        className="w-full h-full object-contain filter brightness-125"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-xl font-bold text-muted">${exp.company[0]}</span>`;
-                        }}
-                      />
-                    ) : (
-                      <span className="text-2xl font-bold text-muted group-hover/exp:text-yellow-500 transition-colors">{exp.company[0]}</span>
-                    )}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-black text-[var(--text-primary)] group-hover/exp:text-yellow-500 transition-colors tracking-tight">{exp.title}</h3>
-                    <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
-                      <p className="text-yellow-500 font-bold uppercase tracking-widest text-xs">{exp.company}</p>
-                      {exp.current && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />}
-                    </div>
-                  </div>
-                </div>
-                {exp.current && <span className="badge-v2 badge-v2-gold text-[10px] uppercase font-black">Active Role</span>}
+              <div className="min-w-0">
+                <h3 className="text-sm font-black text-[var(--text-primary)] uppercase font-heading">{cert.name}</h3>
+                <p className="text-xs font-bold text-[var(--accent)] mt-1 uppercase font-mono">{cert.issuer}</p>
+                <p className="text-[10px] font-bold text-[var(--text-muted)] mt-1 font-mono">{cert.year}</p>
               </div>
-              <div className="flex flex-wrap justify-center sm:justify-start gap-4 text-xs text-secondary mb-6">
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full">
-                  <Calendar className="w-3 h-3" />
-                  {exp.period}
-                </span>
-                <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full">
-                  <MapPin className="w-3 h-3" />
-                  {exp.location}
-                </span>
-              </div>
-              <ul className="flex flex-col gap-3">
-                {exp.description.map((desc, i) => (
-                  <li key={i} className="text-secondary flex items-start gap-3 leading-relaxed">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50 mt-2 shrink-0" />
-                    {desc}
-                  </li>
-                ))}
-              </ul>
             </div>
           ))}
         </div>
       </motion.div>
 
-      {/* Achievements */}
+      {/* ═══ EXPERIENCE ═══ */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="glass-card p-8 sm:p-10 rounded-3xl mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-8 flex items-center justify-center gap-3 text-center">
-          <Trophy className="w-6 h-6 text-yellow-500" />
-          Hackathon Wins & Recognition
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {achievements.map((achievement) => (
-            <div
-              key={achievement.title}
-              className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-yellow-500/30 flex items-center gap-6 group/win transition-all"
+        <div className="flex items-center gap-4 mb-8">
+          <Briefcase className="w-5 h-5 text-[var(--accent)]" />
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Experience_Log</h2>
+        </div>
+
+        <div className="space-y-5">
+          {experience.map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.25 + index * 0.05, duration: 0.4 }}
+              className="border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-4xl shrink-0 group-hover/win:scale-110 transition-transform duration-500 shadow-inner">
-                {achievement.icon === "gold"
-                  ? "🥇"
-                  : achievement.icon === "silver"
-                    ? "🥈"
-                    : "🥉"}
+              {/* Accent left border indicator */}
+              <div className="flex">
+                <div className={`w-2 flex-shrink-0 ${exp.current ? 'bg-[var(--accent)]' : 'bg-[var(--accent-2)]'}`} />
+                <div className="p-6 flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <h3 className="text-lg font-black text-[var(--text-primary)] uppercase font-heading">{exp.title}</h3>
+                    {exp.current && (
+                      <span className="text-[10px] font-black text-black bg-[var(--accent)] border-[2px] border-[var(--border-color)] px-3 py-1 uppercase tracking-widest self-start">
+                        ACTIVE
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3 mt-2">
+                    <span className="text-sm font-bold text-[var(--accent)] font-mono">{exp.company}</span>
+                    <span className="w-1 h-1 bg-[var(--text-muted)]" />
+                    <span className="text-xs font-bold text-[var(--text-muted)] font-mono">{exp.period}</span>
+                  </div>
+                  <p className="text-sm text-[var(--text-secondary)] mt-3 leading-relaxed font-mono">
+                    {Array.isArray(exp.description) ? exp.description.join(' • ') : exp.description}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1 group-hover/win:text-yellow-500 transition-colors leading-tight">
-                  {achievement.title}
-                </h3>
-                <p className="text-yellow-500 font-medium text-sm">{achievement.position}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ═══ HACKATHON WINS ═══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      >
+        <div className="flex items-center gap-4 mb-8">
+          <Trophy className="w-5 h-5 text-[var(--accent-2)]" />
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Hackathon_Wins</h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {achievements.map((achievement, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 + index * 0.04, duration: 0.3 }}
+              className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-[var(--accent-2)] border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
+                  <Trophy className="w-5 h-5 text-white" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm font-black text-[var(--text-primary)] uppercase font-heading">{achievement.title}</h3>
+                  <p className="text-[10px] font-black text-[var(--accent)] mt-1 uppercase tracking-widest font-mono">{achievement.position}</p>
+                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>

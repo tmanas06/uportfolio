@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import CandyBoxHeader from "@/components/CandyBoxHeader";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import DesktopSidebar from "@/components/DesktopSidebar";
-// import Web3Provider from "@/components/Web3Provider"; // Removed in favor of dynamic import
 
-const inter = Inter({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-mono",
 });
 
-const outfit = Outfit({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-outfit",
+  variable: "--font-heading",
 });
 
 export const metadata: Metadata = {
@@ -65,9 +64,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased selection:bg-yellow-500/20`}>
+      <body className={`${jetbrainsMono.variable} ${spaceGrotesk.variable} font-mono antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <div className="bg-glow" />
           <ClientWeb3Provider>
             <CandyBoxHeader />
             <DesktopSidebar />

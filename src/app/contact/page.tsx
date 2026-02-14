@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Mail,
   Phone,
@@ -9,342 +9,232 @@ import {
   Github,
   Linkedin,
   Globe,
-  MessageSquare,
-  Clock,
-  Shield,
-  Lock,
-  ExternalLink,
   Send,
-  Sparkles,
+  ShieldCheck,
+  ExternalLink,
+  Lock,
+  Terminal,
+  MessageSquare,
   Zap,
+  Copy,
+  CheckCircle,
 } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
-type TabType = "zk" | "email";
-
 export default function ContactPage() {
-  const [activeTab, setActiveTab] = useState<TabType>("zk");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [activeTab, setActiveTab] = useState<"zk" | "email">("zk");
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
-    window.location.href = mailtoLink;
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(label);
+    setTimeout(() => setCopied(null), 2000);
   };
 
   return (
-    <div className="container-v2 py-12 flex flex-col gap-12 sm:gap-16">
-      {/* Header */}
+    <div className="container-v2 py-10 sm:py-16 space-y-10 sm:space-y-12 pb-24">
+      {/* ═══ HEADER ═══ */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center max-w-2xl mx-auto"
+        transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-white mb-6">
-          Get in <span className="gold-text">Touch</span>
-        </h1>
-        <p className="text-secondary text-lg">
-          Whether you have a project in mind or just want to chat about Web3, I'm always open to new connections.
+        <div className="flex items-center gap-4 mb-2">
+          <MessageSquare className="w-6 h-6 text-[var(--accent)]" />
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase font-heading tracking-tight text-[var(--text-primary)]">
+            /// Contact
+          </h1>
+        </div>
+        <p className="text-sm text-[var(--text-secondary)] font-mono ml-10">
+          Available for freelance work, internships, and open-source collaborations.
         </p>
       </motion.div>
 
-      {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        {/* Left Column - Contact Info */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        {/* ═══ LEFT COLUMN: Contact Info ═══ */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="lg:col-span-1 flex flex-col gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="lg:col-span-1 space-y-5"
         >
-          {/* Quick Contact */}
-          <div className="glass-card p-6 sm:p-8 rounded-3xl">
-            <h2 className="text-xl font-bold text-white mb-6 font-heading text-center lg:text-left">Direct Contact</h2>
-            <div className="flex flex-col gap-4">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
-              >
-                <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <Mail className="w-5 h-5 text-yellow-500" />
+          {/* Contact Cards */}
+          {[
+            { icon: Mail, label: "Email", value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+            { icon: Phone, label: "Phone", value: personalInfo.phone, href: `tel:${personalInfo.phone}` },
+            { icon: MapPin, label: "Location", value: personalInfo.location },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all group"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-[var(--accent)] border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
+                  <item.icon className="w-5 h-5 text-black" />
                 </div>
-                <div className="min-w-0 text-center sm:text-left">
-                  <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Email</p>
-                  <p className="text-white group-hover:text-yellow-500 transition-colors text-sm truncate font-medium">
-                    {personalInfo.email}
-                  </p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] font-mono">{item.label}</p>
+                  {item.href ? (
+                    <a href={item.href} className="text-sm font-bold text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors truncate block font-mono">
+                      {item.value}
+                    </a>
+                  ) : (
+                    <p className="text-sm font-bold text-[var(--text-primary)] truncate font-mono">{item.value}</p>
+                  )}
                 </div>
-              </a>
-
-              <a
-                href={`tel:${personalInfo.phone}`}
-                className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 hover:border-white/10"
-              >
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <Phone className="w-5 h-5 text-emerald-500" />
-                </div>
-                <div className="text-center sm:text-left">
-                  <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Phone</p>
-                  <p className="text-white group-hover:text-emerald-500 transition-colors text-sm font-medium">
-                    {personalInfo.phone}
-                  </p>
-                </div>
-              </a>
-
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 p-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-blue-500" />
-                </div>
-                <div className="text-center sm:text-left">
-                  <p className="text-xs font-bold text-muted uppercase tracking-wider mb-0.5">Location</p>
-                  <p className="text-white text-sm font-medium">{personalInfo.location}</p>
-                </div>
+                {item.value && (
+                  <button
+                    onClick={() => copyToClipboard(item.value!, item.label)}
+                    className="w-8 h-8 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all flex-shrink-0"
+                  >
+                    {copied === item.label ? (
+                      <CheckCircle className="w-3.5 h-3.5 text-[var(--accent)]" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                  </button>
+                )}
               </div>
             </div>
-          </div>
+          ))}
 
           {/* Social Links */}
-          <div className="glass-card p-6 sm:p-8 rounded-3xl">
-            <h2 className="text-xl font-bold text-white mb-6 font-heading text-center lg:text-left">Ecosystem</h2>
+          <div className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)]">
+            <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] font-mono mb-4">/// Socials</p>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { icon: Github, label: "GitHub", href: personalInfo.github, color: "hover:text-white" },
-                { icon: Linkedin, label: "LinkedIn", href: personalInfo.linkedin, color: "hover:text-blue-400" },
-                { icon: Globe, label: "Portfolio", href: personalInfo.portfolio, color: "hover:text-yellow-500" },
-                { icon: MessageSquare, label: "Blog", href: personalInfo.blog, color: "hover:text-purple-400" },
+                { icon: Github, label: "GitHub", href: personalInfo.github },
+                { icon: Linkedin, label: "LinkedIn", href: personalInfo.linkedin },
+                ...(personalInfo.blog ? [{ icon: Globe, label: "Blog", href: personalInfo.blog }] : []),
               ].map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all group border border-white/5 ${social.color}`}
+                  className="flex items-center gap-3 p-3 border-[2px] border-[var(--border-color)] hover:bg-[var(--accent)] hover:text-black transition-all group/social shadow-[2px_2px_0px_var(--border-color)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_var(--border-color)]"
                 >
-                  <social.icon className="w-4 h-4 text-muted group-hover:current transition-colors" />
-                  <span className="text-sm font-bold text-secondary group-hover:text-white transition-colors">{social.label}</span>
+                  <social.icon className="w-4 h-4 text-[var(--text-muted)] group-hover/social:text-black" />
+                  <span className="text-xs font-black uppercase tracking-widest text-[var(--text-primary)] group-hover/social:text-black font-mono">
+                    {social.label}
+                  </span>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Availability Status */}
-          <div className="glass-card p-6 rounded-3xl border-emerald-500/20 bg-emerald-500/5 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 blur-2xl rounded-full -mr-12 -mt-12 group-hover:bg-emerald-500/20 transition-colors duration-700" />
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
-                <h2 className="text-lg font-bold text-white">Open for Opportunities</h2>
-              </div>
-              <p className="text-sm text-secondary leading-relaxed mb-4">
-                Available for internships, full-time positions, and freelance Web3 development.
-              </p>
-              <div className="flex items-center gap-2 text-xs font-bold text-muted uppercase tracking-widest">
-                <Clock className="w-4 h-4" />
-                <span>Responds within 24h</span>
-              </div>
+          {/* Availability Badge */}
+          <div className="border-[3px] border-[var(--accent)] p-5 bg-[var(--accent)] shadow-[4px_4px_0px_var(--shadow-color)]">
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 bg-black border-[2px] border-black" />
+              <span className="text-sm font-black text-black uppercase tracking-widest font-mono">
+                Available for hire
+              </span>
             </div>
+            <p className="text-xs font-bold text-black/70 mt-2 font-mono">
+              Open to freelance, internships, and full-time roles.
+            </p>
           </div>
         </motion.div>
 
-        {/* Right Column - Messaging */}
+        {/* ═══ RIGHT COLUMN: Messaging ═══ */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="lg:col-span-2 flex flex-col gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="lg:col-span-2"
         >
-          {/* Messaging Card */}
-          <div className="glass-card rounded-[2.5rem] overflow-hidden flex flex-col h-full border-white/10">
-            {/* Tab Header */}
-            <div className="flex p-2 bg-white/5 border-b border-white/5 translate-z-0">
-              <button
-                onClick={() => setActiveTab("zk")}
-                className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-4 rounded-2xl text-xs sm:text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "zk"
-                  ? "text-purple-400 bg-white/5"
-                  : "text-muted hover:text-white"
-                  }`}
-              >
-                {activeTab === "zk" && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-purple-500/10"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <Shield className={`w-4 h-4 transition-transform duration-500 ${activeTab === "zk" ? "scale-110" : "group-hover:scale-110"}`} />
-                <span className="relative z-10">Anonymous (ZK)</span>
-              </button>
-              <button
-                onClick={() => setActiveTab("email")}
-                className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-4 rounded-2xl text-xs sm:text-sm font-bold transition-all relative overflow-hidden group ${activeTab === "email"
-                  ? "text-yellow-500 bg-white/5"
-                  : "text-muted hover:text-white"
-                  }`}
-              >
-                {activeTab === "email" && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-yellow-500/10"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <Mail className={`w-4 h-4 transition-transform duration-500 ${activeTab === "email" ? "scale-110" : "group-hover:scale-110"}`} />
-                <span className="relative z-10">Direct Email</span>
-              </button>
-            </div>
-
-            {/* Tab Content */}
-            <div className="p-6 sm:p-10 flex-1">
-              <AnimatePresence mode="wait">
-                {activeTab === "zk" ? (
-                  <motion.div
-                    key="zk"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                    className="flex flex-col h-full"
-                  >
-                    <div className="flex items-center justify-between mb-8">
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center flex-shrink-0 border border-purple-500/20">
-                          <Shield className="w-7 h-7 text-purple-400" />
-                        </div>
-                        <div>
-                          <h2 className="text-2xl font-bold text-white font-heading">ZK Message</h2>
-                          <p className="text-secondary text-sm">Powered by Zero-Knowledge Proofs</p>
-                        </div>
-                      </div>
-                      <div className="hidden sm:flex gap-3">
-                        <div className="flex flex-col items-center gap-1">
-                          <div className="p-2 bg-white/5 rounded-lg border border-white/5">
-                            <Lock className="w-4 h-4 text-purple-400" />
-                          </div>
-                          <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Private</span>
-                        </div>
-                        <div className="flex flex-col items-center gap-1">
-                          <div className="p-2 bg-white/5 rounded-lg border border-white/5">
-                            <Zap className="w-4 h-4 text-emerald-400" />
-                          </div>
-                          <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Fast</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="glass-card rounded-3xl overflow-hidden border-purple-500/20 shadow-2xl bg-black/80 mb-6">
-                      <iframe
-                        src="https://zk-whisper.vercel.app?embedded=true"
-                        className="w-full h-[450px] border-0"
-                        title="ZKWhisper"
-                        allow="clipboard-write; encrypted-media; camera; microphone; fullscreen"
-                      />
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <a
-                        href="https://zk-whisper.vercel.app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 btn-premium btn-outline rounded-2xl py-4 group/zk"
-                      >
-                        <ExternalLink className="w-4 h-4 group-hover/zk:rotate-45 transition-transform" />
-                        Open Original Site
-                      </a>
-                      <a
-                        href="https://github.com/tmanas06/ZKWhisper"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 btn-premium btn-zinc rounded-2xl py-4 group/code"
-                      >
-                        <Github className="w-4 h-4" />
-                        View Protocol Source
-                      </a>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="email"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="flex items-center gap-4 mb-8">
-                      <div className="w-14 h-14 rounded-2xl bg-yellow-500/10 flex items-center justify-center flex-shrink-0 border border-yellow-500/20">
-                        <Mail className="w-7 h-7 text-yellow-500" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-white font-heading">Send Email</h2>
-                        <p className="text-secondary text-sm">Formal inquiries & collaborations</p>
-                      </div>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Full Name</label>
-                        <input
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Manas Chakravarty"
-                          required
-                          className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Email Address</label>
-                        <input
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="manas@example.com"
-                          required
-                          className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
-                        />
-                      </div>
-                      <div className="sm:col-span-2 space-y-2">
-                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Subject</label>
-                        <input
-                          type="text"
-                          value={formData.subject}
-                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          placeholder="Let's build something epic together"
-                          required
-                          className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium"
-                        />
-                      </div>
-                      <div className="sm:col-span-2 space-y-2">
-                        <label className="text-xs font-bold text-muted uppercase tracking-widest ml-1">Message Body</label>
-                        <textarea
-                          value={formData.message}
-                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                          placeholder="Tell me about your project, goals, and how I can help..."
-                          required
-                          rows={6}
-                          className="w-full px-6 py-5 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-muted focus:outline-none focus:border-yellow-500/50 transition-all font-medium resize-none leading-relaxed"
-                        />
-                      </div>
-                      <div className="sm:col-span-2 mt-2">
-                        <button
-                          type="submit"
-                          className="btn-premium w-full rounded-2xl py-5 text-base shadow-[0_20px_40px_-15px_rgba(240,185,11,0.2)]"
-                        >
-                          <Send className="w-5 h-5" />
-                          Transmit Message
-                        </button>
-                      </div>
-                    </form>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+          {/* Tab Selector */}
+          <div className="flex border-[3px] border-[var(--border-color)] mb-0 shadow-[4px_4px_0px_var(--shadow-color)]">
+            <button
+              onClick={() => setActiveTab("zk")}
+              className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 text-sm font-black uppercase tracking-widest transition-all border-r-[3px] border-[var(--border-color)] ${activeTab === "zk"
+                ? "bg-[var(--accent)] text-black"
+                : "text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-black"
+                }`}
+            >
+              <Lock className="w-4 h-4" />
+              <span>Anonymous (ZK)</span>
+            </button>
+            <button
+              onClick={() => setActiveTab("email")}
+              className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 text-sm font-black uppercase tracking-widest transition-all ${activeTab === "email"
+                ? "bg-[var(--accent)] text-black"
+                : "text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-black"
+                }`}
+            >
+              <Mail className="w-4 h-4" />
+              <span>Direct Email</span>
+            </button>
           </div>
+
+          {/* Tab Content */}
+          {activeTab === "zk" ? (
+            <div className="border-[3px] border-t-0 border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)]">
+              {/* ZK Info Header */}
+              <div className="p-6 border-b-[3px] border-[var(--border-color)]">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center shadow-[3px_3px_0px_var(--shadow-color)]">
+                    <ShieldCheck className="w-6 h-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-black text-[var(--text-primary)] uppercase font-heading">ZK-Whisper Protocol</h3>
+                    <p className="text-xs text-[var(--text-secondary)] font-mono mt-1">
+                      Send anonymous messages using zero-knowledge proofs. Your identity is never revealed.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* ZK Messenger Iframe */}
+              <div className="relative" style={{ height: "600px" }}>
+                <iframe
+                  src="https://zk-whisper.vercel.app/"
+                  className="w-full h-full border-0"
+                  allow="clipboard-read; clipboard-write"
+                  title="ZK Anonymous Messenger"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* ZK Footer */}
+              <div className="p-4 border-t-[3px] border-[var(--border-color)] flex items-center justify-between">
+                <div className="flex items-center gap-2 text-[var(--text-muted)]">
+                  <Lock className="w-3.5 h-3.5" />
+                  <span className="text-[10px] font-black uppercase tracking-widest font-mono">E2E Encrypted</span>
+                </div>
+                <a
+                  href="https://zk-whisper.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-black text-[var(--accent)] hover:text-[var(--accent-2)] uppercase tracking-widest transition-colors"
+                >
+                  Open Full <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="border-[3px] border-t-0 border-[var(--border-color)] p-8 shadow-[4px_4px_0px_var(--shadow-color)]">
+              <div className="text-center max-w-md mx-auto">
+                <div className="w-20 h-20 bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center mx-auto mb-6 shadow-[4px_4px_0px_var(--shadow-color)]">
+                  <Mail className="w-10 h-10 text-black" />
+                </div>
+                <h3 className="text-2xl font-black text-[var(--text-primary)] uppercase font-heading">Direct_Message</h3>
+                <p className="text-sm text-[var(--text-secondary)] mt-3 font-mono leading-relaxed">
+                  Prefer a direct conversation? Send me an email and I&apos;ll get back to you within 24 hours.
+                </p>
+                <a
+                  href={`mailto:${personalInfo.email}?subject=Portfolio%20Contact&body=Hi%20${personalInfo.firstName},%0A%0A`}
+                  className="inline-flex items-center gap-3 mt-8 px-10 py-4 bg-[var(--accent)] text-black font-black text-sm border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase tracking-widest"
+                >
+                  <Send className="w-5 h-5" /> Compose Email
+                </a>
+                <p className="text-[10px] font-bold text-[var(--text-muted)] mt-4 font-mono">
+                  Opens your default email client
+                </p>
+              </div>
+            </div>
+          )}
         </motion.div>
       </div>
     </div>

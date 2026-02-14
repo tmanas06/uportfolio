@@ -1,110 +1,141 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Code, Boxes, Anchor } from "lucide-react";
+import {
+  Code2,
+  Layers,
+  Link2,
+  Wrench,
+  Sparkles,
+  Terminal,
+  Zap,
+} from "lucide-react";
 import { skills } from "@/lib/data";
 
-const skillCategories = [
-  { id: "languages", title: "Languages", color: "#F0B90B", icon: <Code className="w-5 h-5" /> },
-  { id: "frameworks", title: "Frameworks", color: "#0ECB81", icon: <Boxes className="w-5 h-5" /> },
-  { id: "blockchain", title: "Blockchain", color: "#3772FF", icon: <Anchor className="w-5 h-5" /> },
-  { id: "tools", title: "Tools & DevOps", color: "#8247E5", icon: <Sparkles className="w-5 h-5" /> },
+const categoryConfig = [
+  { key: "languages", label: "Languages", icon: Code2, color: "var(--accent)" },
+  { key: "frameworks", label: "Frameworks", icon: Layers, color: "var(--accent-2)" },
+  { key: "blockchain", label: "Blockchain", icon: Link2, color: "var(--accent-3)" },
+  { key: "tools", label: "Dev_Tools", icon: Wrench, color: "var(--accent)" },
 ];
 
 export default function SkillsPage() {
+  const fadeUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="container-v2 py-12 flex flex-col gap-12 sm:gap-16">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center max-w-2xl mx-auto"
-      >
-        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-white mb-6">
-          Technical <span className="gold-text">Arsenal</span>
-        </h1>
-        <p className="text-secondary text-lg">
-          My expertise across the stack, from core languages to specialized blockchain ecosystems.
+    <div className="container-v2 py-10 sm:py-16 space-y-12 sm:space-y-16 pb-24">
+      {/* ═══ HEADER ═══ */}
+      <motion.div {...fadeUp} transition={{ duration: 0.5 }}>
+        <div className="flex items-center gap-4 mb-2">
+          <Sparkles className="w-6 h-6 text-[var(--accent)]" />
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase font-heading tracking-tight text-[var(--text-primary)]">
+            /// Tech_Stack
+          </h1>
+        </div>
+        <p className="text-sm text-[var(--text-secondary)] font-mono ml-10">
+          Technologies I work with daily. Proficiency measured in shipping real products.
         </p>
       </motion.div>
 
-      {/* Skills Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {skillCategories.map((category, categoryIndex) => {
-          const categorySkills = skills[category.id as keyof typeof skills];
-          if (!categorySkills) return null;
+      {/* ═══ SKILL CATEGORIES ═══ */}
+      {categoryConfig.map((cat, catIndex) => {
+        const skillData = skills[cat.key as keyof typeof skills];
+        if (!skillData || skillData.length === 0) return null;
 
-          return (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-              className="glass-card p-6 sm:p-8 rounded-3xl group"
-            >
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-xl sm:text-2xl font-bold font-heading text-white flex items-center gap-3 sm:gap-4">
-                  <div
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 flex-shrink-0"
-                    style={{ backgroundColor: `${category.color}15`, color: category.color }}
-                  >
-                    {category.icon}
-                  </div>
-                  {category.title}
+        const Icon = cat.icon;
+
+        return (
+          <motion.div
+            key={cat.key}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 + catIndex * 0.08, duration: 0.5 }}
+          >
+            {/* Category Header */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-10 h-10 border-[3px] border-[var(--border-color)] flex items-center justify-center" style={{ backgroundColor: cat.color }}>
+                <Icon className="w-5 h-5 text-black" />
+              </div>
+              <div>
+                <h2 className="text-xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
+                  {cat.label}
                 </h2>
-                <span className="text-[10px] sm:text-xs font-bold text-muted uppercase tracking-widest">{categorySkills.length} SKILLS</span>
+                <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] font-mono">
+                  {skillData.length} ITEMS_LOADED
+                </p>
               </div>
+            </div>
 
-              <div className="flex flex-col gap-6">
-                {categorySkills.map((skill: { name: string; level: number }, index: number) => (
-                  <div key={skill.name} className="group/skill">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-bold text-white group-hover/skill:text-yellow-500 transition-colors">{skill.name}</span>
-                      <span className="text-xs font-bold text-secondary">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-white/5 rounded-full overflow-hidden border border-white/5 p-[1px]">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1.5, delay: 0.3 + index * 0.05, ease: "easeOut" }}
-                        className="h-full rounded-full relative"
-                        style={{ backgroundColor: category.color }}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20" />
-                      </motion.div>
-                    </div>
+            {/* Skills Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {skillData.map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.15 + catIndex * 0.08 + index * 0.03, duration: 0.3 }}
+                  className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm font-black text-[var(--text-primary)] uppercase font-heading">{skill.name}</span>
+                    <span className="text-sm font-black font-mono" style={{ color: cat.color }}>
+                      {skill.level}%
+                    </span>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
 
-      {/* Summary Stats */}
+                  {/* Progress Bar */}
+                  <div className="w-full h-5 border-[2px] border-[var(--border-color)] bg-[var(--bg-secondary)]">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${skill.level}%` }}
+                      transition={{ delay: 0.3 + catIndex * 0.08 + index * 0.03, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                      className="h-full"
+                      style={{ backgroundColor: cat.color }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        );
+      })}
+
+      {/* ═══ SUMMARY STATS ═══ */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="glass-card p-6 sm:p-12 rounded-[2.5rem] grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
       >
-        <div className="metric-v2 text-center items-center">
-          <p className="metric-v2-value text-yellow-500">{skills.languages?.length || 0}</p>
-          <p className="metric-v2-label">Languages</p>
+        <div className="flex items-center gap-4 mb-8">
+          <Zap className="w-5 h-5 text-[var(--accent)]" />
+          <h2 className="text-xl font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Summary</h2>
         </div>
-        <div className="metric-v2 text-center items-center">
-          <p className="metric-v2-value text-emerald-500">{skills.frameworks?.length || 0}</p>
-          <p className="metric-v2-label">Frameworks</p>
-        </div>
-        <div className="metric-v2 text-center items-center">
-          <p className="metric-v2-value text-blue-500">{skills.blockchain?.length || 0}</p>
-          <p className="metric-v2-label">Blockchain</p>
-        </div>
-        <div className="metric-v2 text-center items-center">
-          <p className="metric-v2-value text-purple-500">{skills.tools?.length || 0}</p>
-          <p className="metric-v2-label">Tools</p>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          {categoryConfig.map((cat) => {
+            const skillData = skills[cat.key as keyof typeof skills];
+            const count = skillData?.length || 0;
+            const Icon = cat.icon;
+            return (
+              <div
+                key={cat.key}
+                className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all text-center"
+              >
+                <div className="w-10 h-10 border-[2px] border-[var(--border-color)] flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: cat.color }}>
+                  <Icon className="w-5 h-5 text-black" />
+                </div>
+                <div className="text-3xl font-black font-heading" style={{ color: cat.color }}>
+                  {count}
+                </div>
+                <div className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mt-1 font-mono">
+                  {cat.label}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </motion.div>
     </div>

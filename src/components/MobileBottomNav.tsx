@@ -17,8 +17,8 @@ export default function MobileBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 h-[var(--bottom-nav-height)] glass-effect border-t border-white/5 lg:hidden safe-area-bottom">
-      <div className="h-full flex items-center justify-around px-4">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 h-[var(--bottom-nav-height)] bg-[var(--bg-primary)] border-t-[3px] border-[var(--border-color)] lg:hidden">
+      <div className="h-full flex items-center justify-around px-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -27,29 +27,20 @@ export default function MobileBottomNav() {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex flex-col items-center justify-center gap-1.5 flex-1 h-full transition-all relative group ${isActive ? "text-yellow-500" : "text-muted hover:text-white"
+              className={`flex flex-col items-center justify-center gap-1.5 flex-1 h-full transition-all relative ${isActive
+                ? "text-black"
+                : "text-[var(--text-muted)] active:text-black"
                 }`}
             >
-              <div className="relative">
-                <Icon className={`w-6 h-6 transition-transform duration-500 ${isActive ? 'scale-110 drop-shadow-[0_0_8px_rgba(240,185,11,0.5)]' : 'group-active:scale-90'}`} />
-                {isActive && (
-                  <motion.div
-                    layoutId="mobile-nav-indicator"
-                    className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(240,185,11,0.5)]"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
+              <div className={`relative p-2 border-[2px] transition-all ${isActive
+                ? "bg-[var(--accent)] border-[var(--border-color)] shadow-[2px_2px_0px_var(--border-color)]"
+                : "border-transparent"
+                }`}>
+                <Icon className="w-5 h-5" />
               </div>
-              <span className={`text-[9px] font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[var(--text-primary)]' : 'text-muted'}`}>
+              <span className={`text-[8px] font-black uppercase tracking-widest font-mono ${isActive ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
                 {item.name}
               </span>
-
-              {isActive && (
-                <motion.div
-                  layoutId="mobile-nav-glow"
-                  className="absolute inset-0 bg-yellow-500/5 blur-xl -z-10 rounded-full"
-                />
-              )}
             </Link>
           );
         })}
