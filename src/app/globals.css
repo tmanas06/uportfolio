@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   NEOBRUTALIST DESIGN SYSTEM
+   NEOBRUTALIST DESIGN SYSTEM v2
    ═══════════════════════════════════════════ */
 
 /* Dark Theme (Default) */
@@ -25,20 +25,13 @@
 
   --shadow-color: rgba(255, 255, 255, 0.9);
 
-  --sidebar-width: 280px;
-  --header-height: 72px;
-  --bottom-nav-height: 72px;
+  --navbar-height: 72px;
   --section-gap: 48px;
   --card-padding: 32px;
-  --sidebar-current-width: 0px;
-
-  @media (max-width: 1023px) {
-    --sidebar-current-width: 0px !important;
-  }
 }
 
 /* ═══════════════════════════════════════════
-   LIGHT THEME (Complete Overhaul)
+   LIGHT THEME
    ═══════════════════════════════════════════ */
 .light {
   --bg-primary: #F5F0E8;
@@ -85,32 +78,34 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-mono), 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 18px;
+  line-height: 1.7;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-:root {
-  --sidebar-current-width: 0px;
-}
-
-@media (max-width: 1023px) {
-  :root {
-    --sidebar-current-width: 0px !important;
+@media (max-width: 768px) {
+  body {
+    font-size: 18px;
   }
-}
-
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 /* Selection */
 ::selection {
   background: var(--accent);
   color: #000;
+}
+
+/* ═══════════════════════════════════════════
+   ACCESSIBILITY — Focus States
+   ═══════════════════════════════════════════ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 4px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ═══════════════════════════════════════════
@@ -125,84 +120,53 @@ h4,
   letter-spacing: -0.02em;
   font-weight: 900;
   text-transform: uppercase;
+  line-height: 1.1;
 }
 
-/* Accent text replacement for gold-text */
-.gold-text,
 .accent-text {
   color: var(--accent);
-  -webkit-text-fill-color: var(--accent);
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
 }
 
 /* ═══════════════════════════════════════════
    BRUTALIST CARD
    ═══════════════════════════════════════════ */
-.glass-card,
 .brutal-card {
   background: var(--card-bg);
   border: var(--border-width) solid var(--border-color);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.3s ease;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   border-radius: 0 !important;
   box-shadow: 4px 4px 0px var(--shadow-color);
 }
 
-.glass-card:hover,
 .brutal-card:hover {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0px var(--shadow-color);
   background: var(--card-hover);
-  border-color: var(--border-color);
-}
-
-/* Glassmorphism overrides — kill all glass effects */
-.glass-effect {
-  background: var(--bg-primary);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: none;
-  border-radius: 0;
-  transition: background-color 0.3s ease;
-}
-
-.glass-premium {
-  background: var(--card-bg);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: 4px 4px 0px var(--shadow-color);
-  border-radius: 0;
 }
 
 /* ═══════════════════════════════════════════
    BUTTONS
    ═══════════════════════════════════════════ */
-.btn-premium,
 .brutal-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 14px 32px;
+  padding: 16px 32px;
   font-weight: 900;
-  font-size: 15px;
+  font-size: 16px;
   font-family: var(--font-mono), monospace;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
-  overflow: hidden;
   border: var(--border-width) solid var(--border-color);
   border-radius: 0;
   cursor: pointer;
+  min-height: 48px;
+  min-width: 48px;
 }
 
-.btn-gold,
 .brutal-btn-accent {
   background: var(--accent);
   color: #000;
@@ -210,19 +174,16 @@ h4,
   box-shadow: 4px 4px 0px var(--shadow-color);
 }
 
-.btn-gold:hover,
 .brutal-btn-accent:hover {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0px var(--shadow-color);
 }
 
-.btn-gold:active,
 .brutal-btn-accent:active {
   transform: translate(2px, 2px);
   box-shadow: 0px 0px 0px var(--shadow-color);
 }
 
-.btn-outline,
 .brutal-btn-outline {
   background: transparent;
   border: var(--border-width) solid var(--border-color);
@@ -230,7 +191,6 @@ h4,
   box-shadow: 4px 4px 0px var(--shadow-color);
 }
 
-.btn-outline:hover,
 .brutal-btn-outline:hover {
   background: var(--accent);
   color: #000;
@@ -242,8 +202,8 @@ h4,
    BADGES
    ═══════════════════════════════════════════ */
 .badge-v2 {
-  padding: 4px 12px;
-  font-size: 11px;
+  padding: 6px 14px;
+  font-size: 13px;
   font-weight: 900;
   font-family: var(--font-mono), monospace;
   text-transform: uppercase;
@@ -252,14 +212,8 @@ h4,
   border-radius: 0;
 }
 
-.badge-v2-gold {
-  background: var(--accent);
-  color: #000;
-  border-color: var(--border-color);
-}
-
 /* ═══════════════════════════════════════════
-   LAYOUT UTILITIES
+   LAYOUT
    ═══════════════════════════════════════════ */
 .container-v2 {
   width: 100%;
@@ -268,69 +222,15 @@ h4,
   padding: 0 20px;
 }
 
-.page-wrapper {
-  padding-top: calc(var(--header-height) + 16px) !important;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
-  background: var(--bg-primary);
-}
-
-@media (min-width: 1024px) {
-  .page-wrapper {
-    padding-left: var(--sidebar-current-width) !important;
-    padding-bottom: 0 !important;
-  }
-}
-
-@media (max-width: 1023px) {
-  .page-wrapper {
-    padding-left: 0 !important;
-    padding-bottom: var(--bottom-nav-height) !important;
-  }
-}
-
 @media (min-width: 768px) {
   .container-v2 {
     padding: 0 48px;
   }
 }
 
-.glass-card {
-  padding: 24px;
-}
-
-@media (min-width: 640px) {
-  .glass-card {
-    padding: 32px;
-  }
-}
-
-/* ═══════════════════════════════════════════
-   METRICS
-   ═══════════════════════════════════════════ */
-.metric-v2 {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.metric-v2-value {
-  font-size: 32px;
-  font-weight: 900;
-  color: var(--accent);
-  font-family: var(--font-heading), 'Space Grotesk', sans-serif;
-}
-
-.metric-v2-label {
-  font-size: 11px;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-  font-family: var(--font-mono), monospace;
+/* Prose-width container for readability */
+.prose-container {
+  max-width: 70ch;
 }
 
 /* ═══════════════════════════════════════════
@@ -374,80 +274,7 @@ h4,
 }
 
 /* ═══════════════════════════════════════════
-   GLITCH TEXT EFFECT
-   ═══════════════════════════════════════════ */
-.glitch-text {
-  position: relative;
-  display: inline-block;
-}
-
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.glitch-text::before {
-  color: var(--accent-2);
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  transform: translate(-2px, -1px);
-  animation: glitch-1 2.5s infinite linear alternate-reverse;
-}
-
-.glitch-text::after {
-  color: var(--accent);
-  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-  transform: translate(2px, 1px);
-  animation: glitch-2 2.5s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-1 {
-
-  0%,
-  100% {
-    transform: translate(-2px, -1px);
-  }
-
-  25% {
-    transform: translate(2px, 1px);
-  }
-
-  50% {
-    transform: translate(-1px, 2px);
-  }
-
-  75% {
-    transform: translate(1px, -2px);
-  }
-}
-
-@keyframes glitch-2 {
-
-  0%,
-  100% {
-    transform: translate(2px, 1px);
-  }
-
-  25% {
-    transform: translate(-2px, -1px);
-  }
-
-  50% {
-    transform: translate(1px, -2px);
-  }
-
-  75% {
-    transform: translate(-1px, 2px);
-  }
-}
-
-/* ═══════════════════════════════════════════
-   ANIMATIONS
+   ANIMATIONS (subtle only)
    ═══════════════════════════════════════════ */
 @keyframes reveal {
   from {
@@ -465,7 +292,6 @@ h4,
   animation: reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Blinking cursor effect */
 @keyframes blink {
 
   0%,
@@ -482,21 +308,8 @@ h4,
   animation: blink 1s step-end infinite;
 }
 
-/* Remove all old sweep/glass/gradient effects */
-.sweep-effect::after {
-  display: none;
-}
-
-.bg-glow {
-  display: none;
-}
-
-.bg-gold-gradient {
-  background: var(--accent);
-}
-
 /* ═══════════════════════════════════════════
-   GLOBAL OVERRIDES — Kill all rounded corners
+   GLOBAL OVERRIDES — Kill rounded corners
    ═══════════════════════════════════════════ */
 .rounded-2xl,
 .rounded-3xl,
@@ -512,25 +325,17 @@ h4,
   border-radius: 0 !important;
 }
 
-/* Override all backdrop-blur */
 [class*="backdrop-blur"] {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-/* Override all blur effects on bg elements */
 [class*="blur-"] {
   filter: none !important;
 }
 
-/* Kill gold gradient helpers */
-.gold-gradient,
-.bg-gold-gradient {
-  background: var(--accent) !important;
-}
-
 /* ═══════════════════════════════════════════
-   SCROLLBAR (Brutalist style)
+   SCROLLBAR (Brutalist)
    ═══════════════════════════════════════════ */
 ::-webkit-scrollbar {
   width: 8px;
@@ -551,34 +356,16 @@ h4,
 }
 
 /* ═══════════════════════════════════════════
-   LIGHT MODE — Component-level overrides
+   LIGHT MODE — Component overrides
    ═══════════════════════════════════════════ */
-
-/* Cards get a subtle warm shadow in light mode */
-.light .glass-card,
 .light .brutal-card {
   box-shadow: 4px 4px 0px #000000;
 }
 
-.light .glass-card:hover,
 .light .brutal-card:hover {
   box-shadow: 6px 6px 0px #000000;
 }
 
-.light .glass-premium {
-  box-shadow: 4px 4px 0px #000000;
-}
-
-/* Scrollbar in light mode */
-.light ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-.light ::-webkit-scrollbar-thumb {
-  background: var(--accent);
-}
-
-/* Input fields in light mode */
 .light input,
 .light textarea {
   background: var(--surface);
@@ -591,13 +378,28 @@ h4,
   color: var(--text-muted);
 }
 
-/* Ensure accent buttons remain readable in light mode */
-.light .btn-gold,
 .light .brutal-btn-accent {
   box-shadow: 4px 4px 0px #000000;
 }
 
-.light .btn-outline,
 .light .brutal-btn-outline {
   box-shadow: 4px 4px 0px #000000;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+/* Hide scrollbar utility */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }

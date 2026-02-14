@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import CandyBoxHeader from "@/components/CandyBoxHeader";
-import MobileBottomNav from "@/components/MobileBottomNav";
-import DesktopSidebar from "@/components/DesktopSidebar";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "next-themes";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -18,13 +17,14 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "T Manas Chakravarty | Full Stack Blockchain Developer",
+  title: "t manas chakravarty| Full Stack Blockchain Developer",
   description:
-    "Final-year B.Tech CSE student specializing in Cybersecurity and Blockchain development. Building scalable full-stack applications with modern frameworks, smart contracts, and API integrations across 7+ blockchain ecosystems.",
+    "Solana dApps, Next.js, Hackathon Winner. Building scalable full-stack applications with modern frameworks, smart contracts, and API integrations across 7+ blockchain ecosystems.",
   keywords: [
     "Blockchain Developer",
     "Full Stack Developer",
     "Web3",
+    "Solana",
     "Smart Contracts",
     "Solidity",
     "React",
@@ -32,30 +32,29 @@ export const metadata: Metadata = {
     "Ethereum",
     "DeFi",
     "Manas Chakravarty",
+    "tmanas",
   ],
   authors: [{ name: "T Manas Chakravarty" }],
   creator: "T Manas Chakravarty",
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Manas Chakravarty | Full Stack Blockchain Developer",
+    title: "t manas chakravarty | Full Stack Blockchain Developer",
     description:
-      "Building the decentralized future, one smart contract at a time. 15+ internships | 5+ hackathon wins | 7+ blockchain ecosystems.",
-    siteName: "Manas Portfolio",
+      "Solana dApps, Next.js, Hackathon Winner. 15+ internships | 5+ hackathon wins | 7+ blockchain ecosystems.",
+    siteName: "t manas chakravarty Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manas Chakravarty | Full Stack Blockchain Developer",
-    description: "Building the decentralized future, one smart contract at a time.",
+    title: "t manas chakravarty | Full Stack Blockchain Developer",
+    description:
+      "Solana dApps, Next.js, Hackathon Winner. Building the decentralized future.",
   },
   robots: {
     index: true,
     follow: true,
   },
 };
-
-import { ThemeProvider } from "next-themes";
-import ClientWeb3Provider from "@/components/ClientWeb3Provider";
 
 export default function RootLayout({
   children,
@@ -64,16 +63,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${jetbrainsMono.variable} ${spaceGrotesk.variable} font-mono antialiased`}>
+      <body
+        className={`${jetbrainsMono.variable} ${spaceGrotesk.variable} font-mono antialiased`}
+      >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <ClientWeb3Provider>
-            <CandyBoxHeader />
-            <DesktopSidebar />
-            <MobileBottomNav />
-            <main className="page-wrapper min-h-screen relative z-10">
-              {children}
-            </main>
-          </ClientWeb3Provider>
+          <Navbar />
+          <main className="min-h-screen pt-[var(--navbar-height)]">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

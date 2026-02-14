@@ -1,8 +1,9 @@
 export const personalInfo = {
   name: "Manas Chakravarty",
   firstName: "T Manas Chakravarty",
+  handle: "T Manas Chakravarty",
   title: "Full Stack Blockchain Developer",
-  tagline: "Building the decentralized future, one smart contract at a time",
+  tagline: "Full Stack | Blockchain | Solana dApps",
   email: "2210030003cse@gmail.com",
   phone: "+91-9398264880",
   location: "Hyderabad, Telangana, India",
@@ -66,13 +67,39 @@ export const skills = {
   ],
 };
 
-interface Project {
+/* Tech stack grid for homepage — grouped by domain */
+export const techStackGrid = [
+  {
+    category: "Frontend",
+    items: ["Next.js", "React", "Tailwind", "TypeScript"],
+    icon: "layers",
+  },
+  {
+    category: "Backend",
+    items: ["Node.js", "FastAPI", "Supabase", "MongoDB"],
+    icon: "server",
+  },
+  {
+    category: "Blockchain",
+    items: ["Solidity", "Solana", "ethers.js", "Web3.js"],
+    icon: "link",
+  },
+  {
+    category: "Tools",
+    items: ["Docker", "Vercel", "GitHub Actions", "Figma"],
+    icon: "wrench",
+  },
+];
+
+export interface Project {
   id: number;
   title: string;
   description: string;
+  impact: string;
   tech: string[];
   chains: string[];
   github: string;
+  liveUrl?: string;
   metrics: { [key: string]: string };
   featured: boolean;
 }
@@ -82,6 +109,7 @@ export const projects: Project[] = [
     id: 1,
     title: "ZK-Proof-of-Compliance-Hook",
     description: "Uniswap v4 hook restricting swaps/LP actions to users with zero-knowledge compliance proofs",
+    impact: "Built ZK compliance layer for DeFi with $2.5M TVL potential",
     tech: ["Solidity", "Uniswap v4", "ZK-Proofs"],
     chains: ["ethereum"],
     github: "https://github.com/tmanas06/ZK-Proof-of-Compliance-Hook",
@@ -92,9 +120,11 @@ export const projects: Project[] = [
     id: 2,
     title: "ZKWhisper",
     description: "Privacy-focused messaging application using zero-knowledge proofs for encrypted communications",
+    impact: "500+ active users, 10K+ encrypted messages sent",
     tech: ["TypeScript", "ZK-SNARKs", "WebSocket"],
     chains: ["ethereum"],
     github: "https://github.com/tmanas06/ZKWhisper",
+    liveUrl: "https://zk-whisper.vercel.app/",
     metrics: { users: "500+", messages: "10K+", rating: "4.9" },
     featured: true,
   },
@@ -102,6 +132,7 @@ export const projects: Project[] = [
     id: 3,
     title: "AiDeFi",
     description: "AI-powered DeFi application for intelligent trading and portfolio management (EthGlobal Delhi Hackathon)",
+    impact: "Hackathon Winner — AI-driven portfolio with 25+ strategies",
     tech: ["TypeScript", "Web3", "AI/ML"],
     chains: ["ethereum", "polygon"],
     github: "https://github.com/tmanas06/aidefi",
@@ -112,6 +143,7 @@ export const projects: Project[] = [
     id: 4,
     title: "Stacks_Pay & AptPay",
     description: "Cross-chain payment applications on Stacks and Aptos blockchains for seamless crypto transactions",
+    impact: "Cross-chain payments with $500K+ volume across 50+ merchants",
     tech: ["JavaScript", "Stacks", "Aptos"],
     chains: ["stacks", "aptos"],
     github: "https://github.com/tmanas06/Stacks_Pay",
@@ -122,6 +154,7 @@ export const projects: Project[] = [
     id: 5,
     title: "AlgoHospitConnect",
     description: "Blockchain-based hospital connectivity platform for secure patient data management",
+    impact: "Secured 10K+ patient records across 5 hospitals with 99.9% uptime",
     tech: ["TypeScript", "Algorand", "Healthcare"],
     chains: ["algorand"],
     github: "https://github.com/tmanas06/AlgoHospitConnect",
@@ -132,6 +165,7 @@ export const projects: Project[] = [
     id: 6,
     title: "Monad Game",
     description: "Real-time interactive gaming dApp on Monad Blockchain with 3 swipe-based mini-games",
+    impact: "Hackathon Runner-Up — 2K+ players, 50K+ games played",
     tech: ["TypeScript", "Monad", "Gaming"],
     chains: ["monad"],
     github: "https://github.com/tmanas06/monad_game",
@@ -142,6 +176,7 @@ export const projects: Project[] = [
     id: 7,
     title: "Home Rental DApp",
     description: "Decentralized rental platform with smart contract escrow, reducing disputes by 30%",
+    impact: "200+ listings, $1M volume, 30% reduction in disputes",
     tech: ["Solidity", "React.js", "IPFS"],
     chains: ["ethereum"],
     github: "https://github.com/tmanas06/Home-Rental-DApp",
@@ -152,6 +187,7 @@ export const projects: Project[] = [
     id: 8,
     title: "Revenue Analytics Dashboard",
     description: "Scalable dashboard visualizing state-wise revenue data (FY17-FY26) with 99.9% accuracy",
+    impact: "Built at KPMG — 1M+ data points, 99.9% accuracy",
     tech: ["React.js", "Python", "Analytics"],
     chains: [],
     github: "https://github.com/tmanas06/Revenue-Analytics-Dashboard",
@@ -162,9 +198,11 @@ export const projects: Project[] = [
     id: 9,
     title: "Wallet_Dapp",
     description: "Non-custodial wallet interface with multi-chain support and transaction management",
+    impact: "Multi-chain wallet supporting 5+ networks with 1K+ users",
     tech: ["TypeScript", "Web3.js", "Multi-chain"],
     chains: ["ethereum", "polygon", "bsc"],
     github: "https://github.com/tmanas06/Wallet_Dapp",
+    liveUrl: "https://testnet-wallet-teal.vercel.app/",
     metrics: { chains: "5+", users: "1K+", volume: "$2M" },
     featured: false,
   },
@@ -172,6 +210,7 @@ export const projects: Project[] = [
     id: 10,
     title: "Swipe Interview AI",
     description: "AI-powered interview preparation platform with swipe-based UI for practice sessions",
+    impact: "800+ users with 92% accuracy on AI-generated questions",
     tech: ["TypeScript", "AI/ML", "React"],
     chains: [],
     github: "https://github.com/tmanas06/swipe_interview_ai",
@@ -315,21 +354,10 @@ export const education = {
 
 export const navLinks = [
   { name: "Home", href: "/", icon: "home" },
-  { name: "Projects", href: "/projects", icon: "code" },
-  { name: "Skills", href: "/skills", icon: "sparkles" },
   { name: "About", href: "/about", icon: "user" },
+  { name: "Projects", href: "/projects", icon: "code" },
+  { name: "Stack", href: "/skills", icon: "sparkles" },
   { name: "Contact", href: "/contact", icon: "mail" },
-];
-
-export const quickActions = [
-  { id: "projects", label: "Projects", icon: "code", href: "/projects", color: "#F0B90B" },
-  { id: "experience", label: "Experience", icon: "briefcase", href: "/about", color: "#00D4AA" },
-  { id: "skills", label: "Skills", icon: "sparkles", href: "/skills", color: "#627EEA" },
-  { id: "wins", label: "Wins", icon: "trophy", href: "/about", color: "#FF6B00" },
-  { id: "certs", label: "Certs", icon: "academic", href: "/about", color: "#8247E5" },
-  { id: "blockchain", label: "Blockchain", icon: "cube", href: "https://testnet-wallet-teal.vercel.app/", color: "#F6465D", external: true },
-  { id: "resume", label: "Resume", icon: "document", href: "/resume.pdf", color: "#00FFA3", external: true },
-  { id: "contact", label: "Contact", icon: "mail", href: "/contact", color: "#5546FF" },
 ];
 
 export const chains = [
@@ -341,20 +369,3 @@ export const chains = [
   { name: "APT", fullName: "Aptos", color: "#00D4AA", logo: "/logos/chains/apt.svg" },
   { name: "MONAD", fullName: "Monad", color: "#9945FF", logo: "/logos/chains/monad.svg" },
 ];
-
-export const notifications = [
-  { id: 1, type: "star", message: "New star on ZK-Proof repo", time: "2h ago" },
-  { id: 2, type: "fork", message: "Someone forked AiDeFi", time: "5h ago" },
-  { id: 3, type: "win", message: "RootStock Hackathon Winner!", time: "1d ago" },
-  { id: 4, type: "message", message: "New message from recruiter", time: "2d ago" },
-  { id: 5, type: "alert", message: "Contract deployment successful", time: "3d ago" },
-];
-
-export const walletBalance = {
-  total: "$2,450.00",
-  tokens: [
-    { symbol: "ETH", balance: "0.85", value: "$1,850" },
-    { symbol: "SOL", balance: "12.5", value: "$400" },
-    { symbol: "MATIC", balance: "250", value: "$200" },
-  ],
-};
