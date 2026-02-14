@@ -68,7 +68,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <Navbar />
-          <main className="min-h-screen pt-[var(--navbar-height)]">
+          <main className="min-h-screen">
             {children}
           </main>
         </ThemeProvider>

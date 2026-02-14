@@ -83,6 +83,10 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+main {
+  padding-top: var(--navbar-height);
+}
+
 @media (max-width: 768px) {
   body {
     font-size: 18px;

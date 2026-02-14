@@ -39,7 +39,7 @@ function ProjectsContent() {
   });
 
   return (
-    <div className="container-v2 pt-[calc(var(--navbar-height)+3rem)] sm:pt-[calc(var(--navbar-height)+5rem)] py-12 sm:py-24 space-y-10 pb-24">
+    <div className="container-v2 pt-12 sm:pt-20 py-12 sm:py-24 space-y-10 pb-24">
       {/* ═══ HEADER ═══ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
