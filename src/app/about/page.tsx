@@ -30,7 +30,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="container-v2 py-16 sm:py-24 space-y-16 sm:space-y-20 pb-24">
+    <div className="container-v2 py-12 sm:py-24 space-y-16 sm:space-y-20 pb-24">
 
       {/* ═══ PROFILE HEADER ═══ */}
       <motion.div {...fadeUp} className="border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] overflow-hidden">

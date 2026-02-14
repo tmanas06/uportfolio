@@ -121,7 +121,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           METRICS GRID
           ═══════════════════════════════════════════ */}
-      <section id="stats" className="container-v2 py-20 sm:py-28">
+      <section id="stats" className="container-v2 py-12 sm:py-28">
         <motion.div {...fadeUp}>
           <div className="flex items-center gap-4 mb-12">
             <Terminal className="w-6 h-6 text-[var(--accent)]" />
@@ -154,7 +154,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           FEATURED PROJECTS
           ═══════════════════════════════════════════ */}
-      <section id="projects" className="container-v2 py-20 sm:py-28">
+      <section id="projects" className="container-v2 py-12 sm:py-28">
         <motion.div {...fadeUp}>
           <div className="flex items-center justify-between mb-12">
             <div className="flex items-center gap-4">
@@ -251,7 +251,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           TECH STACK — 4-card grid
           ═══════════════════════════════════════════ */}
-      <section id="stack" className="container-v2 py-20 sm:py-28">
+      <section id="stack" className="container-v2 py-12 sm:py-28">
         <motion.div {...fadeUp}>
           <div className="flex items-center gap-4 mb-12">
             <Layers className="w-6 h-6 text-[var(--accent)]" />
@@ -300,7 +300,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           ECOSYSTEM MARQUEE
           ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-20 sm:py-28">
+      <section className="container-v2 py-12 sm:py-28">
         <motion.div {...fadeUp}>
           <div className="flex items-center gap-4 mb-8">
             <Link2 className="w-6 h-6 text-[var(--accent)]" />
@@ -338,7 +338,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           ACHIEVEMENTS
           ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-20 sm:py-28">
+      <section className="container-v2 py-12 sm:py-28">
         <motion.div {...fadeUp}>
           <div className="flex items-center gap-4 mb-8">
             <Trophy className="w-6 h-6 text-[var(--accent-2)]" />
@@ -378,7 +378,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           FOOTER CTA
           ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-24 sm:py-32 pb-28">
+      <section className="container-v2 py-16 sm:py-32 pb-20">
         <motion.div
           {...fadeUp}
           className="border-[4px] border-[var(--border-color)] p-8 sm:p-12 shadow-[6px_6px_0px_var(--shadow-color)]"
