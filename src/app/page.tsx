@@ -27,88 +27,59 @@ export default function HomePage() {
         <div className="spotlight" style={{ top: "-150px", left: "50%", transform: "translateX(-50%)" }} />
 
         {/* ── HERO ─────────────────────────────────────────── */}
-        <section style={{ padding: "64px 0 80px", position: "relative", zIndex: 1 }}>
+        <section className="hero-section">
           <motion.div {...fade(0)}>
             <span className="status-pill" style={{ marginBottom: "28px", display: "inline-flex" }}>
               Available for work
             </span>
           </motion.div>
 
-          <motion.div {...fade(0.05)} style={{ display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "flex-start" }}>
+          <motion.div {...fade(0.05)} className="hero-grid">
             {/* Text */}
-            <div style={{ flex: "1 1 480px", minWidth: 0 }}>
-              <h1 className="text-gradient" style={{
-                fontSize: "clamp(36px, 5.5vw, 64px)",
-                fontWeight: 800,
-                letterSpacing: "-1.5px",
-                lineHeight: 1.1,
-                marginBottom: "20px",
-              }}>
+            <div className="hero-text-col">
+              <h1 className="hero-title text-gradient">
                 T Manas Chakravarty
               </h1>
 
-              <p style={{
-                fontSize: "clamp(13px, 1.8vw, 15px)",
-                fontWeight: 800,
-                color: "var(--accent)",
-                marginBottom: "16px",
-                letterSpacing: "0.1em",
-                fontFamily: "var(--font-mono)",
-                textTransform: "uppercase"
-              }}>
+              <p className="hero-tagline">
                 Full Stack | Blockchain | Solana dApps
               </p>
 
-              <p style={{ fontSize: "15px", color: "var(--text-muted)", lineHeight: 1.75, maxWidth: "56ch", marginBottom: "32px" }}>
-                Final-year B.Tech CSE student at KL University with <strong style={{ color: "var(--text)" }}>9.44 CGPA</strong>.
+              <p className="hero-bio">
+                Final-year B.Tech CSE student at KL University with <strong>9.44 CGPA</strong>.
                 I build scalable full-stack applications, smart contracts, and Solana dApps across
                 7+ blockchain ecosystems. 15+ internships, 5 hackathon wins.
               </p>
 
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "center", marginBottom: "28px" }}>
+              <div className="hero-actions">
                 <Link href="/projects" className="btn btn-primary" id="hero-works">
                   View Projects <ArrowRight size={15} />
                 </Link>
                 <Link href="/contact" className="btn btn-secondary" id="hero-contact">
                   Get in touch
                 </Link>
-                <a
-                  href={personalInfo.github}
-                  target="_blank" rel="noopener noreferrer"
-                  className="btn btn-ghost"
-                  aria-label="GitHub profile"
-                >
+                <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="GitHub profile">
                   <Github size={16} />
                 </a>
-                <a
-                  href={personalInfo.linkedin}
-                  target="_blank" rel="noopener noreferrer"
-                  className="btn btn-ghost"
-                  aria-label="LinkedIn profile"
-                >
+                <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="LinkedIn profile">
                   <Linkedin size={16} />
                 </a>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-muted)", fontSize: "13px" }}>
+              <div className="hero-location">
                 <MapPin size={13} style={{ flexShrink: 0 }} />
                 Hyderabad, Telangana, India
               </div>
             </div>
 
             {/* Photo */}
-            <motion.div {...fade(0.1)} style={{ flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center", margin: "0 auto" }}>
-              <div style={{
-                width: "clamp(280px, 35vw, 420px)",
-                height: "clamp(280px, 35vw, 420px)",
-                position: "relative",
-                maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-              }}>
+            <motion.div {...fade(0.1)} className="hero-photo-col">
+              <div className="hero-photo-frame">
                 <Image
                   src="/my_transparent.png"
                   alt="Manas Chakravarty"
                   fill
+                  sizes="(max-width: 768px) 70vw, 35vw"
                   className="object-cover"
                   style={{ objectPosition: "top" }}
                   priority
