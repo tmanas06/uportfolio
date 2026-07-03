@@ -5,11 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText, Menu, X } from "lucide-react";
 
+import { Alex_Brush } from "next/font/google";
+
+const alexBrush = Alex_Brush({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const links = [
-  { label: "About",    href: "/about" },
+  { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
-  { label: "Stack",    href: "/skills" },
-  { label: "Contact",  href: "/contact" },
+  { label: "Stack", href: "/skills" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -27,8 +35,13 @@ export default function Navbar() {
       <nav className="nav" aria-label="Main navigation">
         <div className="container nav-inner">
           {/* Logo */}
-          <Link href="/" className="nav-logo" style={{ fontFamily: "var(--font-mono)", fontSize: "20px", fontWeight: "900", letterSpacing: "-1px" }} aria-label="Home">
-            tmanas
+          <Link
+            href="/"
+            className={`nav-logo ${alexBrush.className}`}
+            style={{ fontSize: "32px", fontWeight: "normal", color: "var(--text-primary)" }}
+            aria-label="Home"
+          >
+            t manas chakravarty
           </Link>
 
           {/* Desktop links */}
