@@ -533,6 +533,7 @@ export const navLinks = [
   { name: "Home", href: "/", icon: "home" },
   { name: "About", href: "/about", icon: "user" },
   { name: "Projects", href: "/projects", icon: "code" },
+  { name: "Posts", href: "/posts", icon: "book-open" },
   { name: "Stack", href: "/skills", icon: "sparkles" },
   { name: "Contact", href: "/contact", icon: "mail" },
 ];
@@ -553,4 +554,121 @@ export const chains = [
   { name: "SUI", fullName: "Sui", color: "#6FB1FC", logo: "/logos/chains/sui.svg" },
   { name: "SEI", fullName: "Sei Network", color: "#FF3D00", logo: "/logos/chains/sei.svg" },
   { name: "MODE", fullName: "Mode Network", color: "#DDF51E", logo: "/logos/chains/mode.svg" },
+];
+
+export const socialPosts = [
+  {
+    id: "yt-1",
+    platform: "youtube",
+    title: "Swipegig Platform Walkthrough",
+    description: "A complete demonstration of SwipeGig, a decentralized Web3 talent marketplace designed to connect freelancers and clients through swipe-based interactions, utilizing AI-powered matching and smart contract escrow.",
+    url: "https://www.youtube.com/@manastiruveedula4794",
+    date: "Dec 15, 2025",
+    duration: "3:10",
+    views: "210 views",
+    likes: "25",
+    tags: ["Web3", "Freelance", "Escrow", "AI"]
+  },
+  {
+    id: "li-1",
+    platform: "linkedin",
+    title: "Attending the 4th Information Technology CONFEX 2026",
+    description: "Excited to share that I’ll be attending the 4th Information Technology CONFEX 2026 in New Delhi on 22 August 2026.\n\nThis year’s theme, “Engineering Trusted Intelligence for a Resilient Digital Future,”\n\nI’m looking forward to engaging with technology leaders, innovators, founders, and industry experts, exploring emerging trends, exchanging ideas, and discussing how intelligent systems can create meaningful real-world impact.\n\nLooking forward to insightful conversations, new connections, and learning from some of the brightest minds in the industry.\n\nIf you’re attending as well, let’s connect.",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "2 weeks ago",
+    likes: "12",
+    comments: "3 reposts",
+    tags: ["ITCONFEX2026", "AI", "Technology", "CyberSecurity"],
+    attachment: {
+      type: "image",
+      src: "https://media.licdn.com/dms/image/v2/D4D22AQFpuPph-8jUaA/feedshare-shrink_800/B4DZ7PmNyaJwAc-/0/1781599362505?e=1784764800&v=beta&t=yeQP43pJOLI_1dtvynxuHhh7UUbwC2KJEzcYREO7qb4"
+    }
+  },
+  {
+    id: "tw-1",
+    platform: "twitter",
+    title: "Announcing SwipeGig! 💼 Decentralizing freelance matchmaking with AI & smart contracts",
+    description: "Excited to share SwipeGig! We are eliminating high middleman fees and payout delays in the freelancing market using swipe-based matching, trustless escrow smart contracts, and decentralized identity. Submission live on DoraHacks! 👇",
+    url: "https://x.com/tmanas2004",
+    date: "Dec 16, 2025",
+    likes: "48",
+    reposts: "12",
+    tags: ["Web3", "Talent", "Escrow", "AI"]
+  },
+  {
+    id: "yt-2",
+    platform: "youtube",
+    title: "x402 Gasless Gaming Paywall Demo",
+    description: "A walkthrough of x402, a gasless gaming paywall system designed to enable friction-free game entry and micro-transactions for casual Web3 gamers.",
+    url: "https://www.youtube.com/@manastiruveedula4794",
+    date: "Nov 02, 2025",
+    duration: "4:05",
+    views: "154 views",
+    likes: "19",
+    tags: ["Web3Gaming", "Paywall", "Gasless", "UX"]
+  },
+  {
+    id: "li-2",
+    platform: "linkedin",
+    title: "MEAN Stack Job Platform with ZKWhisper Integration",
+    description: "Built a MEAN Stack Job Platform with zk + EVM Blockchain Messaging Integration\nAs part of developing the Amdox Technologies Job Platform, I implemented a secure, decentralized messaging feature (ZKWhisper)using zk + EVM integration.\n\n🔹 Tech Stack: MongoDB, Express.js, Angular, Node.js\n🔹 Blockchain Layer: zk + EVM\n🔹 Core Feature: Privacy-focused, blockchain-verified messaging between candidates and recruiters\n\nThe objective was to enhance trust and security in recruitment communication by integrating zero-knowledge blockchain verification while maintaining the scalability of a traditional full-stack architecture.\n\nKey Technical Highlights:\n• Smart contract integration with backend APIs\n• Secure wallet-based interactions\n• Hybrid architecture (off-chain data + on-chain verification)\n• Real-time messaging system\n\nThis project deepened my expertise in:\n✔ Full-stack system design\n✔ Web3 integration in traditional applications\n✔ zk-based privacy mechanisms\n✔ Secure communication protocols\n\n🔗 Job Platform Repository: https://lnkd.in/ginsyt6g\n🔗 Messaging Module (ZKWhisper): https://lnkd.in/gQMG-Dtv",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "4 months ago",
+    likes: "12",
+    comments: "3 reposts",
+    tags: ["Blockchain", "Web3", "MEANStack", "ZK"],
+    attachment: {
+      type: "link",
+      title: "GitHub - tmanas06/ZKWhisper",
+      subtitle: "github.com",
+      src: "https://media.licdn.com/dms/image/sync/v2/D5627AQGkaKCyUmihBw/articleshare-shrink_480/B56ZxR4F.8H0Ao-/0/1770900186009?e=1783666800&v=beta&t=2YmI0EQvSiXyAYwvH_UHd9t2I5MeBkkDiIBE5h9s_JM",
+      url: "https://github.com/tmanas06/ZKWhisper"
+    }
+  },
+  {
+    id: "tw-2",
+    platform: "twitter",
+    title: "Just built Migrate AI! 🤖 Automate library migrations & code refactoring with custom codemods",
+    description: "Upgrading deprecated libraries or refactoring complex codebases is a repetitive chore. I built Migrate AI to automate it. By combining LLM logic with custom codemod syntax trees, it automatically upgrades old code structures instantly. Open source on GitHub!",
+    url: "https://x.com/tmanas2004",
+    date: "Jan 10, 2026",
+    likes: "36",
+    reposts: "8",
+    tags: ["OpenSource", "AI", "Codemods", "TypeScript"]
+  },
+  {
+    id: "yt-3",
+    platform: "youtube",
+    title: "ZK Proof-of-Compliance Hook for Uniswap v4 - uhi7",
+    description: "A technical walkthrough of our project uhi7, featuring a Zero-Knowledge proof-of-compliance hook built to let Uniswap v4 pool managers run compliance verifications without compromising user privacy.",
+    url: "https://www.youtube.com/@manastiruveedula4794",
+    date: "Oct 18, 2025",
+    duration: "5:22",
+    views: "188 views",
+    likes: "28",
+    tags: ["Uniswapv4", "ZeroKnowledge", "DeFi", "Solidity"]
+  },
+  {
+    id: "tw-3",
+    platform: "twitter",
+    title: "Web3 onboarding is broken. That's why we built x402 Gasless Gaming 🎮",
+    description: "Micropayments shouldn't require complex wallet setups. x402 introduces gasless paywalls and micro-transactions to let players jump right into decentralized games without seed phrase or transaction friction. Watch our demo video! 👇",
+    url: "https://x.com/tmanas2004",
+    date: "Nov 03, 2025",
+    likes: "64",
+    reposts: "19",
+    tags: ["Web3Gaming", "Micropayments", "UX"]
+  },
+  {
+    id: "yt-4",
+    platform: "youtube",
+    title: "OpsRover Platform Demonstration",
+    description: "A walkthrough showing OpsRover: a dashboard designed for real-time operations, link automation, and project workspace tracking.",
+    url: "https://www.youtube.com/@manastiruveedula4794",
+    date: "Sep 08, 2025",
+    duration: "2:50",
+    views: "115 views",
+    likes: "18",
+    tags: ["OpsRover", "SaaS", "Automation", "Walkthrough"]
+  }
 ];

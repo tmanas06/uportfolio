@@ -15,6 +15,7 @@ const alexBrush = Alex_Brush({
 const links = [
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
+  { label: "Posts", href: "/posts" },
   { label: "Stack", href: "/skills" },
   { label: "Contact", href: "/contact" },
 ];
