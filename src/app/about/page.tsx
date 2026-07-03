@@ -22,8 +22,8 @@ export default function AboutPage() {
         </div>
 
         {/* ── PROFILE CARD ─── */}
-        <div className="card" style={{ padding: "32px", marginBottom: "40px" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "32px", alignItems: "flex-start" }}>
+        <div className="card" style={{ marginBottom: "40px", padding: "32px" }}>
+          <div className="profile-card-layout">
             {/* Avatar */}
             <div style={{
               width: 180, height: 180,
@@ -36,7 +36,7 @@ export default function AboutPage() {
             </div>
 
             {/* Info */}
-            <div style={{ flex: 1, minWidth: 240 }}>
+            <div className="profile-info-layout">
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "var(--text)", marginBottom: "4px", letterSpacing: "-0.3px" }}>
                 {personalInfo.name}
               </h2>
@@ -48,7 +48,7 @@ export default function AboutPage() {
               </p>
 
               {/* Meta */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", fontSize: "13px", color: "var(--text-muted)", marginBottom: "20px" }}>
+              <div className="profile-meta-layout">
                 <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
                   <MapPin size={13} /> {personalInfo.location}
                 </span>
@@ -61,7 +61,7 @@ export default function AboutPage() {
               </div>
 
               {/* Social links */}
-              <div style={{ display: "flex", gap: "8px" }}>
+              <div className="profile-socials-layout">
                 {[
                   { href: personalInfo.github, label: "GitHub", icon: <Github size={15} /> },
                   { href: personalInfo.linkedin, label: "LinkedIn", icon: <Linkedin size={15} /> },
