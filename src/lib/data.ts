@@ -3,7 +3,7 @@ export const personalInfo = {
   firstName: "T Manas Chakravarty",
   handle: "T Manas Chakravarty",
   title: "Full Stack Blockchain Developer",
-  tagline: "Full Stack | Blockchain | Solana dApps",
+  tagline: "Full Stack Developer (MERN, Flutter, Next.js) | Blockchain (Solidity, EVM) | Snowflake Squad 2024 | Ex-KPMG | Ex-Coforge",
   email: "2210030003cse@gmail.com",
   phone: "+91-9398264880",
   location: "Hyderabad, Telangana, India",

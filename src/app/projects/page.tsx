@@ -32,6 +32,8 @@ function ProjectsContent() {
   const searchParams = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [category, setCategory] = useState("All");
+  const [selectedTech, setSelectedTech] = useState("All Tech");
+  const [selectedChain, setSelectedChain] = useState("All Chains");
 
   // GitHub repos states
   const [ghRepos, setGhRepos] = useState<GHRepo[]>([]);
@@ -70,12 +72,52 @@ function ProjectsContent() {
   }, []);
 
   const categories = ["All", ...Array.from(new Set(projects.map(p => p.category)))];
+
+  const availableTech = [
+    "All Tech",
+    "Solidity",
+    "TypeScript",
+    "Rust",
+    "Python",
+    "Flutter",
+    "React",
+    "Next.js",
+    "Svelte",
+    "NestJS",
+    "ZK-Proofs"
+  ];
+
+  const availableChains = [
+    "All Chains",
+    "Ethereum",
+    "Solana",
+    "Polygon",
+    "BSV",
+    "Stacks",
+    "Aptos",
+    "Monad",
+    "Rootstock"
+  ];
   
   const filteredLocal = projects.filter(p => {
     const matchCat = category === "All" || p.category === category;
+    
+    // Tech/Lang filter
+    const matchTech = selectedTech === "All Tech" || p.tech.some(t => {
+      const tl = t.toLowerCase();
+      const stl = selectedTech.toLowerCase();
+      if (stl === "react") return tl.includes("react") || tl.includes("next.js");
+      return tl === stl;
+    });
+
+    // Chain filter
+    const matchChain = selectedChain === "All Chains" || (p.chains && p.chains.some(c => c.toLowerCase() === selectedChain.toLowerCase()));
+
+    // Search query
     const q = search.toLowerCase();
-    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.tech.some(t => t.toLowerCase().includes(q));
-    return matchCat && matchSearch;
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.tech.some(t => t.toLowerCase().includes(q)) || (p.chains && p.chains.some(c => c.toLowerCase().includes(q)));
+    
+    return matchCat && matchTech && matchChain && matchSearch;
   });
 
   const filteredGh = category === "All" ? ghRepos.filter(r => {
@@ -92,9 +134,17 @@ function ProjectsContent() {
     const isAlreadyLocal = projects.some(p => p.github.toLowerCase().endsWith(nameLower));
     if (isAlreadyLocal) return false;
     
-    // 4. Match search query
+    // 4. Tech/Language Filter
+    const matchTech = selectedTech === "All Tech" || (r.language && r.language.toLowerCase() === selectedTech.toLowerCase());
+
+    // 5. Chain Filter
+    const matchChain = selectedChain === "All Chains" || nameLower.includes(selectedChain.toLowerCase()) || descLower.includes(selectedChain.toLowerCase());
+
+    // 6. Match search query
     const q = search.toLowerCase();
-    return !q || nameLower.includes(q) || descLower.includes(q) || (r.language && r.language.toLowerCase().includes(q));
+    const matchSearch = !q || nameLower.includes(q) || descLower.includes(q) || (r.language && r.language.toLowerCase().includes(q));
+
+    return matchTech && matchChain && matchSearch;
   }) : [];
 
   return (
@@ -111,41 +161,112 @@ function ProjectsContent() {
           <p className="section-sub">A compilation of my builds, hackathons, and open source contributions.</p>
         </div>
 
-        {/* Search + Filter */}
-        <div style={{ marginBottom: "32px", display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
-          <div style={{ position: "relative", flex: "1 1 260px" }}>
-            <Search size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-faint)" }} />
+        {/* Search & Advanced Filters Panel */}
+        <div className="card" style={{ padding: "24px", marginBottom: "40px", display: "flex", flexDirection: "column", gap: "20px" }}>
+          {/* Search bar */}
+          <div style={{ position: "relative", width: "100%" }}>
+            <Search size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-faint)" }} />
             <input
               type="text"
-              placeholder="Search all projects & repositories..."
+              placeholder="Search all projects, languages, & ecosystems..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="input"
-              style={{ paddingLeft: "36px", paddingRight: search ? "36px" : "12px" }}
+              style={{ paddingLeft: "38px", paddingRight: search ? "38px" : "14px", width: "100%" }}
               id="project-search"
             />
             {search && (
-              <button onClick={() => setSearch("")} style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-muted)", display: "flex" }}>
+              <button onClick={() => setSearch("")} style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-muted)", display: "flex", cursor: "pointer" }}>
                 <X size={14} />
               </button>
             )}
           </div>
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-            {categories.map(c => (
-              <button
-                key={c}
-                onClick={() => setCategory(c)}
-                className="btn"
+
+          {/* Dropdown selectors row */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
+            {/* Domain / Category Dropdown */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "11px", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Domain / Category
+              </label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="input"
                 style={{
-                  padding: "7px 16px", fontSize: "13px",
-                  background: category === c ? "var(--accent)" : "transparent",
-                  color: category === c ? "#fff" : "var(--text-muted)",
-                  borderColor: category === c ? "var(--accent)" : "var(--border)",
+                  width: "100%",
+                  cursor: "pointer",
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f8ef7' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 14px center",
+                  backgroundSize: "14px",
+                  paddingRight: "36px"
                 }}
               >
-                {c}
-              </button>
-            ))}
+                {categories.map(c => (
+                  <option key={c} value={c} style={{ background: "var(--bg-card)", color: "var(--text)" }}>
+                    {c === "All" ? "All Domains" : c}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Language & Technology Dropdown */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "11px", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Language & Technology
+              </label>
+              <select
+                value={selectedTech}
+                onChange={(e) => setSelectedTech(e.target.value)}
+                className="input"
+                style={{
+                  width: "100%",
+                  cursor: "pointer",
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f8ef7' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 14px center",
+                  backgroundSize: "14px",
+                  paddingRight: "36px"
+                }}
+              >
+                {availableTech.map(t => (
+                  <option key={t} value={t} style={{ background: "var(--bg-card)", color: "var(--text)" }}>
+                    {t === "All Tech" ? "All Languages & Tech" : t}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Blockchain Ecosystem Dropdown */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "11px", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Blockchain Ecosystem
+              </label>
+              <select
+                value={selectedChain}
+                onChange={(e) => setSelectedChain(e.target.value)}
+                className="input"
+                style={{
+                  width: "100%",
+                  cursor: "pointer",
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f8ef7' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 14px center",
+                  backgroundSize: "14px",
+                  paddingRight: "36px"
+                }}
+              >
+                {availableChains.map(ch => (
+                  <option key={ch} value={ch} style={{ background: "var(--bg-card)", color: "var(--text)" }}>
+                    {ch === "All Chains" ? "All Blockchain Chains" : ch}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 

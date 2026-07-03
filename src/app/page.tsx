@@ -41,8 +41,8 @@ export default function HomePage() {
                 T Manas Chakravarty
               </h1>
 
-              <p className="hero-tagline">
-                Full Stack | Blockchain | Solana dApps
+              <p className="hero-tagline" style={{ fontSize: "14px", lineHeight: "1.4" }}>
+                {personalInfo.tagline}
               </p>
 
               <p className="hero-bio">
