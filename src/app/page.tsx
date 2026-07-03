@@ -7,7 +7,7 @@ import {
   ArrowRight, Github, Linkedin, Mail, ExternalLink,
   Trophy, MapPin, GraduationCap, Twitter, Youtube,
 } from "lucide-react";
-import { personalInfo, metrics, projects, achievements, techStackGrid, education } from "@/lib/data";
+import { personalInfo, metrics, projects, achievements, techStackGrid, education, educationList } from "@/lib/data";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 16 },
@@ -222,18 +222,25 @@ export default function HomePage() {
         <motion.section {...fade(0.18)} style={{ paddingBottom: "64px" }}>
           <span className="section-label">Education</span>
           <h2 className="section-title" style={{ marginBottom: "24px" }}>Academic Background</h2>
-          <div className="card" style={{ padding: "24px", display: "flex", gap: "16px", alignItems: "flex-start" }}>
-            <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--accent-dim)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <GraduationCap size={20} style={{ color: "var(--accent)" }} />
-            </div>
-            <div>
-              <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--text)", marginBottom: "4px" }}>{education.degree}</p>
-              <p style={{ fontSize: "14px", color: "var(--accent)", marginBottom: "8px" }}>{education.university}</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                <span className="tag">{education.period}</span>
-                <span className="tag" style={{ color: "var(--green)", borderColor: "rgba(52,211,153,0.3)" }}>CGPA: {education.cgpa}</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {educationList.map((edu, idx) => (
+              <div key={idx} className="card" style={{ padding: "20px", display: "flex", gap: "16px", alignItems: "flex-start" }}>
+                <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--accent-dim)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <GraduationCap size={20} style={{ color: "var(--accent)" }} />
+                </div>
+                <div>
+                  <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>{edu.degree}</p>
+                  <p style={{ fontSize: "14px", color: "var(--accent)", marginBottom: "8px", fontWeight: 500 }}>{edu.institution}</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
+                    <span className="tag">{edu.period}</span>
+                    <span className="tag" style={{ color: "var(--text-muted)" }}>{edu.details}</span>
+                    {edu.skills && edu.skills.length > 0 && (
+                      <span className="tag" style={{ color: "var(--text-faint)" }}>Skills: {edu.skills.join(", ")}</span>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </motion.section>
 

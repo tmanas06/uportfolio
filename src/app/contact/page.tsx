@@ -17,10 +17,9 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Opens mailto with form data
     const subject = encodeURIComponent(`Portfolio contact from ${form.name}`);
     const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
-    window.open(`mailto:${personalInfo.email}?subject=${subject}&body=${body}`);
+    window.open(`mailto:${personalInfo.email}?subject=${subject}?body=${body}`);
     setSent(true);
     setTimeout(() => setSent(false), 4000);
   };
@@ -64,7 +63,7 @@ export default function ContactPage() {
             {/* Status */}
             <div className="card" style={{ padding: "20px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--green)", boxShadow: "0 0 6px var(--green)" }} />
+                <div className="led-status" />
                 <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--green)" }}>Available for work</p>
               </div>
               <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>
@@ -73,7 +72,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact items */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {contactItems.map((item) => (
                 <div key={item.label} className="card" style={{ padding: "16px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0 }}>
@@ -87,7 +86,7 @@ export default function ContactPage() {
                     </div>
                   </div>
                   {item.action && (
-                    <button onClick={item.action} className="btn btn-ghost" style={{ padding: "5px 8px", flexShrink: 0 }} aria-label={`Copy ${item.label}`}>
+                    <button onClick={item.action} className="btn" style={{ padding: "8px 12px", flexShrink: 0 }} aria-label={`Copy ${item.label}`}>
                       {copied === item.label.toLowerCase() ? <CheckCircle size={13} style={{ color: "var(--green)" }} /> : <Copy size={13} />}
                     </button>
                   )}
@@ -101,7 +100,7 @@ export default function ContactPage() {
               <div className="flex flex-wrap gap-2">
                 {socialLinks.filter(s => s.href).map((s) => (
                   <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                    className="btn btn-secondary" style={{ padding: "8px 14px", gap: "6px", fontSize: "13px" }}>
+                    className="btn" style={{ padding: "8px 14px", gap: "6px", fontSize: "13px" }}>
                     {s.icon} {s.label}
                   </a>
                 ))}
@@ -153,8 +152,9 @@ export default function ContactPage() {
                     style={{ resize: "vertical", height: "auto" }}
                   />
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ justifyContent: "center", gap: "8px" }}>
-                  {sent ? <><CheckCircle size={15} /> Sent!</> : <><Send size={15} /> Send Message</>}
+                <button type="submit" className="btn btn-primary" style={{ justifyContent: "center", gap: "8px", width: "100%", padding: "12px" }}>
+                  {sent ? <CheckCircle size={15} /> : <Send size={15} />}
+                  {sent ? "Sent!" : "Send Message"}
                 </button>
               </form>
             </div>
@@ -162,12 +162,6 @@ export default function ContactPage() {
 
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 640px) {
-          .contact-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </div>
   );
 }

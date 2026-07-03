@@ -532,6 +532,44 @@ export const education = {
   cgpa: "9.44",
 };
 
+export const educationList = [
+  {
+    institution: "KL University",
+    degree: "Bachelor of Technology - BTech Hons., Computer Engineering",
+    period: "Aug 2022 - 2026",
+    details: "CGPA: 9.44",
+    skills: ["Teamwork", "Engineering"]
+  },
+  {
+    institution: "Rise In",
+    degree: "Soroban Online Bootcamp, Blockchain",
+    period: "Apr 2024 - May 2024",
+    details: "Focus: Stellar Network & Rust Integration",
+    skills: ["Rust (Programming Language)", "Soroban"]
+  },
+  {
+    institution: "Gopi Birla Memorial School, Mumbai",
+    degree: "High School (Grade 12)",
+    period: "Graduated 2022",
+    details: "Grade: 12th",
+    skills: []
+  },
+  {
+    institution: "Orchid International School - Mumbai",
+    degree: "Junior High (Grade 9 & 10)",
+    period: "May 2019 - May 2020",
+    details: "Grade: 10",
+    skills: []
+  },
+  {
+    institution: "Kendriya Vidyalaya (KV)",
+    degree: "Schooling (Up to Grade 8)",
+    period: "Jan 2009 - Mar 2017",
+    details: "Grade: 8th",
+    skills: []
+  }
+];
+
 export const navLinks = [
   { name: "Home", href: "/", icon: "home" },
   { name: "About", href: "/about", icon: "user" },

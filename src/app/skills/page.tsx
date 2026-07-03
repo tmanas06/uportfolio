@@ -111,26 +111,32 @@ function SkillCard({
 
   return (
     <div
+      className="card"
       style={{
         padding: "14px 16px",
-        borderRadius: 10,
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.06)",
-        transition: "all 0.3s ease",
+        cursor: "pointer",
+        transition: "all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)"
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget;
-        el.style.background = "rgba(255,255,255,0.06)";
-        el.style.borderColor = `${color}40`;
-        el.style.transform = "translateY(-2px)";
-        el.style.boxShadow = `0 8px 24px ${color}15`;
+        el.style.borderColor = `${color}50`;
+        el.style.transform = "translateY(1.5px)";
+        el.style.boxShadow = `
+          3px 3px 8px rgba(0, 0, 0, 0.8), 
+          -1px -1px 6px rgba(255, 255, 255, 0.01),
+          inset 1px 1px 1px rgba(0, 0, 0, 0.6),
+          0 0 16px ${color}10
+        `;
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
-        el.style.background = "rgba(255,255,255,0.03)";
-        el.style.borderColor = "rgba(255,255,255,0.06)";
+        el.style.borderColor = "rgba(255, 255, 255, 0.05)";
         el.style.transform = "translateY(0)";
-        el.style.boxShadow = "none";
+        el.style.boxShadow = `
+          8px 8px 24px rgba(0, 0, 0, 0.7), 
+          -4px -4px 16px rgba(255, 255, 255, 0.02),
+          inset 1px 1px 0px rgba(255, 255, 255, 0.05)
+        `;
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
@@ -217,8 +223,6 @@ export default function SkillsPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: 16,
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
               }}
             >
               <div style={{
@@ -379,9 +383,8 @@ export default function SkillsPage() {
                   style={{
                     padding: "20px",
                     cursor: "pointer",
-                    border: activeTab === cat.key ? `1px solid ${cat.color}40` : "1px solid var(--border)",
-                    background: activeTab === cat.key ? `${cat.color}08` : "var(--bg-card)",
-                    transition: "all 0.25s ease",
+                    borderColor: activeTab === cat.key ? `${cat.color}50` : undefined,
+                    boxShadow: activeTab === cat.key ? `0 0 16px ${cat.glow}` : undefined,
                   }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
@@ -437,21 +440,8 @@ export default function SkillsPage() {
                   display: "flex",
                   alignItems: "center",
                   gap: 12,
-                  transition: "all 0.25s ease",
-                  cursor: "default",
                   animationDelay: `${i * 60}ms`,
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  el.style.transform = "translateY(-3px)";
-                  el.style.borderColor = "rgba(167,139,250,0.3)";
-                  el.style.boxShadow = "0 8px 24px rgba(167,139,250,0.12)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.transform = "translateY(0)";
-                  el.style.borderColor = "var(--border)";
-                  el.style.boxShadow = "none";
+                  cursor: "default",
                 }}
               >
                 <div style={{ position: "relative", width: 26, height: 26, flexShrink: 0 }}>

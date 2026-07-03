@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Github, Linkedin, Mail, MapPin, Globe, Briefcase, Calendar, Award, GraduationCap, Trophy, Twitter, Youtube } from "lucide-react";
-import { personalInfo, education, experience, achievements, certifications } from "@/lib/data";
+import { personalInfo, education, educationList, experience, achievements, certifications } from "@/lib/data";
 
 export default function AboutPage() {
   return (
@@ -91,30 +91,128 @@ export default function AboutPage() {
 
           <div className="timeline">
             {experience.map((exp, i) => (
-              <div key={i} className="timeline-item">
+              <div key={i} className="timeline-item" style={{ marginBottom: "36px", position: "relative" }}>
                 <div className={`timeline-dot${exp.current ? " active" : ""}`} />
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
-                  <div>
-                    <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>{exp.title}</h3>
-                    <p style={{ fontSize: "13px", color: "var(--accent)", fontWeight: 600 }}>{exp.company}</p>
-                  </div>
-                  <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <p style={{ fontSize: "12px", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "4px" }}>
-                      <Calendar size={11} /> {exp.period}
-                    </p>
-                    {exp.current && (
-                      <span style={{
-                        display: "inline-block", marginTop: "4px",
-                        padding: "2px 8px", borderRadius: "99px",
-                        background: "var(--green-dim)", border: "1px solid rgba(52,211,153,0.25)",
-                        fontSize: "11px", fontWeight: 600, color: "var(--green)",
-                      }}>Current</span>
-                    )}
+                <div style={{ marginBottom: "8px" }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "space-between", alignItems: "flex-start" }}>
+                      <div>
+                        <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>
+                          {exp.title}
+                        </h3>
+                        <p style={{ fontSize: "13px", color: "var(--accent)", fontWeight: 600, display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px" }}>
+                          {exp.company}
+                          {(exp.company.toLowerCase().includes("hyderabad dao") || exp.company.toLowerCase().includes("snowflake")) && (
+                            <span style={{
+                              fontSize: "9px",
+                              fontWeight: 700,
+                              textTransform: "uppercase",
+                              background: "rgba(167, 139, 250, 0.15)",
+                              color: "#A78BFA",
+                              border: "1px solid rgba(167, 139, 250, 0.3)",
+                              padding: "1px 6px",
+                              borderRadius: "4px",
+                              letterSpacing: "0.03em"
+                            }}>
+                              Community
+                            </span>
+                          )}
+                          {(exp.company.toLowerCase().includes("kl university") || exp.company.toLowerCase().includes("wallstreet dao club, klh")) && (
+                            <span style={{
+                              fontSize: "9px",
+                              fontWeight: 700,
+                              textTransform: "uppercase",
+                              background: "rgba(79, 142, 247, 0.15)",
+                              color: "#4F8EF7",
+                              border: "1px solid rgba(79, 142, 247, 0.3)",
+                              padding: "1px 6px",
+                              borderRadius: "4px",
+                              letterSpacing: "0.03em"
+                            }}>
+                              College Club
+                            </span>
+                          )}
+                          {exp.company.toLowerCase().includes("girlscript") && (
+                            <span style={{
+                              fontSize: "9px",
+                              fontWeight: 700,
+                              textTransform: "uppercase",
+                              background: "rgba(52, 211, 153, 0.15)",
+                              color: "#34D399",
+                              border: "1px solid rgba(52, 211, 153, 0.3)",
+                              padding: "1px 6px",
+                              borderRadius: "4px",
+                              letterSpacing: "0.03em"
+                            }}>
+                              Open Source
+                            </span>
+                          )}
+                          {exp.company.toLowerCase().includes("aicte") && (
+                            <span style={{
+                              fontSize: "9px",
+                              fontWeight: 700,
+                              textTransform: "uppercase",
+                              background: "rgba(251, 191, 36, 0.15)",
+                              color: "#FBBF24",
+                              border: "1px solid rgba(251, 191, 36, 0.3)",
+                              padding: "1px 6px",
+                              borderRadius: "4px",
+                              letterSpacing: "0.03em"
+                            }}>
+                              Government Internship
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                      <div style={{ textAlign: "right", flexShrink: 0 }}>
+                        <p style={{ fontSize: "12px", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "4px" }}>
+                          <Calendar size={11} /> {exp.period}
+                        </p>
+                        <p style={{ fontSize: "11px", color: "var(--text-faint)", marginTop: "2px" }}>{exp.location}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.7 }}>
-                  {Array.isArray(exp.description) ? exp.description.join(" • ") : exp.description}
-                </p>
+
+                <div style={{ paddingLeft: "56px" }}>
+                  {/* Descriptions */}
+                  <ul style={{ margin: "0 0 12px 0", paddingLeft: "16px", listStyleType: "disc", color: "var(--text-muted)", fontSize: "13px", lineHeight: "1.65" }}>
+                    {Array.isArray(exp.description) ? (
+                      exp.description.map((desc, idx) => <li key={idx} style={{ marginBottom: "4px" }}>{desc}</li>)
+                    ) : (
+                      <li>{exp.description}</li>
+                    )}
+                  </ul>
+
+                  {/* Skills tags */}
+                  {exp.skills && exp.skills.length > 0 && (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
+                      {exp.skills.map((skill) => (
+                        <span key={skill} style={{ fontSize: "10px", fontWeight: 600, color: "var(--accent)", background: "var(--accent-dim)", padding: "2px 8px", borderRadius: "99px", border: "1px solid rgba(79,142,247,0.15)" }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Attachments & Posts */}
+                  {(exp.document || exp.post) && (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "10px" }}>
+                      {exp.document && (
+                        <a href={exp.document} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: "6px 12px", gap: "6px", fontSize: "11px", display: "inline-flex", alignItems: "center", textTransform: "none", letterSpacing: "normal" }}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                          {exp.documentLabel || "Document"}
+                        </a>
+                      )}
+                      {exp.post && (
+                        <a href={exp.post} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: "6px 12px", gap: "6px", fontSize: "11px", display: "inline-flex", alignItems: "center", textTransform: "none", letterSpacing: "normal" }}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                          {exp.postLabel || "LinkedIn Post"}
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -130,13 +228,20 @@ export default function AboutPage() {
               <GraduationCap size={16} style={{ color: "var(--accent)" }} />
               <h2 style={{ fontSize: "18px", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.3px" }}>Education</h2>
             </div>
-            <div className="card" style={{ padding: "20px" }}>
-              <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "4px" }}>{education.degree}</p>
-              <p style={{ fontSize: "13px", color: "var(--accent)", fontWeight: 600, marginBottom: "12px" }}>{education.university}</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                <span className="tag">{education.period}</span>
-                <span className="tag" style={{ color: "var(--green)", borderColor: "rgba(52,211,153,0.3)" }}>CGPA: {education.cgpa}</span>
-              </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {educationList.map((edu, idx) => (
+                <div key={idx} className="card" style={{ padding: "18px 20px" }}>
+                  <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>{edu.degree}</p>
+                  <p style={{ fontSize: "13px", color: "var(--accent)", fontWeight: 600, marginBottom: "8px" }}>{edu.institution}</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", alignItems: "center" }}>
+                    <span className="tag">{edu.period}</span>
+                    <span className="tag" style={{ color: "var(--text-muted)" }}>{edu.details}</span>
+                    {edu.skills && edu.skills.length > 0 && (
+                      <span className="tag" style={{ color: "var(--text-faint)" }}>Skills: {edu.skills.join(", ")}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
