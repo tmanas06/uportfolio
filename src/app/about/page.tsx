@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Mail, MapPin, Globe, Briefcase, Calendar, Award, GraduationCap, Trophy } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Globe, Briefcase, Calendar, Award, GraduationCap, Trophy, Twitter, Youtube } from "lucide-react";
 import { personalInfo, education, experience, achievements, certifications } from "@/lib/data";
 
 export default function AboutPage() {
@@ -63,9 +63,12 @@ export default function AboutPage() {
               {/* Social links */}
               <div className="profile-socials-layout">
                 {[
-                  { href: personalInfo.github, label: "GitHub", icon: <Github size={15} /> },
-                  { href: personalInfo.linkedin, label: "LinkedIn", icon: <Linkedin size={15} /> },
-                  { href: personalInfo.blog, label: "Blog", icon: <Globe size={15} /> },
+                  { href: personalInfo.github,    label: "GitHub",     icon: <Github size={15} /> },
+                  { href: personalInfo.linkedin,   label: "LinkedIn",   icon: <Linkedin size={15} /> },
+                  { href: personalInfo.twitter,    label: "Twitter",    icon: <Twitter size={15} /> },
+                  { href: personalInfo.youtube,    label: "YouTube",    icon: <Youtube size={15} /> },
+                  { href: personalInfo.dorahacks,  label: "DoraHacks",  icon: <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.02em" }}>DH</span> },
+                  { href: personalInfo.blog,       label: "Blog",       icon: <Globe size={15} /> },
                 ].filter(s => s.href).map((s) => (
                   <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
                     className="btn btn-secondary" style={{ padding: "7px 14px", gap: "6px", fontSize: "13px" }}

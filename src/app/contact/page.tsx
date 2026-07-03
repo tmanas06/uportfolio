@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Github, Linkedin, Globe, Send, Copy, CheckCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Globe, Send, Copy, CheckCircle, Twitter, Youtube } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
 export default function ContactPage() {
@@ -32,9 +32,12 @@ export default function ContactPage() {
   ];
 
   const socialLinks = [
-    { icon: <Github size={15} />, label: "GitHub", href: personalInfo.github },
-    { icon: <Linkedin size={15} />, label: "LinkedIn", href: personalInfo.linkedin },
-    { icon: <Globe size={15} />, label: "Blog", href: personalInfo.blog },
+    { icon: <Github size={15} />,   label: "GitHub",    href: personalInfo.github },
+    { icon: <Linkedin size={15} />, label: "LinkedIn",  href: personalInfo.linkedin },
+    { icon: <Twitter size={15} />,  label: "Twitter",   href: personalInfo.twitter },
+    { icon: <Youtube size={15} />,  label: "YouTube",   href: personalInfo.youtube },
+    { icon: <span style={{ fontSize: 11, fontWeight: 800 }}>DH</span>, label: "DoraHacks", href: personalInfo.dorahacks },
+    { icon: <Globe size={15} />,    label: "Blog",      href: personalInfo.blog },
   ];
 
   return (

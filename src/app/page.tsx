@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight, Github, Linkedin, Mail, ExternalLink,
-  Trophy, MapPin, GraduationCap,
+  Trophy, MapPin, GraduationCap, Twitter, Youtube,
 } from "lucide-react";
 import { personalInfo, metrics, projects, achievements, techStackGrid, education } from "@/lib/data";
 
@@ -63,6 +63,15 @@ export default function HomePage() {
                 </a>
                 <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="LinkedIn profile">
                   <Linkedin size={16} />
+                </a>
+                <a href={personalInfo.twitter} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="Twitter / X profile">
+                  <Twitter size={16} />
+                </a>
+                <a href={personalInfo.youtube} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="YouTube channel">
+                  <Youtube size={16} />
+                </a>
+                <a href={personalInfo.dorahacks} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="DoraHacks profile" style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.02em" }}>
+                  DH
                 </a>
               </div>
 
