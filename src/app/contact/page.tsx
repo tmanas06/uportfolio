@@ -1,237 +1,170 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Github,
-  Linkedin,
-  Globe,
-  Send,
-  ShieldCheck,
-  ExternalLink,
-  Lock,
-  MessageSquare,
-  Copy,
-  CheckCircle,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Globe, Send, Copy, CheckCircle } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
 export default function ContactPage() {
-  const [activeTab, setActiveTab] = useState<"zk" | "email">("zk");
   const [copied, setCopied] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [sent, setSent] = useState(false);
 
-  const copyToClipboard = (text: string, label: string) => {
+  const copy = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setCopied(label);
     setTimeout(() => setCopied(null), 2000);
   };
 
-  return (
-    <div className="container-v2 pt-12 sm:pt-20 py-12 sm:py-24 space-y-10 sm:space-y-12 pb-24">
-      {/* ═══ HEADER ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="flex items-center gap-4 mb-3">
-          <MessageSquare className="w-7 h-7 text-[var(--accent)]" />
-          <h1 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-black uppercase font-heading tracking-tight text-[var(--text-primary)]">
-            /// Contact
-          </h1>
-        </div>
-        <p className="text-[1rem] text-[var(--text-secondary)] font-mono ml-11">
-          Available for freelance work, internships, and open-source collaborations.
-        </p>
-      </motion.div>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Opens mailto with form data
+    const subject = encodeURIComponent(`Portfolio contact from ${form.name}`);
+    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
+    window.open(`mailto:${personalInfo.email}?subject=${subject}&body=${body}`);
+    setSent(true);
+    setTimeout(() => setSent(false), 4000);
+  };
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* ═══ LEFT COLUMN: Contact Info ═══ */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          className="lg:col-span-1 space-y-5"
-        >
-          {/* Contact Cards */}
-          {[
-            { icon: Mail, label: "Email", value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-            { icon: Phone, label: "Phone", value: personalInfo.phone, href: `tel:${personalInfo.phone}` },
-            { icon: MapPin, label: "Location", value: personalInfo.location },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-[var(--accent)] border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-6 h-6 text-black" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[0.75rem] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] font-mono">{item.label}</p>
-                  {item.href ? (
-                    <a href={item.href} className="text-[0.9375rem] font-bold text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors truncate block font-mono">
-                      {item.value}
-                    </a>
-                  ) : (
-                    <p className="text-[0.9375rem] font-bold text-[var(--text-primary)] truncate font-mono">{item.value}</p>
+  const contactItems = [
+    { icon: <Mail size={15} />, label: "Email", value: personalInfo.email, action: () => copy(personalInfo.email, "email"), href: `mailto:${personalInfo.email}` },
+    { icon: <Phone size={15} />, label: "Phone", value: personalInfo.phone, action: () => copy(personalInfo.phone, "phone"), href: `tel:${personalInfo.phone}` },
+    { icon: <MapPin size={15} />, label: "Location", value: personalInfo.location, action: null, href: null },
+  ];
+
+  const socialLinks = [
+    { icon: <Github size={15} />, label: "GitHub", href: personalInfo.github },
+    { icon: <Linkedin size={15} />, label: "LinkedIn", href: personalInfo.linkedin },
+    { icon: <Globe size={15} />, label: "Blog", href: personalInfo.blog },
+  ];
+
+  return (
+    <div className="page-wrapper" style={{ position: "relative" }}>
+      {/* Background Spotlight */}
+      <div className="spotlight" style={{ top: "-100px", left: "50%", transform: "translateX(-50%)" }} />
+
+      <div className="container" style={{ paddingTop: "48px", position: "relative", zIndex: 1 }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: "48px" }}>
+          <span className="section-label">Contact</span>
+          <h1 className="section-title text-gradient">Get in Touch</h1>
+          <p className="section-sub">
+            Available for full-stack projects, smart contract development, and Web3 integrations.
+            Let&apos;s talk.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
+
+          {/* Left: contact info */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+            {/* Status */}
+            <div className="card" style={{ padding: "20px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--green)", boxShadow: "0 0 6px var(--green)" }} />
+                <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--green)" }}>Available for work</p>
+              </div>
+              <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>
+                Currently open to new opportunities — freelance, part-time, or full-time roles.
+              </p>
+            </div>
+
+            {/* Contact items */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {contactItems.map((item) => (
+                <div key={item.label} className="card" style={{ padding: "16px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0 }}>
+                    <span style={{ color: "var(--accent)", flexShrink: 0 }}>{item.icon}</span>
+                    <div style={{ minWidth: 0 }}>
+                      <p style={{ fontSize: "11px", color: "var(--text-faint)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "2px" }}>{item.label}</p>
+                      {item.href
+                        ? <a href={item.href} style={{ fontSize: "13px", color: "var(--text)", fontWeight: 500, display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.value}</a>
+                        : <p style={{ fontSize: "13px", color: "var(--text)", fontWeight: 500 }}>{item.value}</p>
+                      }
+                    </div>
+                  </div>
+                  {item.action && (
+                    <button onClick={item.action} className="btn btn-ghost" style={{ padding: "5px 8px", flexShrink: 0 }} aria-label={`Copy ${item.label}`}>
+                      {copied === item.label.toLowerCase() ? <CheckCircle size={13} style={{ color: "var(--green)" }} /> : <Copy size={13} />}
+                    </button>
                   )}
                 </div>
-                {item.value && (
-                  <button
-                    onClick={() => copyToClipboard(item.value!, item.label)}
-                    className="w-10 h-10 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all flex-shrink-0 min-w-[48px] min-h-[48px]"
-                  >
-                    {copied === item.label ? (
-                      <CheckCircle className="w-4 h-4 text-[var(--accent)]" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
-
-          {/* Social Links */}
-          <div className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)]">
-            <p className="text-[0.75rem] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] font-mono mb-4">/// Socials</p>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { icon: Github, label: "GitHub", href: personalInfo.github },
-                { icon: Linkedin, label: "LinkedIn", href: personalInfo.linkedin },
-                ...(personalInfo.blog ? [{ icon: Globe, label: "Blog", href: personalInfo.blog }] : []),
-              ].map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 border-[2px] border-[var(--border-color)] hover:bg-[var(--accent)] hover:text-black transition-all group/social shadow-[2px_2px_0px_var(--border-color)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_var(--border-color)] min-h-[48px]"
-                >
-                  <social.icon className="w-5 h-5 text-[var(--text-muted)] group-hover/social:text-black" />
-                  <span className="text-[0.875rem] font-black uppercase tracking-widest text-[var(--text-primary)] group-hover/social:text-black font-mono">
-                    {social.label}
-                  </span>
-                </a>
               ))}
             </div>
-          </div>
 
-          {/* Availability Badge */}
-          <div className="border-[3px] border-[var(--accent)] p-5 bg-[var(--accent)] shadow-[4px_4px_0px_var(--shadow-color)]">
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-black border-[2px] border-black" />
-              <span className="text-[1rem] font-black text-black uppercase tracking-widest font-mono">
-                Available for hire
-              </span>
-            </div>
-            <p className="text-[0.875rem] font-bold text-black/70 mt-2 font-mono">
-              Open to freelance, internships, and full-time roles.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* ═══ RIGHT COLUMN: Messaging ═══ */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="lg:col-span-2"
-        >
-          {/* Tab Selector */}
-          <div className="flex border-[3px] border-[var(--border-color)] mb-0 shadow-[4px_4px_0px_var(--shadow-color)]">
-            <button
-              onClick={() => setActiveTab("zk")}
-              className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 text-[0.9375rem] font-black uppercase tracking-widest transition-all border-r-[3px] border-[var(--border-color)] min-h-[56px] ${activeTab === "zk"
-                ? "bg-[var(--accent)] text-black"
-                : "text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-black"
-                }`}
-            >
-              <Lock className="w-5 h-5" />
-              <span>Anonymous (ZK)</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("email")}
-              className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 text-[0.9375rem] font-black uppercase tracking-widest transition-all min-h-[56px] ${activeTab === "email"
-                ? "bg-[var(--accent)] text-black"
-                : "text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-black"
-                }`}
-            >
-              <Mail className="w-5 h-5" />
-              <span>Direct Email</span>
-            </button>
-          </div>
-
-          {/* Tab Content */}
-          {activeTab === "zk" ? (
-            <div className="border-[3px] border-t-0 border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)]">
-              <div className="p-6 border-b-[3px] border-[var(--border-color)]">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center shadow-[3px_3px_0px_var(--shadow-color)]">
-                    <ShieldCheck className="w-7 h-7 text-black" />
-                  </div>
-                  <div>
-                    <h3 className="text-[1.125rem] font-black text-[var(--text-primary)] uppercase font-heading">ZK-Whisper Protocol</h3>
-                    <p className="text-[0.875rem] text-[var(--text-secondary)] font-mono mt-1">
-                      Send anonymous messages using zero-knowledge proofs.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative" style={{ height: "600px" }}>
-                <iframe
-                  src="https://zk-whisper.vercel.app/"
-                  className="w-full h-full border-0"
-                  allow="clipboard-read; clipboard-write"
-                  title="ZK Anonymous Messenger"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="p-4 border-t-[3px] border-[var(--border-color)] flex items-center justify-between">
-                <div className="flex items-center gap-2 text-[var(--text-muted)]">
-                  <Lock className="w-4 h-4" />
-                  <span className="text-[0.75rem] font-black uppercase tracking-widest font-mono">E2E Encrypted</span>
-                </div>
-                <a
-                  href="https://zk-whisper.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[0.875rem] font-black text-[var(--accent)] hover:text-[var(--accent-2)] uppercase tracking-widest transition-colors"
-                >
-                  Open Full <ExternalLink className="w-4 h-4" />
-                </a>
+            {/* Social */}
+            <div>
+              <p style={{ fontSize: "12px", color: "var(--text-faint)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "10px" }}>Social</p>
+              <div style={{ display: "flex", gap: "8px" }}>
+                {socialLinks.filter(s => s.href).map((s) => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                    className="btn btn-secondary" style={{ padding: "8px 14px", gap: "6px", fontSize: "13px" }}>
+                    {s.icon} {s.label}
+                  </a>
+                ))}
               </div>
             </div>
-          ) : (
-            <div className="border-[3px] border-t-0 border-[var(--border-color)] p-8 shadow-[4px_4px_0px_var(--shadow-color)]">
-              <div className="text-center max-w-md mx-auto">
-                <div className="w-20 h-20 bg-[var(--accent)] border-[3px] border-[var(--border-color)] flex items-center justify-center mx-auto mb-6 shadow-[4px_4px_0px_var(--shadow-color)]">
-                  <Mail className="w-10 h-10 text-black" />
+          </div>
+
+          {/* Right: contact form */}
+          <div>
+            <div className="card" style={{ padding: "28px" }}>
+              <h2 style={{ fontSize: "16px", fontWeight: 700, color: "var(--text)", marginBottom: "20px", letterSpacing: "-0.2px" }}>
+                Send a message
+              </h2>
+              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-muted)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }} htmlFor="contact-name">Name</label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    required
+                    placeholder="Your name"
+                    value={form.name}
+                    onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+                    className="input"
+                  />
                 </div>
-                <h3 className="text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading">Direct_Message</h3>
-                <p className="text-[1rem] text-[var(--text-secondary)] mt-3 font-mono leading-relaxed">
-                  Prefer a direct conversation? Send me an email and I&apos;ll get back to you within 24 hours.
-                </p>
-                <a
-                  href={`mailto:${personalInfo.email}?subject=Portfolio%20Contact&body=Hi%20${personalInfo.firstName},%0A%0A`}
-                  className="inline-flex items-center gap-3 mt-8 brutal-btn brutal-btn-accent text-[1rem]"
-                >
-                  <Send className="w-5 h-5" /> Compose Email
-                </a>
-                <p className="text-[0.75rem] font-bold text-[var(--text-muted)] mt-4 font-mono">
-                  Opens your default email client
-                </p>
-              </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-muted)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }} htmlFor="contact-email">Email</label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    required
+                    placeholder="your@email.com"
+                    value={form.email}
+                    onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                    className="input"
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "var(--text-muted)", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }} htmlFor="contact-message">Message</label>
+                  <textarea
+                    id="contact-message"
+                    required
+                    rows={5}
+                    placeholder="Tell me about your project..."
+                    value={form.message}
+                    onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))}
+                    className="input"
+                    style={{ resize: "vertical", height: "auto" }}
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary" style={{ justifyContent: "center", gap: "8px" }}>
+                  {sent ? <><CheckCircle size={15} /> Sent!</> : <><Send size={15} /> Send Message</>}
+                </button>
+              </form>
             </div>
-          )}
-        </motion.div>
+          </div>
+
+        </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .contact-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }

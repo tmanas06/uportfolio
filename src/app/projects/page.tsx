@@ -1,241 +1,307 @@
 "use client";
 
-import { useState, Suspense } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Search,
-  Github,
-  ExternalLink,
-  FolderKanban,
-  X,
-  Terminal,
-} from "lucide-react";
+import { useState, useEffect, Suspense } from "react";
+import { Github, ExternalLink, Search, X, Star, GitFork, Loader2 } from "lucide-react";
 import { projects } from "@/lib/data";
 import { useSearchParams } from "next/navigation";
 
+interface GHRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  updated_at: string;
+  fork: boolean;
+}
+
+const EXCLUDED_KEYWORDS = [
+  "hello-world", "helloworld", "hello_world",
+  "tutorial", "tutoring", "learning", "tut-", "course",
+  "sample", "demo", "practice", "test", "testing",
+  "first-app", "first_app", "my-first", "assignment", "homework",
+  "exercise", "challenge", "lab-", "temp", "dummy", "boilerplate",
+  "codingchallenge", "tutoring_dapp"
+];
+
+
 function ProjectsContent() {
   const searchParams = useSearchParams();
-  const initialSearch = searchParams.get("search") || "";
-  const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [category, setCategory] = useState("All");
 
-  const getProjectCategory = (project: typeof projects[0]) => {
-    if (project.chains?.some(c => c.toLowerCase().includes('ethereum') || c.toLowerCase().includes('solana') || c.toLowerCase().includes('polygon'))) return 'Web3';
-    if (project.tech?.some(t => t.toLowerCase().includes('flutter') || t.toLowerCase().includes('dart') || t.toLowerCase().includes('react native'))) return 'Mobile';
-    if (project.tech?.some(t => t.toLowerCase().includes('ai') || t.toLowerCase().includes('ml') || t.toLowerCase().includes('gpt'))) return 'AI';
-    return 'Web3';
-  };
+  // GitHub repos states
+  const [ghRepos, setGhRepos] = useState<GHRepo[]>([]);
+  const [loadingGh, setLoadingGh] = useState(true);
+  const [errorGh, setErrorGh] = useState(false);
 
-  const categories = ["All", ...Array.from(new Set(projects.map(getProjectCategory)))];
+  // Fetch all repos from GitHub (page 1 and page 2 to get all 150+)
+  useEffect(() => {
+    async function fetchAllRepos() {
+      try {
+        setLoadingGh(true);
+        const [res1, res2] = await Promise.all([
+          fetch("https://api.github.com/users/tmanas06/repos?per_page=100&page=1"),
+          fetch("https://api.github.com/users/tmanas06/repos?per_page=100&page=2")
+        ]);
+        
+        if (!res1.ok || !res2.ok) throw new Error("Failed to fetch");
 
-  const filteredProjects = projects.filter((project) => {
-    const matchesCategory = activeCategory === "All" || getProjectCategory(project) === activeCategory;
-    const matchesSearch =
-      !searchQuery ||
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.tech.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
+        const data1 = await res1.json() as GHRepo[];
+        const data2 = await res2.json() as GHRepo[];
+        
+        // Merge and filter duplicates, sort by update date (latest first)
+        const merged = [...data1, ...data2];
+        const unique = merged.filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
+        const sorted = unique.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+        
+        setGhRepos(sorted);
+      } catch (err) {
+        console.error(err);
+        setErrorGh(true);
+      } finally {
+        setLoadingGh(false);
+      }
+    }
+    fetchAllRepos();
+  }, []);
+
+  const categories = ["All", ...Array.from(new Set(projects.map(p => p.category)))];
+  
+  const filteredLocal = projects.filter(p => {
+    const matchCat = category === "All" || p.category === category;
+    const q = search.toLowerCase();
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.tech.some(t => t.toLowerCase().includes(q));
+    return matchCat && matchSearch;
   });
 
+  const filteredGh = category === "All" ? ghRepos.filter(r => {
+    // 1. Exclude forks
+    if (r.fork) return false;
+
+    // 2. Exclude by junk keywords in name or description
+    const nameLower = r.name.toLowerCase();
+    const descLower = (r.description || "").toLowerCase();
+    const isJunk = EXCLUDED_KEYWORDS.some(word => nameLower.includes(word) || descLower.includes(word));
+    if (isJunk) return false;
+
+    // 3. Exclude projects already in featured/local list to avoid duplicates
+    const isAlreadyLocal = projects.some(p => p.github.toLowerCase().endsWith(nameLower));
+    if (isAlreadyLocal) return false;
+    
+    // 4. Match search query
+    const q = search.toLowerCase();
+    return !q || nameLower.includes(q) || descLower.includes(q) || (r.language && r.language.toLowerCase().includes(q));
+  }) : [];
+
   return (
-    <div className="container-v2 pt-12 sm:pt-20 py-12 sm:py-24 space-y-10 pb-24">
-      {/* ═══ HEADER ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="flex items-center gap-4 mb-3">
-          <FolderKanban className="w-7 h-7 text-[var(--accent)]" />
-          <h1 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-black uppercase font-heading tracking-tight text-[var(--text-primary)]">
-            /// Projects
-          </h1>
-        </div>
-        <p className="text-[1rem] text-[var(--text-secondary)] font-mono ml-11">
-          A collection of things I&apos;ve built. Each one taught me something.
-        </p>
-      </motion.div>
+    <div className="page-wrapper" style={{ position: "relative" }}>
+      {/* Background Spotlight */}
+      <div className="spotlight" style={{ top: "-100px", left: "50%", transform: "translateX(-50%)" }} />
 
-      {/* ═══ SEARCH & FILTERS ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.4 }}
-        className="space-y-5"
-      >
-        <div className="relative">
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" />
-          <input
-            type="text"
-            placeholder="SEARCH_PROJECTS..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-14 pl-14 pr-12 bg-transparent border-[3px] border-[var(--border-color)] text-[1rem] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] font-mono uppercase font-bold transition-colors"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent-2)] hover:text-white transition-all"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          )}
+      <div className="container" style={{ paddingTop: "48px", position: "relative", zIndex: 1 }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: "40px" }}>
+          <span className="section-label">Work</span>
+          <h1 className="section-title text-gradient">Projects</h1>
+          <p className="section-sub">A compilation of my builds, hackathons, and open source contributions.</p>
         </div>
 
-        <div className="flex flex-wrap gap-3">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-5 py-3 text-[0.875rem] font-black uppercase tracking-widest border-[3px] border-[var(--border-color)] transition-all min-h-[48px] ${activeCategory === category
-                ? "bg-[var(--accent)] text-black shadow-[3px_3px_0px_var(--border-color)]"
-                : "text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-black shadow-[2px_2px_0px_var(--border-color)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_var(--border-color)]"
-                }`}
-            >
-              {category}
-            </button>
-          ))}
+        {/* Search + Filter */}
+        <div style={{ marginBottom: "32px", display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
+          <div style={{ position: "relative", flex: "1 1 260px" }}>
+            <Search size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-faint)" }} />
+            <input
+              type="text"
+              placeholder="Search all projects & repositories..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="input"
+              style={{ paddingLeft: "36px", paddingRight: search ? "36px" : "12px" }}
+              id="project-search"
+            />
+            {search && (
+              <button onClick={() => setSearch("")} style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-muted)", display: "flex" }}>
+                <X size={14} />
+              </button>
+            )}
+          </div>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            {categories.map(c => (
+              <button
+                key={c}
+                onClick={() => setCategory(c)}
+                className="btn"
+                style={{
+                  padding: "7px 16px", fontSize: "13px",
+                  background: category === c ? "var(--accent)" : "transparent",
+                  color: category === c ? "#fff" : "var(--text-muted)",
+                  borderColor: category === c ? "var(--accent)" : "var(--border)",
+                }}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
         </div>
-      </motion.div>
 
-      {/* ═══ PROJECT GRID ═══ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
-        <AnimatePresence mode="popLayout">
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ delay: index * 0.04, duration: 0.3 }}
-              className="border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[9px_9px_0px_var(--shadow-color)] transition-all group flex flex-col"
-            >
-              {/* Title Bar */}
-              <div className="px-5 py-3 bg-[var(--accent)] border-b-[4px] border-[var(--border-color)] flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-2)]" />
-                    <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-3)]" />
-                    <div className="w-3 h-3 border-[2px] border-black bg-white" />
-                  </div>
-                  <span className="text-[0.75rem] font-black text-black uppercase tracking-widest font-mono">
-                    {getProjectCategory(project)}
-                  </span>
-                </div>
+        {/* Featured Projects Grid */}
+        <h2 style={{ fontSize: "16px", fontWeight: 700, color: "var(--text)", marginBottom: "20px", borderBottom: "1px solid var(--border)", paddingBottom: "8px" }}>
+          Featured Works
+        </h2>
+        <div className="grid-auto" style={{ marginBottom: "56px" }}>
+          {filteredLocal.map((project) => (
+            <article key={project.id} className="card" style={{ padding: "24px", display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px", marginBottom: "10px" }}>
+                <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.2px", lineHeight: 1.3 }}>
+                  {project.title}
+                </h3>
                 {project.featured && (
-                  <span className="text-[0.75rem] font-black text-black bg-white border-[2px] border-black px-2 py-0.5 uppercase font-mono">
-                    ★ Featured
-                  </span>
+                  <span style={{
+                    flexShrink: 0, fontSize: "10px", fontWeight: 700,
+                    padding: "2px 8px", borderRadius: "99px",
+                    background: "var(--accent-dim)", color: "var(--accent)",
+                    border: "1px solid rgba(79,142,247,0.3)",
+                  }}>Featured</span>
                 )}
               </div>
 
-              {/* Body */}
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-[1.125rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-                  {project.title}
-                </h3>
-                <p className="text-[0.9375rem] text-[var(--text-secondary)] mt-3 leading-relaxed line-clamp-3 font-mono">
-                  {project.description}
-                </p>
+              <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.7, marginBottom: "12px", flex: 1 }}>
+                {project.description}
+              </p>
 
-                {/* Impact */}
-                <p className="text-[0.875rem] font-black text-[var(--accent-2)] mt-3 font-mono">
-                  ⚡ {project.impact}
-                </p>
+              <p style={{ fontSize: "12px", color: "var(--accent)", marginBottom: "12px", fontWeight: 500 }}>
+                ↗ {project.impact}
+              </p>
 
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {project.tech.map((tech) => (
-                    <span key={tech} className="text-[0.75rem] font-black text-[var(--text-primary)] px-3 py-1.5 border-[2px] border-[var(--border-color)] uppercase tracking-widest font-mono hover:bg-[var(--accent)] hover:text-black transition-all">
-                      {tech}
-                    </span>
+              {/* Tags */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginBottom: "14px" }}>
+                {project.tech.map(t => <span key={t} className="tag">{t}</span>)}
+              </div>
+
+              {/* Chain badges */}
+              {project.chains?.length > 0 && (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginBottom: "14px" }}>
+                  {project.chains.map(c => (
+                    <span key={c} style={{
+                      fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "99px",
+                      background: "var(--accent-dim2)", color: "var(--accent)",
+                      border: "1px solid rgba(79,142,247,0.2)",
+                    }}>{c}</span>
                   ))}
                 </div>
+              )}
 
-                {/* Chain Badges */}
-                {project.chains && project.chains.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {project.chains.map((chain) => (
-                      <span key={chain} className="text-[0.75rem] font-black text-[var(--accent)] px-2 py-1 border-[2px] border-[var(--accent)] uppercase tracking-widest font-mono">
-                        {chain}
-                      </span>
-                    ))}
-                  </div>
+              {/* Links */}
+              <div style={{ display: "flex", gap: "8px", borderTop: "1px solid var(--border)", paddingTop: "14px" }}>
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ gap: "5px", fontSize: "13px" }}>
+                  <Github size={13} /> Code
+                </a>
+                {project.liveUrl && (
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ gap: "5px", fontSize: "13px" }}>
+                    <ExternalLink size={13} /> Live
+                  </a>
                 )}
+              </div>
+            </article>
+          ))}
 
-                {/* Footer */}
-                <div className="flex items-center justify-between mt-auto pt-5 border-t-[2px] border-[var(--border-color)] mt-6">
-                  <div className="flex items-center gap-3">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-[0.875rem] font-black text-[var(--text-primary)] border-[2px] border-[var(--border-color)] px-3 py-2 hover:bg-[var(--accent)] hover:text-black transition-all uppercase tracking-widest min-h-[48px]"
-                    >
-                      <Github className="w-4 h-4" /> Code
+          {filteredLocal.length === 0 && !search && (
+            <div style={{ gridColumn: "1/-1", color: "var(--text-muted)", fontSize: "13px" }}>
+              No featured projects in this category.
+            </div>
+          )}
+        </div>
+
+        {/* GitHub Repositories Grid */}
+        <div style={{ marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--border)", paddingBottom: "8px" }}>
+          <h2 style={{ fontSize: "16px", fontWeight: 700, color: "var(--text)" }}>
+            GitHub Repositories ({loadingGh ? "..." : ghRepos.length})
+          </h2>
+          {!loadingGh && !errorGh && (
+            <span style={{ fontSize: "12px", color: "var(--text-faint)" }}>
+              Sorted by latest updates
+            </span>
+          )}
+        </div>
+
+        {loadingGh ? (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "40px 0", color: "var(--text-muted)", fontSize: "14px" }}>
+            <Loader2 className="animate-spin" size={18} /> Loading repositories from GitHub...
+          </div>
+        ) : errorGh ? (
+          <div style={{ padding: "20px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "var(--radius)", color: "#ef4444", fontSize: "13px" }}>
+            Could not fetch GitHub repositories. You can explore them directly on <a href="https://github.com/tmanas06" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", color: "inherit" }}>GitHub</a>.
+          </div>
+        ) : (
+          <div className="grid-auto" style={{ paddingBottom: "80px" }}>
+            {filteredGh.map((repo) => (
+              <article key={repo.id} className="card" style={{ padding: "20px", display: "flex", flexDirection: "column", minHeight: "180px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px", marginBottom: "8px" }}>
+                  <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.2px", lineHeight: 1.3, wordBreak: "break-all" }}>
+                    {repo.name}
+                  </h3>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0, fontSize: "11px", color: "var(--text-muted)" }}>
+                    {repo.stargazers_count > 0 && (
+                      <span style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+                        <Star size={11} fill="currentColor" /> {repo.stargazers_count}
+                      </span>
+                    )}
+                    {repo.forks_count > 0 && (
+                      <span style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+                        <GitFork size={11} /> {repo.forks_count}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6, marginBottom: "14px", flex: 1 }}>
+                  {repo.description || "No description provided."}
+                </p>
+
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid var(--border)", paddingTop: "12px", marginTop: "auto" }}>
+                  <span className="tag" style={{ fontSize: "10px", padding: "2px 8px" }}>
+                    {repo.language || "Mix"}
+                  </span>
+                  
+                  <div style={{ display: "flex", gap: "4px" }}>
+                    <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ padding: "4px 8px", fontSize: "12px", gap: "4px" }}>
+                      <Github size={12} /> Code
                     </a>
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-[0.875rem] font-black text-black bg-[var(--accent)] border-[2px] border-[var(--border-color)] px-3 py-2 hover:bg-[var(--accent-2)] hover:text-white transition-all uppercase tracking-widest min-h-[48px]"
-                      >
-                        <ExternalLink className="w-4 h-4" /> Live
+                    {repo.homepage && (
+                      <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ padding: "4px 8px", fontSize: "12px", gap: "4px", color: "var(--accent)" }}>
+                        <ExternalLink size={12} /> Live
                       </a>
                     )}
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+              </article>
+            ))}
 
-      {/* No Results */}
-      {filteredProjects.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="border-[3px] border-[var(--border-color)] p-12 shadow-[4px_4px_0px_var(--shadow-color)] text-center"
-        >
-          <div className="w-20 h-20 border-[3px] border-[var(--border-color)] flex items-center justify-center mx-auto mb-6">
-            <Terminal className="w-10 h-10 text-[var(--text-muted)]" />
+            {filteredGh.length === 0 && (
+              <div style={{ gridColumn: "1/-1", color: "var(--text-muted)", fontSize: "13px", paddingTop: "16px", paddingBottom: "16px" }}>
+                No repositories found matching search query.
+              </div>
+            )}
           </div>
-          <h3 className="text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading">NO_RESULTS_FOUND</h3>
-          <p className="text-[1rem] text-[var(--text-secondary)] mt-2 font-mono">
-            No projects match your current query. Try different keywords.
-          </p>
-          <button
-            onClick={() => {
-              setSearchQuery("");
-              setActiveCategory("All");
-            }}
-            className="mt-6 brutal-btn brutal-btn-accent text-[0.875rem]"
-          >
-            CLEAR_FILTERS
-          </button>
-        </motion.div>
-      )}
+        )}
+
+      </div>
     </div>
   );
 }
 
 export default function ProjectsPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="container-v2 py-12">
-          <div className="border-[3px] border-[var(--border-color)] p-12 text-center shadow-[4px_4px_0px_var(--border-color)]">
-            <p className="text-[1.125rem] font-black text-[var(--text-primary)] uppercase font-heading blink">
-              Loading projects...
-            </p>
-          </div>
-        </div>
-      }
-    >
+    <Suspense fallback={
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "60vh", color: "var(--text-muted)", fontSize: "14px" }}>
+        Loading projects…
+      </div>
+    }>
       <ProjectsContent />
     </Suspense>
   );

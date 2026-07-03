@@ -4,406 +4,280 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  Github,
-  ExternalLink,
-  Trophy,
-  Code2,
-  Layers,
-  ArrowRight,
-  ArrowDown,
-  Star,
-  GitFork,
-  Terminal,
-  Server,
-  Link2,
-  Wrench,
+  ArrowRight, Github, Linkedin, Mail, ExternalLink,
+  Trophy, MapPin, GraduationCap,
 } from "lucide-react";
-import {
-  personalInfo,
-  metrics,
-  projects,
-  achievements,
-  chains,
-  techStackGrid,
-} from "@/lib/data";
+import { personalInfo, metrics, projects, achievements, techStackGrid, education } from "@/lib/data";
 
-const categoryIcons: Record<string, React.ReactNode> = {
-  layers: <Layers className="w-6 h-6" />,
-  server: <Server className="w-6 h-6" />,
-  link: <Link2 className="w-6 h-6" />,
-  wrench: <Wrench className="w-6 h-6" />,
-};
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: [0.2, 0, 0, 1] as [number, number, number, number], delay },
+});
+
+
+const featuredProjects = projects.filter((p) => p.featured).slice(0, 6);
 
 export default function HomePage() {
-  const fadeUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  };
-
-  const featuredProjects = projects.filter((p) => p.featured);
-
   return (
-    <div className="space-y-0">
+    <div className="page-wrapper">
+      <div className="container" style={{ paddingTop: "64px" }}>
 
-      {/* ═══════════════════════════════════════════
-          HERO — 100vh
-          ═══════════════════════════════════════════ */}
-      <section
-        id="hero"
-        className="min-h-[calc(100vh-var(--navbar-height))] flex flex-col items-center justify-center px-5 sm:px-8 relative"
-        style={{
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-4xl"
-        >
-          {/* Status badge */}
-          <div className="inline-flex items-center gap-2 border-[3px] border-[var(--border-color)] px-5 py-2 mb-8">
-            <span className="w-3 h-3 bg-[var(--accent)]" />
-            <span className="text-[0.875rem] font-black text-[var(--text-primary)] uppercase tracking-[0.2em] font-mono">
-              Open to Work
+        {/* Background Spotlight */}
+        <div className="spotlight" style={{ top: "-150px", left: "50%", transform: "translateX(-50%)" }} />
+
+        {/* ── HERO ─────────────────────────────────────────── */}
+        <section style={{ padding: "64px 0 80px", position: "relative", zIndex: 1 }}>
+          <motion.div {...fade(0)}>
+            <span className="status-pill" style={{ marginBottom: "28px", display: "inline-flex" }}>
+              Available for work
             </span>
-          </div>
+          </motion.div>
 
-          {/* Name */}
-          <h1 className="text-[3rem] sm:text-[4rem] md:text-[5rem] font-black tracking-tight leading-[0.95] uppercase font-heading text-[var(--text-primary)]">
-            {personalInfo.handle}
-          </h1>
+          <motion.div {...fade(0.05)} style={{ display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "flex-start" }}>
+            {/* Text */}
+            <div style={{ flex: "1 1 480px", minWidth: 0 }}>
+              <h1 className="text-gradient" style={{
+                fontSize: "clamp(36px, 5.5vw, 64px)",
+                fontWeight: 800,
+                letterSpacing: "-1.5px",
+                lineHeight: 1.1,
+                marginBottom: "20px",
+              }}>
+                T Manas Chakravarty
+              </h1>
 
-          {/* Tagline */}
-          <p className="text-[1.25rem] sm:text-[1.5rem] md:text-[2rem] font-black text-[var(--accent)] mt-4 uppercase tracking-wide font-heading">
-            {personalInfo.tagline}
-          </p>
+              <p style={{
+                fontSize: "clamp(13px, 1.8vw, 15px)",
+                fontWeight: 800,
+                color: "var(--accent)",
+                marginBottom: "16px",
+                letterSpacing: "0.1em",
+                fontFamily: "var(--font-mono)",
+                textTransform: "uppercase"
+              }}>
+                Full Stack | Blockchain | Solana dApps
+              </p>
 
-          {/* Summary */}
-          <p className="text-[1rem] sm:text-[1.125rem] text-[var(--text-secondary)] mt-6 max-w-2xl mx-auto font-mono leading-relaxed prose-container">
-            {personalInfo.summary}
-          </p>
+              <p style={{ fontSize: "15px", color: "var(--text-muted)", lineHeight: 1.75, maxWidth: "56ch", marginBottom: "32px" }}>
+                Final-year B.Tech CSE student at KL University with <strong style={{ color: "var(--text)" }}>9.44 CGPA</strong>.
+                I build scalable full-stack applications, smart contracts, and Solana dApps across
+                7+ blockchain ecosystems. 15+ internships, 5 hackathon wins.
+              </p>
 
-          {/* 2 CTAs only */}
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
-            <a
-              href="#projects"
-              className="brutal-btn brutal-btn-accent text-[1rem]"
-            >
-              <Code2 className="w-5 h-5" /> View Projects
-            </a>
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="brutal-btn brutal-btn-outline text-[1rem]"
-            >
-              <Github className="w-5 h-5" /> GitHub
-            </a>
-          </div>
-        </motion.div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "center", marginBottom: "28px" }}>
+                <Link href="/projects" className="btn btn-primary" id="hero-works">
+                  View Projects <ArrowRight size={15} />
+                </Link>
+                <Link href="/contact" className="btn btn-secondary" id="hero-contact">
+                  Get in touch
+                </Link>
+                <a
+                  href={personalInfo.github}
+                  target="_blank" rel="noopener noreferrer"
+                  className="btn btn-ghost"
+                  aria-label="GitHub profile"
+                >
+                  <Github size={16} />
+                </a>
+                <a
+                  href={personalInfo.linkedin}
+                  target="_blank" rel="noopener noreferrer"
+                  className="btn btn-ghost"
+                  aria-label="LinkedIn profile"
+                >
+                  <Linkedin size={16} />
+                </a>
+              </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <a href="#stats" className="flex flex-col items-center gap-2 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">
-            <span className="text-[0.75rem] font-black uppercase tracking-[0.2em] font-mono">Scroll</span>
-            <ArrowDown className="w-5 h-5 animate-bounce" />
-          </a>
-        </motion.div>
-      </section>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-muted)", fontSize: "13px" }}>
+                <MapPin size={13} style={{ flexShrink: 0 }} />
+                Hyderabad, Telangana, India
+              </div>
+            </div>
 
-      {/* ═══════════════════════════════════════════
-          METRICS GRID
-          ═══════════════════════════════════════════ */}
-      <section id="stats" className="container-v2 py-12 sm:py-28">
-        <motion.div {...fadeUp}>
-          <div className="flex items-center gap-4 mb-12">
-            <Terminal className="w-6 h-6 text-[var(--accent)]" />
-            <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-              /// System_Stats
-            </h2>
-          </div>
+            {/* Photo */}
+            <motion.div {...fade(0.1)} style={{ flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center", margin: "0 auto" }}>
+              <div style={{
+                width: "clamp(280px, 35vw, 420px)",
+                height: "clamp(280px, 35vw, 420px)",
+                position: "relative",
+                maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+              }}>
+                <Image
+                  src="/my_transparent.png"
+                  alt="Manas Chakravarty"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "top" }}
+                  priority
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
-            {metrics.map((metric, index) => (
-              <motion.div
-                key={metric.label}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.05, duration: 0.4 }}
-                className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
-              >
-                <div className="text-[2rem] sm:text-[2.5rem] font-black text-[var(--accent)] font-heading">
-                  {metric.value}
-                </div>
-                <div className="text-[0.75rem] font-black text-[var(--text-muted)] mt-2 uppercase tracking-[0.15em] font-mono">
-                  {metric.label}
-                </div>
-              </motion.div>
+        <div className="section-divider" />
+
+        {/* ── STATS ────────────────────────────────────────── */}
+        <motion.section {...fade(0.1)} style={{ paddingBottom: "64px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "12px" }}>
+            {metrics.map((m) => (
+              <div key={m.label} className="stat-box">
+                <div className="stat-num">{m.value}</div>
+                <div className="stat-label">{m.label}</div>
+              </div>
             ))}
           </div>
-        </motion.div>
-      </section>
+        </motion.section>
 
-      {/* ═══════════════════════════════════════════
-          FEATURED PROJECTS
-          ═══════════════════════════════════════════ */}
-      <section id="projects" className="container-v2 py-12 sm:py-28">
-        <motion.div {...fadeUp}>
-          <div className="flex items-center justify-between mb-12">
-            <div className="flex items-center gap-4">
-              <Code2 className="w-6 h-6 text-[var(--accent)]" />
-              <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-                /// Selected_Works
-              </h2>
+        <div className="section-divider" />
+
+        {/* ── FEATURED PROJECTS ─────────────────────────────── */}
+        <motion.section {...fade(0.12)} style={{ paddingBottom: "64px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "32px", flexWrap: "wrap", gap: "12px" }}>
+            <div>
+              <span className="section-label">Work</span>
+              <h2 className="section-title">Featured Projects</h2>
             </div>
             <Link
               href="/projects"
-              className="flex items-center gap-2 text-[0.875rem] font-black text-[var(--accent)] hover:text-[var(--accent-2)] transition-colors uppercase tracking-widest"
+              style={{ fontSize: "13px", color: "var(--accent)", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}
             >
-              View All <ArrowRight className="w-5 h-5" />
+              All projects <ArrowRight size={13} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
-            {featuredProjects.slice(0, 6).map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.06, duration: 0.4 }}
-                className="border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[9px_9px_0px_var(--shadow-color)] transition-all group flex flex-col"
-              >
-                {/* Title Bar */}
-                <div className="px-5 py-3 bg-[var(--accent)] border-b-[4px] border-[var(--border-color)] flex items-center gap-3">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-2)]" />
-                    <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-3)]" />
-                    <div className="w-3 h-3 border-[2px] border-black bg-white" />
-                  </div>
-                  <span className="text-[0.75rem] font-black text-black uppercase tracking-widest font-mono">
-                    PROJECT_{String(project.id).padStart(2, '0')}
-                  </span>
+          <div className="grid-auto">
+            {featuredProjects.map((project) => (
+              <article key={project.id} className="card" style={{ padding: "24px", display: "flex", flexDirection: "column" }}>
+                <h3 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text)", marginBottom: "8px", letterSpacing: "-0.2px" }}>
+                  {project.title}
+                </h3>
+                <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.65, marginBottom: "14px", flex: 1 }}>
+                  {project.description}
+                </p>
+                <p style={{ fontSize: "12px", color: "var(--accent)", marginBottom: "14px", fontWeight: 500 }}>
+                  ↗ {project.impact}
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
+                  {project.tech.slice(0, 3).map((t) => (
+                    <span key={t} className="tag">{t}</span>
+                  ))}
+                  {project.tech.length > 3 && (
+                    <span className="tag" style={{ color: "var(--text-faint)" }}>+{project.tech.length - 3}</span>
+                  )}
                 </div>
-
-                {/* Body */}
-                <div className="p-7 flex flex-col flex-1">
-                  <h3 className="text-[1.125rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-                    {project.title}
-                  </h3>
-                  <p className="text-[0.9375rem] text-[var(--text-secondary)] mt-3 leading-relaxed line-clamp-2 font-mono">
-                    {project.description}
-                  </p>
-
-                  {/* Impact Line */}
-                  <p className="text-[0.875rem] font-black text-[var(--accent-2)] mt-3 font-mono">
-                    ⚡ {project.impact}
-                  </p>
-
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-[0.75rem] font-black text-[var(--text-primary)] px-3 py-1.5 border-[2px] border-[var(--border-color)] uppercase tracking-widest font-mono"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Footer */}
-                  <div className="flex items-center justify-between mt-auto pt-5 border-t-[2px] border-[var(--border-color)]">
-                    <div className="flex items-center gap-3">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-[0.875rem] font-black text-[var(--text-primary)] border-[2px] border-[var(--border-color)] px-3 py-2 hover:bg-[var(--accent)] hover:text-black transition-all uppercase tracking-widest"
-                      >
-                        <Github className="w-4 h-4" /> Code
-                      </a>
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-[0.875rem] font-black text-black bg-[var(--accent)] border-[2px] border-[var(--border-color)] px-3 py-2 hover:bg-[var(--accent-2)] hover:text-white transition-all uppercase tracking-widest"
-                        >
-                          <ExternalLink className="w-4 h-4" /> Live
-                        </a>
-                      )}
-                    </div>
-                  </div>
+                <div style={{ display: "flex", gap: "8px", borderTop: "1px solid var(--border)", paddingTop: "14px" }}>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ gap: "5px" }}>
+                    <Github size={13} /> Code
+                  </a>
+                  {project.liveUrl && (
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ gap: "5px" }}>
+                      <ExternalLink size={13} /> Live
+                    </a>
+                  )}
                 </div>
-              </motion.div>
+              </article>
             ))}
           </div>
-        </motion.div>
-      </section>
+        </motion.section>
 
-      {/* ═══════════════════════════════════════════
-          TECH STACK — 4-card grid
-          ═══════════════════════════════════════════ */}
-      <section id="stack" className="container-v2 py-12 sm:py-28">
-        <motion.div {...fadeUp}>
-          <div className="flex items-center gap-4 mb-12">
-            <Layers className="w-6 h-6 text-[var(--accent)]" />
-            <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-              /// Tech_Stack
-            </h2>
-          </div>
+        <div className="section-divider" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-            {techStackGrid.map((group, idx) => (
-              <motion.div
-                key={group.category}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + idx * 0.08, duration: 0.4 }}
-                className="border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[9px_9px_0px_var(--shadow-color)] transition-all"
-              >
-                {/* Header */}
-                <div className="px-5 py-3 bg-[var(--accent)] border-b-[4px] border-[var(--border-color)] flex items-center gap-3">
-                  <span className="text-black">
-                    {categoryIcons[group.icon]}
-                  </span>
-                  <span className="text-[0.875rem] font-black text-black uppercase tracking-widest font-mono">
-                    {group.category}
-                  </span>
-                </div>
+        {/* ── TECH STACK ───────────────────────────────────── */}
+        <motion.section {...fade(0.14)} style={{ paddingBottom: "64px" }}>
+          <span className="section-label">Skills</span>
+          <h2 className="section-title" style={{ marginBottom: "32px" }}>Tech Stack</h2>
 
-                {/* Items */}
-                <div className="p-5 space-y-3">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px" }}>
+            {techStackGrid.map((group) => (
+              <div key={group.category} className="card" style={{ padding: "20px" }}>
+                <p style={{ fontSize: "12px", fontWeight: 700, color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "12px" }}>
+                  {group.category}
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                   {group.items.map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-center gap-3 text-[1rem] font-bold text-[var(--text-primary)] font-mono"
-                    >
-                      <span className="w-2 h-2 bg-[var(--accent)] flex-shrink-0" />
+                    <div key={item} style={{ fontSize: "13px", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "8px" }}>
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--border-hover)", flexShrink: 0 }} />
                       {item}
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
-      </section>
+        </motion.section>
 
-      {/* ═══════════════════════════════════════════
-          ECOSYSTEM MARQUEE
-          ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-12 sm:py-28">
-        <motion.div {...fadeUp}>
-          <div className="flex items-center gap-4 mb-8">
-            <Link2 className="w-6 h-6 text-[var(--accent)]" />
-            <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-              /// Ecosystems
-            </h2>
+        <div className="section-divider" />
+
+        {/* ── ACHIEVEMENTS ─────────────────────────────────── */}
+        <motion.section {...fade(0.16)} style={{ paddingBottom: "64px" }}>
+          <span className="section-label">Recognition</span>
+          <h2 className="section-title" style={{ marginBottom: "32px" }}>Hackathon Wins</h2>
+
+          <div className="grid-3">
+            {achievements.map((a, i) => (
+              <div key={i} className="card" style={{ padding: "18px 20px", display: "flex", alignItems: "center", gap: "14px" }}>
+                <div style={{
+                  width: 36, height: 36, borderRadius: "8px", flexShrink: 0,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: a.icon === "gold" ? "rgba(251,191,36,0.12)" : a.icon === "silver" ? "rgba(148,163,184,0.12)" : "rgba(180,120,60,0.12)",
+                }}>
+                  <Trophy size={16} style={{ color: a.icon === "gold" ? "#FBBF24" : a.icon === "silver" ? "#94A3B8" : "#B47C3C" }} />
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text)", lineHeight: 1.3, marginBottom: "3px" }}>{a.title}</p>
+                  <p style={{ fontSize: "11px", color: a.icon === "gold" ? "#FBBF24" : "var(--text-muted)", fontWeight: 600 }}>{a.position}</p>
+                </div>
+              </div>
+            ))}
           </div>
+        </motion.section>
 
-          <div className="border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] overflow-hidden">
-            <div className="py-6 overflow-hidden">
-              <div className="marquee-track gap-8">
-                {[...chains, ...chains].map((chain, idx) => (
-                  <div
-                    key={`${chain.name}-${idx}`}
-                    className="flex items-center gap-4 px-6 py-3 border-[2px] border-[var(--border-color)] hover:bg-[var(--accent)] hover:text-black transition-all flex-shrink-0 group cursor-default"
-                  >
-                    <Image
-                      src={chain.logo}
-                      alt={chain.name}
-                      width={28}
-                      height={28}
-                      className="object-contain"
-                    />
-                    <span className="text-[0.875rem] font-black text-[var(--text-primary)] uppercase tracking-widest whitespace-nowrap group-hover:text-black font-mono">
-                      {chain.name}
-                    </span>
-                  </div>
-                ))}
+        <div className="section-divider" />
+
+        {/* ── EDUCATION ────────────────────────────────────── */}
+        <motion.section {...fade(0.18)} style={{ paddingBottom: "64px" }}>
+          <span className="section-label">Education</span>
+          <h2 className="section-title" style={{ marginBottom: "24px" }}>Academic Background</h2>
+          <div className="card" style={{ padding: "24px", display: "flex", gap: "16px", alignItems: "flex-start" }}>
+            <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--accent-dim)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <GraduationCap size={20} style={{ color: "var(--accent)" }} />
+            </div>
+            <div>
+              <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--text)", marginBottom: "4px" }}>{education.degree}</p>
+              <p style={{ fontSize: "14px", color: "var(--accent)", marginBottom: "8px" }}>{education.university}</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                <span className="tag">{education.period}</span>
+                <span className="tag" style={{ color: "var(--green)", borderColor: "rgba(52,211,153,0.3)" }}>CGPA: {education.cgpa}</span>
               </div>
             </div>
           </div>
-        </motion.div>
-      </section>
+        </motion.section>
 
-      {/* ═══════════════════════════════════════════
-          ACHIEVEMENTS
-          ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-12 sm:py-28">
-        <motion.div {...fadeUp}>
-          <div className="flex items-center gap-4 mb-8">
-            <Trophy className="w-6 h-6 text-[var(--accent-2)]" />
-            <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-              /// Achievement_Log
-            </h2>
-          </div>
+        <div className="section-divider" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {achievements.slice(0, 6).map((achievement, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
-                className="border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[var(--accent-2)] border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
-                    <Trophy className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-[1rem] font-black text-[var(--text-primary)] uppercase font-heading">
-                      {achievement.title}
-                    </h3>
-                    <p className="text-[0.875rem] font-black text-[var(--accent)] mt-1 uppercase tracking-widest font-mono">
-                      {achievement.position}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          FOOTER CTA
-          ═══════════════════════════════════════════ */}
-      <section className="container-v2 py-16 sm:py-32 pb-20">
-        <motion.div
-          {...fadeUp}
-          className="border-[4px] border-[var(--border-color)] p-8 sm:p-12 shadow-[6px_6px_0px_var(--shadow-color)]"
-        >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <p className="text-[0.75rem] font-black text-[var(--accent)] uppercase tracking-[0.2em] font-mono mb-2">
-                /// Open_To_Work
-              </p>
-              <h2 className="text-[1.75rem] sm:text-[2.25rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-                Let&apos;s Talk Code.
-              </h2>
-              <p className="text-[1rem] text-[var(--text-secondary)] mt-2 font-mono">
-                Available for freelance, internships, and collaborations.
-              </p>
-            </div>
-            <Link
-              href="/contact"
-              className="brutal-btn brutal-btn-accent text-[1rem] flex-shrink-0"
-            >
-              Contact <ArrowRight className="w-5 h-5" />
+        {/* ── CTA ──────────────────────────────────────────── */}
+        <motion.section {...fade(0.2)} style={{ paddingBottom: "80px", textAlign: "center" }}>
+          <h2 style={{ fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.5px", marginBottom: "12px" }}>
+            Let&apos;s work together
+          </h2>
+          <p style={{ color: "var(--text-muted)", fontSize: "15px", marginBottom: "28px", maxWidth: "48ch", margin: "0 auto 28px" }}>
+            Available for smart contract development, full-stack projects, and Web3 integrations.
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
+            <Link href="/contact" className="btn btn-primary" id="cta-contact">
+              <Mail size={15} /> Contact me
             </Link>
+            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+              <Github size={15} /> GitHub
+            </a>
           </div>
-        </motion.div>
-      </section>
+        </motion.section>
+
+      </div>
     </div>
   );
 }

@@ -1,142 +1,93 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  Code2,
-  Layers,
-  Link2,
-  Wrench,
-  Sparkles,
-  Zap,
-} from "lucide-react";
-import { skills } from "@/lib/data";
+import { skills, chains } from "@/lib/data";
+import Image from "next/image";
 
-const categoryConfig = [
-  { key: "languages", label: "Languages", icon: Code2, color: "var(--accent)" },
-  { key: "frameworks", label: "Frameworks", icon: Layers, color: "var(--accent-2)" },
-  { key: "blockchain", label: "Blockchain", icon: Link2, color: "var(--accent-3)" },
-  { key: "tools", label: "Dev_Tools", icon: Wrench, color: "var(--accent)" },
+const categories = [
+  { key: "languages",  label: "Languages",   color: "#4F8EF7" },
+  { key: "frameworks", label: "Frameworks",   color: "#34D399" },
+  { key: "blockchain", label: "Blockchain",   color: "#A78BFA" },
+  { key: "tools",      label: "Tools & Cloud",color: "#FBBF24" },
 ];
 
 export default function SkillsPage() {
-  const fadeUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-  };
-
   return (
-    <div className="container-v2 pt-12 sm:pt-20 py-12 sm:py-24 space-y-16 sm:space-y-20 pb-24">
-      {/* ═══ HEADER ═══ */}
-      <motion.div {...fadeUp} transition={{ duration: 0.5 }}>
-        <div className="flex items-center gap-4 mb-3">
-          <Sparkles className="w-7 h-7 text-[var(--accent)]" />
-          <h1 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-black uppercase font-heading tracking-tight text-[var(--text-primary)]">
-            /// Tech_Stack
-          </h1>
-        </div>
-        <p className="text-[1rem] text-[var(--text-secondary)] font-mono ml-11">
-          Technologies I work with daily. Proficiency measured in shipping real products.
-        </p>
-      </motion.div>
+    <div className="page-wrapper" style={{ position: "relative" }}>
+      {/* Background Spotlight */}
+      <div className="spotlight" style={{ top: "-100px", left: "50%", transform: "translateX(-50%)" }} />
 
-      {/* ═══ SKILL CATEGORIES ═══ */}
-      {categoryConfig.map((cat, catIndex) => {
-        const skillData = skills[cat.key as keyof typeof skills];
-        if (!skillData || skillData.length === 0) return null;
+      <div className="container" style={{ paddingTop: "48px", position: "relative", zIndex: 1 }}>
 
-        const Icon = cat.icon;
-
-        return (
-          <motion.div
-            key={cat.key}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 + catIndex * 0.08, duration: 0.5 }}
-          >
-            {/* Category Header */}
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 border-[3px] border-[var(--border-color)] flex items-center justify-center" style={{ backgroundColor: cat.color }}>
-                <Icon className="w-6 h-6 text-black" />
-              </div>
-              <div>
-                <h2 className="text-[1.25rem] sm:text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">
-                  {cat.label}
-                </h2>
-                <p className="text-[0.75rem] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] font-mono">
-                  {skillData.length} ITEMS_LOADED
-                </p>
-              </div>
-            </div>
-
-            {/* Skills Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {skillData.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 + catIndex * 0.08 + index * 0.03, duration: 0.3 }}
-                  className="border-[3px] border-[var(--border-color)] p-5 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[1rem] font-black text-[var(--text-primary)] uppercase font-heading">{skill.name}</span>
-                    <span className="text-[1rem] font-black font-mono" style={{ color: cat.color }}>
-                      {skill.level}%
-                    </span>
-                  </div>
-
-                  {/* Progress Bar */}
-                  <div className="w-full h-5 border-[2px] border-[var(--border-color)] bg-[var(--bg-secondary)]">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${skill.level}%` }}
-                      transition={{ delay: 0.3 + catIndex * 0.08 + index * 0.03, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                      className="h-full"
-                      style={{ backgroundColor: cat.color }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        );
-      })}
-
-      {/* ═══ SUMMARY STATS ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <Zap className="w-6 h-6 text-[var(--accent)]" />
-          <h2 className="text-[1.25rem] sm:text-[1.5rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Summary</h2>
+        {/* Header */}
+        <div style={{ marginBottom: "48px" }}>
+          <span className="section-label">Skills</span>
+          <h1 className="section-title text-gradient">Tech Stack</h1>
+          <p className="section-sub">
+            Technologies I use daily — across frontend, backend, blockchain, and DevOps.
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {categoryConfig.map((cat) => {
-            const skillData = skills[cat.key as keyof typeof skills];
-            const count = skillData?.length || 0;
-            const Icon = cat.icon;
+        {/* Skill categories */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "64px" }}>
+          {categories.map((cat) => {
+            const items = skills[cat.key as keyof typeof skills];
             return (
-              <div
-                key={cat.key}
-                className="border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all text-center"
-              >
-                <div className="w-12 h-12 border-[2px] border-[var(--border-color)] flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: cat.color }}>
-                  <Icon className="w-6 h-6 text-black" />
+              <div key={cat.key} className="card" style={{ padding: "24px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "20px" }}>
+                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: cat.color, display: "block" }} />
+                  <h2 style={{ fontSize: "13px", fontWeight: 700, color: "var(--text)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                    {cat.label}
+                  </h2>
                 </div>
-                <div className="text-[2rem] font-black font-heading" style={{ color: cat.color }}>
-                  {count}
-                </div>
-                <div className="text-[0.75rem] font-black text-[var(--text-muted)] uppercase tracking-widest mt-1 font-mono">
-                  {cat.label}
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {items.map((skill) => (
+                    <div key={skill.name}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
+                        <span style={{ fontSize: "13px", color: "var(--text-muted)", fontWeight: 500 }}>{skill.name}</span>
+                        <span style={{ fontSize: "11px", color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>{skill.level}%</span>
+                      </div>
+                      <div style={{ height: 4, background: "var(--border)", borderRadius: "99px", overflow: "hidden" }}>
+                        <div style={{
+                          height: "100%",
+                          width: `${skill.level}%`,
+                          background: `linear-gradient(90deg, ${cat.color}80, ${cat.color})`,
+                          borderRadius: "99px",
+                          transition: "width 0.6s ease",
+                        }} />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             );
           })}
         </div>
-      </motion.div>
+
+        <div className="section-divider" />
+
+        {/* Blockchain Ecosystems */}
+        <div style={{ paddingBottom: "80px" }}>
+          <span className="section-label">Ecosystems</span>
+          <h2 className="section-title" style={{ marginBottom: "24px" }}>Blockchain Ecosystems</h2>
+          <p style={{ fontSize: "14px", color: "var(--text-muted)", marginBottom: "32px" }}>
+            Deployed smart contracts and dApps across these networks.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {chains.map((chain) => (
+              <div key={chain.name} className="card" style={{ padding: "12px 18px", display: "flex", alignItems: "center", gap: "10px" }}>
+                <div style={{ position: "relative", width: 22, height: 22, flexShrink: 0 }}>
+                  <Image src={chain.logo} alt={chain.name} fill className="object-contain" />
+                </div>
+                <div>
+                  <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text)" }}>{chain.fullName}</p>
+                  <p style={{ fontSize: "11px", color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>{chain.name}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

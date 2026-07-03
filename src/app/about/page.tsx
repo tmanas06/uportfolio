@@ -1,237 +1,184 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MapPin,
-  GraduationCap,
-  Briefcase,
-  Trophy,
-  Award,
-  Calendar,
-  Globe,
-} from "lucide-react";
-import {
-  personalInfo,
-  education,
-  experience,
-  achievements,
-  certifications,
-} from "@/lib/data";
+import { Github, Linkedin, Mail, MapPin, Globe, Briefcase, Calendar, Award, GraduationCap, Trophy } from "lucide-react";
+import { personalInfo, education, experience, achievements, certifications } from "@/lib/data";
 
 export default function AboutPage() {
-  const fadeUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  };
-
   return (
-    <div className="container-v2 pt-16 sm:pt-24 py-16 sm:py-24 space-y-16 sm:space-y-20 pb-24">
+    <div className="page-wrapper" style={{ position: "relative" }}>
+      {/* Background Spotlight */}
+      <div className="spotlight" style={{ top: "-100px", left: "50%", transform: "translateX(-50%)" }} />
 
-      {/* ═══ PROFILE HEADER ═══ */}
-      <motion.div {...fadeUp} className="border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] bg-[var(--card-bg)]">
-        {/* Title Bar */}
-        <div className="px-6 py-3 bg-[var(--accent)] border-b-[4px] border-[var(--border-color)] flex items-center gap-3">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-2)]" />
-            <div className="w-3 h-3 border-[2px] border-black bg-[var(--accent-3)]" />
-            <div className="w-3 h-3 border-[2px] border-black bg-white" />
-          </div>
-          <span className="text-[0.875rem] font-black text-black uppercase tracking-widest font-mono">/// PROFILE_DATA.tsx</span>
+      <div className="container" style={{ paddingTop: "48px", position: "relative", zIndex: 1 }}>
+
+        {/* ── PAGE HEADER ─── */}
+        <div style={{ marginBottom: "48px" }}>
+          <span className="section-label">About</span>
+          <h1 className="section-title text-gradient">About Me</h1>
+          <p className="section-sub">
+            Full stack developer and blockchain engineer based in Hyderabad, India.
+          </p>
         </div>
 
-        <div className="p-8 sm:p-12 lg:p-16">
-          <div className="flex flex-col md:flex-row gap-10 md:items-center">
+        {/* ── PROFILE CARD ─── */}
+        <div className="card" style={{ padding: "32px", marginBottom: "40px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "32px", alignItems: "flex-start" }}>
             {/* Avatar */}
-            <div className="relative w-32 h-32 md:w-44 md:h-44 border-[4px] border-[var(--border-color)] shadow-[6px_6px_0px_var(--shadow-color)] flex-shrink-0 overflow-hidden bg-white">
-              <Image
-                src="/my.jpg"
-                alt={personalInfo.name}
-                fill
-                className="object-cover"
-              />
+            <div style={{
+              width: 180, height: 180,
+              flexShrink: 0,
+              position: "relative",
+              maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+            }}>
+              <Image src="/my_transparent.png" alt={personalInfo.name} fill className="object-cover" style={{ objectPosition: "top" }} />
             </div>
 
             {/* Info */}
-            <div className="flex-1 min-w-0">
-              <h1 className="text-[2.25rem] sm:text-[3.5rem] lg:text-[4.5rem] font-black uppercase font-heading tracking-tighter text-[var(--text-primary)] leading-[0.95]">
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <h2 style={{ fontSize: "22px", fontWeight: 700, color: "var(--text)", marginBottom: "4px", letterSpacing: "-0.3px" }}>
                 {personalInfo.name}
-              </h1>
-              <p className="text-[1.125rem] font-bold text-[var(--accent)] mt-2 uppercase font-heading">
+              </h2>
+              <p style={{ fontSize: "14px", color: "var(--accent)", fontWeight: 600, marginBottom: "12px" }}>
                 {personalInfo.title}
               </p>
-              <p className="text-[1rem] text-[var(--text-secondary)] mt-4 leading-relaxed max-w-2xl font-mono prose-container">
+              <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: 1.75, maxWidth: "60ch", marginBottom: "20px" }}>
                 {personalInfo.summary}
               </p>
 
-              {/* Contact Info */}
-              <div className="flex flex-wrap gap-4 mt-6">
-                {personalInfo.email && (
-                  <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-2 text-[0.875rem] font-black text-[var(--text-muted)] border-[2px] border-[var(--border-color)] px-4 py-3 hover:bg-[var(--accent)] hover:text-black transition-all uppercase tracking-widest min-h-[48px]">
-                    <Mail className="w-4 h-4" /> {personalInfo.email}
-                  </a>
-                )}
-                {personalInfo.location && (
-                  <span className="flex items-center gap-2 text-[0.875rem] font-black text-[var(--text-muted)] border-[2px] border-[var(--border-color)] px-4 py-3 uppercase tracking-widest min-h-[48px]">
-                    <MapPin className="w-4 h-4" /> {personalInfo.location}
-                  </span>
-                )}
+              {/* Meta */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", fontSize: "13px", color: "var(--text-muted)", marginBottom: "20px" }}>
+                <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                  <MapPin size={13} /> {personalInfo.location}
+                </span>
+                <a href={`mailto:${personalInfo.email}`} style={{ display: "flex", alignItems: "center", gap: "5px", color: "var(--text-muted)", transition: "color 0.2s" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+                >
+                  <Mail size={13} /> {personalInfo.email}
+                </a>
               </div>
 
-              {/* Social Links */}
-              <div className="flex gap-3 mt-4">
-                <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="w-12 h-12 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all">
-                  <Github className="w-5 h-5" />
-                </a>
-                <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="w-12 h-12 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                {personalInfo.blog && (
-                  <a href={personalInfo.blog} target="_blank" rel="noopener noreferrer" className="w-12 h-12 border-[2px] border-[var(--border-color)] flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--accent)] hover:text-black transition-all">
-                    <Globe className="w-5 h-5" />
+              {/* Social links */}
+              <div style={{ display: "flex", gap: "8px" }}>
+                {[
+                  { href: personalInfo.github, label: "GitHub", icon: <Github size={15} /> },
+                  { href: personalInfo.linkedin, label: "LinkedIn", icon: <Linkedin size={15} /> },
+                  { href: personalInfo.blog, label: "Blog", icon: <Globe size={15} /> },
+                ].filter(s => s.href).map((s) => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                    className="btn btn-secondary" style={{ padding: "7px 14px", gap: "6px", fontSize: "13px" }}
+                    aria-label={s.label}
+                  >
+                    {s.icon} {s.label}
                   </a>
-                )}
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </motion.div>
 
-      {/* ═══ EDUCATION ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <GraduationCap className="w-6 h-6 text-[var(--accent)]" />
-          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Education</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all">
-            <h3 className="text-[1rem] font-black text-[var(--text-primary)] uppercase font-heading">{education.degree}</h3>
-            <p className="text-[1rem] font-bold text-[var(--accent)] mt-1 font-mono">{education.university}</p>
-            <div className="flex items-center gap-4 mt-3">
-              <span className="flex items-center gap-1.5 text-[0.875rem] font-bold text-[var(--text-muted)] font-mono">
-                <Calendar className="w-4 h-4" /> {education.period}
-              </span>
-              <span className="text-[0.875rem] font-black text-[var(--accent)] border-[2px] border-[var(--accent)] px-3 py-1 uppercase font-mono">
-                CGPA: {education.cgpa}
-              </span>
-            </div>
+        {/* ── EXPERIENCE ─── */}
+        <div style={{ marginBottom: "48px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
+            <Briefcase size={16} style={{ color: "var(--accent)" }} />
+            <h2 style={{ fontSize: "18px", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.3px" }}>Experience</h2>
           </div>
-        </div>
-      </motion.div>
 
-      {/* ═══ CERTIFICATIONS ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15, duration: 0.5 }}
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <Award className="w-6 h-6 text-[var(--accent-3)]" />
-          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Certifications</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {certifications.map((cert, index) => (
-            <div
-              key={index}
-              className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
-            >
-              <h3 className="text-[0.9375rem] font-black text-[var(--text-primary)] uppercase font-heading">{cert.name}</h3>
-              <p className="text-[0.875rem] font-bold text-[var(--accent)] mt-1 uppercase font-mono">{cert.issuer}</p>
-              <p className="text-[0.75rem] font-bold text-[var(--text-muted)] mt-1 font-mono">{cert.year}</p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* ═══ EXPERIENCE ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <Briefcase className="w-6 h-6 text-[var(--accent)]" />
-          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Experience_Log</h2>
-        </div>
-
-        <div className="space-y-5">
-          {experience.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.25 + index * 0.05, duration: 0.4 }}
-              className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all overflow-hidden"
-            >
-              <div className="flex">
-                <div className={`w-2 flex-shrink-0 ${exp.current ? 'bg-[var(--accent)]' : 'bg-[var(--accent-2)]'}`} />
-                <div className="p-6 flex-1">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                    <h3 className="text-[1.125rem] font-black text-[var(--text-primary)] uppercase font-heading">{exp.title}</h3>
+          <div className="timeline">
+            {experience.map((exp, i) => (
+              <div key={i} className="timeline-item">
+                <div className={`timeline-dot${exp.current ? " active" : ""}`} />
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div>
+                    <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "2px" }}>{exp.title}</h3>
+                    <p style={{ fontSize: "13px", color: "var(--accent)", fontWeight: 600 }}>{exp.company}</p>
+                  </div>
+                  <div style={{ textAlign: "right", flexShrink: 0 }}>
+                    <p style={{ fontSize: "12px", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "4px" }}>
+                      <Calendar size={11} /> {exp.period}
+                    </p>
                     {exp.current && (
-                      <span className="text-[0.75rem] font-black text-black bg-[var(--accent)] border-[2px] border-[var(--border-color)] px-3 py-1 uppercase tracking-widest self-start">
-                        ACTIVE
-                      </span>
+                      <span style={{
+                        display: "inline-block", marginTop: "4px",
+                        padding: "2px 8px", borderRadius: "99px",
+                        background: "var(--green-dim)", border: "1px solid rgba(52,211,153,0.25)",
+                        fontSize: "11px", fontWeight: 600, color: "var(--green)",
+                      }}>Current</span>
                     )}
                   </div>
-                  <div className="flex flex-wrap items-center gap-3 mt-2">
-                    <span className="text-[1rem] font-bold text-[var(--accent)] font-mono">{exp.company}</span>
-                    <span className="w-1 h-1 bg-[var(--text-muted)]" />
-                    <span className="text-[0.875rem] font-bold text-[var(--text-muted)] font-mono">{exp.period}</span>
+                </div>
+                <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.7 }}>
+                  {Array.isArray(exp.description) ? exp.description.join(" • ") : exp.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="section-divider" />
+
+        {/* ── EDUCATION + HACKATHONS ─── */}
+        <div className="grid-2" style={{ marginBottom: "48px", gap: "32px" }}>
+          {/* Education */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+              <GraduationCap size={16} style={{ color: "var(--accent)" }} />
+              <h2 style={{ fontSize: "18px", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.3px" }}>Education</h2>
+            </div>
+            <div className="card" style={{ padding: "20px" }}>
+              <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)", marginBottom: "4px" }}>{education.degree}</p>
+              <p style={{ fontSize: "13px", color: "var(--accent)", fontWeight: 600, marginBottom: "12px" }}>{education.university}</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                <span className="tag">{education.period}</span>
+                <span className="tag" style={{ color: "var(--green)", borderColor: "rgba(52,211,153,0.3)" }}>CGPA: {education.cgpa}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Achievements */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+              <Trophy size={16} style={{ color: "var(--yellow)" }} />
+              <h2 style={{ fontSize: "18px", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.3px" }}>Hackathon Wins</h2>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {achievements.map((a, i) => (
+                <div key={i} className="card" style={{ padding: "14px 16px", display: "flex", alignItems: "center", gap: "12px" }}>
+                  <Trophy size={14} style={{ color: a.icon === "gold" ? "#FBBF24" : a.icon === "silver" ? "#94A3B8" : "#B47C3C", flexShrink: 0 }} />
+                  <div style={{ minWidth: 0 }}>
+                    <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text)", lineHeight: 1.3 }}>{a.title}</p>
+                    <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>{a.position}</p>
                   </div>
-                  <p className="text-[0.9375rem] text-[var(--text-secondary)] mt-3 leading-relaxed font-mono">
-                    {Array.isArray(exp.description) ? exp.description.join(' • ') : exp.description}
-                  </p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* ═══ HACKATHON WINS ═══ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <Trophy className="w-6 h-6 text-[var(--accent-2)]" />
-          <h2 className="text-[1.5rem] sm:text-[2rem] font-black text-[var(--text-primary)] uppercase font-heading tracking-tight">/// Hackathon_Wins</h2>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {achievements.map((achievement, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 + index * 0.04, duration: 0.3 }}
-              className="bg-[var(--card-bg)] border-[3px] border-[var(--border-color)] p-6 shadow-[4px_4px_0px_var(--shadow-color)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_var(--shadow-color)] transition-all"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-[var(--accent-2)] border-[2px] border-[var(--border-color)] flex items-center justify-center flex-shrink-0">
-                  <Trophy className="w-6 h-6 text-white" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-[0.9375rem] font-black text-[var(--text-primary)] uppercase font-heading">{achievement.title}</h3>
-                  <p className="text-[0.875rem] font-black text-[var(--accent)] mt-1 uppercase tracking-widest font-mono">{achievement.position}</p>
+        <div className="section-divider" />
+
+        {/* ── CERTIFICATIONS ─── */}
+        <div style={{ paddingBottom: "64px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
+            <Award size={16} style={{ color: "var(--accent)" }} />
+            <h2 style={{ fontSize: "18px", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.3px" }}>Certifications</h2>
+          </div>
+          <div className="grid-3">
+            {certifications.map((cert, i) => (
+              <div key={i} className="card" style={{ padding: "16px 18px" }}>
+                <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text)", lineHeight: 1.4, marginBottom: "10px" }}>{cert.name}</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px" }}>
+                  <span style={{ color: "var(--accent)", fontWeight: 600 }}>{cert.issuer}</span>
+                  <span style={{ color: "var(--text-faint)" }}>{cert.year}</span>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
-      </motion.div>
+
+      </div>
     </div>
   );
 }
