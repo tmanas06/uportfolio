@@ -359,143 +359,286 @@ export const projects: Project[] = [
 
 export const experience = [
   {
-    title: "Full Stack Developer",
-    company: "Webyalaya",
-    period: "Jan 2026 - Present",
+    title: "Full Stack Engineer",
+    company: "webyalaya",
+    period: "Mar 2026 - Present",
     location: "Remote",
     description: [
-      "Developed and maintained the complete mobile application",
+      "Developed and maintained the complete mobile application stack",
       "Worked on website bug fixes, feature development, and contributed to Azure-based deployment and codebase improvements"
     ],
-    current: true
+    current: true,
+    logo: "https://api.dicebear.com/7.x/identicon/svg?seed=webyalaya&backgroundColor=0d1117",
+    document: "/documents/webyalaya_nda.pdf",
+    documentLabel: "NDA Document",
+    skills: ["Flutter", "React.js", "Azure", "Mobile Dev"]
+  },
+  {
+    title: "Contributor",
+    company: "Hyderabad DAO",
+    period: "Oct 2023 - Present",
+    location: "Hyderabad, India",
+    description: [
+      "Contributing to the developer ecosystem, fostering blockchain awareness and dev education",
+      "Co-organizing local meetups, crypto bootcamps, and builder workshops in Hyderabad"
+    ],
+    current: true,
+    logo: "https://api.dicebear.com/7.x/identicon/svg?seed=hyderabad_dao&backgroundColor=0d1117",
+    skills: ["Community Building", "Web3", "Developer Relations"]
   },
   {
     title: "Technical Intern",
     company: "Estah Society",
-    period: "Dec 2025",
+    period: "Feb 2026 - Apr 2026",
+    location: "Hyderabad, India (Hybrid)",
+    description: [
+      "Worked on the company's WordPress website and rebuilt initiative micro-portals completely on Nest.js",
+      "Fixed a critical hack on the main organization website and audited production vulnerabilities"
+    ],
+    current: false,
+    logo: "https://estah.org/wp-content/uploads/2021/06/estah-logo-1.png",
+    document: "/documents/estah_completion_certificate.pdf",
+    documentLabel: "Completion Certificate",
+    skills: ["NestJS", "WordPress", "Web Security", "Node.js"]
+  },
+  {
+    title: "Web Development Intern",
+    company: "Amdox Technologies",
+    period: "Jan 2026 - Feb 2026",
     location: "Remote",
     description: [
-      "Worked on the company's WordPress website and rebuilt one of their initiative websites completely on Nest.js",
-      "Fixed a hack on the main organization website"
+      "Developed high-converting responsive landing pages and interface widgets using React.js",
+      "Conducted web compatibility testing across desktop and mobile devices"
     ],
-    current: false
+    current: false,
+    logo: "https://api.dicebear.com/7.x/identicon/svg?seed=amdox&backgroundColor=0d1117",
+    document: "/documents/amdox_offer_letter.pdf",
+    documentLabel: "Offer Letter",
+    skills: ["React.js", "CSS Flex/Grid", "UI/UX Engineering"]
   },
   {
     title: "Gen AI Full Stack Developer",
     company: "DVK Communications",
-    period: "Dec 2025",
+    period: "Dec 2025 - Jan 2026",
     location: "Remote",
     description: [
-      "Developing production-grade Gen AI-powered full-stack applications leveraging cutting-edge AI technologies",
-      "Building scalable backend services and responsive frontend interfaces for AI-driven solutions",
+      "Developing production-grade Gen AI-powered full-stack applications leveraging LLM architectures",
+      "Building scalable backend services and responsive frontend interfaces for AI-driven solutions"
     ],
     current: false,
-    logo: "/logos/exp/dvk_communications.jpg"
+    logo: "/logos/exp/dvk_communications.jpg",
+    document: "/documents/dvk_offer_letter.pdf",
+    documentLabel: "Offer Letter",
+    skills: ["Generative AI", "LLMs", "Node.js", "React.js"]
   },
   {
-    title: "Uniswap Hook Incubator Trainee",
+    title: "Uniswap hook incubator",
     company: "Atrium Academy",
-    period: "Oct - Dec 2025",
+    period: "Oct 2025 - Jan 2026",
     location: "Remote",
     description: [
-      "Building DeFi infrastructure and Uniswap ecosystem tools for decentralized finance protocols",
-      "Developing custom hooks and integrations for automated market maker (AMM) functionality",
+      "Participated in Atrium's Uniswap Hook incubator program, specializing in custom smart contracts",
+      "Developed custom hooks and integrations for automated market maker (AMM) functionality"
     ],
     current: false,
-    logo: "/logos/exp/atrium_academy.png"
+    logo: "/logos/exp/atrium_academy.png",
+    skills: ["Solidity", "Uniswap Hooks", "DeFi", "Smart Contracts"]
   },
   {
     title: "Software Developer",
     company: "GoodBreach",
-    period: "Oct - Nov 2025",
+    period: "Oct 2025 - Nov 2025",
     location: "Remote",
     description: [
       "Contributed to application growth from MVP to product stage by developing core Android features using Flutter",
-      "Built and optimized full-stack functionalities using Flutter/Dart frontend and Next.js/MongoDB backend",
+      "Built and optimized full-stack functionalities using Flutter/Dart frontend and Next.js/MongoDB backend"
     ],
     current: false,
-    logo: "/logos/exp/goodbreach.png"
+    logo: "/logos/exp/goodbreach.png",
+    document: "/documents/goodbreach_completion_certificate.pdf",
+    documentLabel: "Completion Certificate",
+    skills: ["Flutter", "Next.js", "MongoDB", "Android"]
   },
   {
-    title: "Software Developer Intern",
+    title: "President",
+    company: "WallStreet DAO Club, KLH",
+    period: "Jun 2024 - Nov 2025",
+    location: "Hyderabad, India",
+    description: [
+      "Founded and led WallStreet DAO Club, growing community builder base to 500+ students",
+      "Organized blockchain workshops, Web3 meetups, and local developer bootcamps"
+    ],
+    current: false,
+    logo: "https://api.dicebear.com/7.x/identicon/svg?seed=wallstreet&backgroundColor=0d1117",
+    skills: ["Leadership", "Web3 Events", "Public Speaking", "Community Growth"]
+  },
+  {
+    title: "Software developer intern",
     company: "Coforge",
-    period: "Aug - Oct 2025",
+    period: "Aug 2025 - Oct 2025",
     location: "Greater Noida, On-site",
     description: [
       "Contributed to development and maintenance of Bata's e-commerce platform built on Java Spring framework",
-      "Identified and documented critical bugs; collaborated with team to implement fixes improving site performance",
+      "Identified and documented critical bugs; collaborated with team to implement fixes improving site performance"
     ],
     current: false,
-    logo: "/logos/exp/coforge.png"
+    logo: "/logos/exp/coforge.png",
+    post: "https://www.linkedin.com/feed/update/urn:li:activity:7099710323388755968/",
+    postLabel: "Announcement Post",
+    skills: ["Java", "Spring Boot", "SQL", "E-commerce"]
   },
   {
-    title: "G&PS DGA Intern",
+    title: "Intern (G&PS DGA)",
     company: "KPMG India",
-    period: "May - Jul 2025",
+    period: "May 2025 - Jul 2025",
     location: "New Delhi, On-site",
     description: [
       "Contributed to State Revenue Analytics Dashboard through data analysis and internal documentation",
-      "Prepared detailed RFPs and client presentations, supporting strategic discussions for project acquisition",
+      "Prepared detailed RFPs and client presentations, supporting strategic discussions for project acquisition"
     ],
     current: false,
-    logo: "/logos/exp/kpmg.png"
+    logo: "/logos/exp/kpmg.png",
+    document: "/documents/kpmg_internship_report.pdf",
+    documentLabel: "Internship Report",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_kpmg-internship-professional-development-708080808080808",
+    postLabel: "Completion Post",
+    skills: ["Data Analytics", "RFP Drafting", "Public Sector"]
   },
   {
-    title: "Blockchain Developer",
+    title: "Squad member",
+    company: "Snowflake",
+    period: "Oct 2024 - May 2025",
+    location: "Hyderabad, India",
+    description: [
+      "Earned Snowflake Developer Badges through active ecosystem contributions and community participation",
+      "Delivered blockchain and data engineering contributions to enhance platform capabilities"
+    ],
+    current: false,
+    logo: "/logos/exp/snowflake.png",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_snowflake-squad-2024-t-manas-chakravarty-7252188741170053122-GdwG?utm_source=share&utm_medium=member_android",
+    postLabel: "Snowflake Badges Post",
+    skills: ["Snowflake", "SQL", "Community", "Data Pipelines"]
+  },
+  {
+    title: "Skilled Blockchain Developer",
     company: "Timechain Labs",
-    period: "Jul 2024 - May 2025",
+    period: "Jun 2024 - May 2025",
     location: "Remote",
     description: [
-      "Developed and deployed smart contracts on BSV Blockchain with Swagger UI integration",
-      "Built responsive frontend with Svelte and scalable backend systems using NestJS",
-      "Led frontend development for Deep Revenue Sharing System MVP, enhancing investor transparency",
+      "Developed BSV-based smart contracts and custom API routes using Nest.js",
+      "Rebuilt user revenue-sharing modules using Svelte and Prisma to increase system transparency"
     ],
     current: false,
-    logo: "/logos/exp/timechain_labs.png"
+    logo: "/logos/exp/timechain_labs.png",
+    post: "https://linkedin.com/posts/t-manas-chakravarty-91958224b_tsoc24-skilleddeveloper-fullstackdeveloper-71958224b08204",
+    postLabel: "#tsoc24 Post",
+    skills: ["Solidity", "BSV Blockchain", "NestJS", "Svelte", "Prisma"]
   },
   {
-    title: "Full Stack Developer",
-    company: "Wallet Hunter Token 2049",
-    period: "2024",
-    location: "Remote",
+    title: "The Wall Street Club President",
+    company: "KL University Hyderabad",
+    period: "Oct 2023 - May 2025",
+    location: "Telangana, India",
     description: [
-      "Engineered Python backend modules for automation; integrated third-party APIs for wallet tracking",
-      "Built user-centric React.js interfaces, improving UX and engagement for Web3 applications",
+      "Hosted developer bootcamps and workshops in collaboration with Aleph Zero and Shardeum teams",
+      "Mentored hundreds of students in blockchain design paradigms and decentralized logic"
     ],
     current: false,
+    logo: "https://api.dicebear.com/7.x/identicon/svg?seed=kluniversity&backgroundColor=0d1117",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_wallstreetdao-klh-blockchain-71928482084201",
+    postLabel: "WallStreetDAO Launch Post",
+    skills: ["Web3 Education", "Event Organizing", "Smart Contracts", "Mentorship"]
   },
   {
     title: "Evangelist",
     company: "Oraichain Labs",
-    period: "2024",
+    period: "May 2024 - Oct 2024",
     location: "Remote",
     description: [
-      "Contributed to Rust-based smart contracts and improved technical documentation for developers"
-    ],
-    current: false
-  },
-  {
-    title: "Cybersecurity Intern",
-    company: "ThreatPrism",
-    period: "2024",
-    location: "Remote",
-    description: [
-      "Conducted vulnerability assessments and supported security risk analysis activities"
-    ],
-    current: false
-  },
-  {
-    title: "Squad Member",
-    company: "Snowflake",
-    period: "Oct 2024 - May 2025",
-    location: "Hyderabad",
-    description: [
-      "Earned Snowflake Developer Badges through active ecosystem contributions and community participation",
-      "Delivered blockchain and data engineering contributions to enhance platform capabilities",
+      "Authored tech tutorials and audited CosmWasm Rust smart contract docs",
+      "Led community developer relations, fostering engagement around decentralized AI"
     ],
     current: false,
-    logo: "/logos/exp/snowflake.png"
+    logo: "https://raw.githubusercontent.com/cosmos/chain-registry/master/oraichain/images/orai.png",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_seasonofdocs-evangelist-developercommunity",
+    postLabel: "Season of Docs Post",
+    skills: ["Technical Writing", "Decentralized AI", "CosmWasm", "DevRel"]
   },
+  {
+    title: "Full Stack Developer",
+    company: "Wallet Hunter",
+    period: "May 2024 - Jun 2024",
+    location: "Remote",
+    description: [
+      "Engineered Python backend scripts for automation and REST API integration",
+      "Developed responsive frontend modules in React for wallet asset indexing"
+    ],
+    current: false,
+    logo: "/logos/exp/wallethunter.png",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_starting-new-role-wallet-hunter",
+    postLabel: "Starting Announcement",
+    skills: ["Python", "Web3 APIs", "React.js", "On-chain Automation"]
+  },
+  {
+    title: "Cybersecuritist",
+    company: "CodeAlpha",
+    period: "May 2024 - Jun 2024",
+    location: "Remote",
+    description: [
+      "Completed cybersecurity diagnostic labs, monitoring network packages and alerts",
+      "Conducted penetration testing dry runs and authored security summary reports"
+    ],
+    current: false,
+    logo: "/logos/exp/codealpha.png",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_cybersecurityintern-careergrowth-learningjourney-71958224b08301",
+    postLabel: "Completion Certificate Post",
+    skills: ["Cybersecurity", "Network Auditing", "Risk Assessment"]
+  },
+  {
+    title: "Open Source Developer",
+    company: "GirlScript Summer of Code",
+    period: "May 2024 - Jun 2024",
+    location: "Remote",
+    description: [
+      "Contributed code improvements and resolved active issues in open-source repositories",
+      "Collaborated with project maintainers and global developers on Git/GitHub integrations"
+    ],
+    current: false,
+    logo: "https://raw.githubusercontent.com/GirlScriptSummerOfCode/GSSoC-Website/master/public/gssoc-logo.png",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_girlscriptsummerofcode-71958224b08302",
+    postLabel: "GSSoC Contribution Post",
+    skills: ["Open-Source Development", "Git", "GitHub Collaboration"]
+  },
+  {
+    title: "Cloud internship",
+    company: "AICTE",
+    period: "Dec 2022 - Feb 2023",
+    location: "Remote",
+    description: [
+      "Finished structured cloud infrastructure and cloud architecture virtualization labs",
+      "Learned storage bucket administration, network routing, and IAM security groups configurations"
+    ],
+    current: false,
+    logo: "/logos/exp/aicte.png",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_aicte-aicteinternship-cloud-71958224b08303",
+    postLabel: "Virtual Internship Post",
+    skills: ["Cloud Computing", "Infrastructure", "Cloud Security"]
+  },
+  {
+    title: "Cyber security intern",
+    company: "Threat prism",
+    period: "Oct 2022 - Dec 2022",
+    location: "Remote",
+    description: [
+      "Conducted basic scanning operations and assessed potential system vulnerabilities",
+      "Monitored traffic activity and drafted comprehensive threat mitigation summaries"
+    ],
+    current: false,
+    logo: "/logos/exp/threatprism.png",
+    post: "https://www.linkedin.com/posts/t-manas-chakravarty-91958224b_cybersecurity-internship-71958224b08304",
+    postLabel: "Completion Certificate Post",
+    skills: ["Cybersecurity", "Ethical Hacking", "Vulnerability Analysis"]
+  }
 ];
 
 export const achievements = [
