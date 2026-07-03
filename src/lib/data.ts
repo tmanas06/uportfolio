@@ -558,6 +558,17 @@ export const chains = [
 
 export const socialPosts = [
   {
+    id: "li-0",
+    platform: "linkedin",
+    title: "Exclusive Web3 & Crypto Workshop with Lore Network 🚀",
+    description: "GM KLH Fam!\n\n🚀 Explore Web3 & Crypto with Lore Network! 🚀\n\nWallSteet DAO Club, KLH & KLH bring you an exclusive Web3 Workshop with Lore Network – the future of learning meets crypto!\n\n📌 Why You Can’t Miss This:\n🔹 Explore DApps, NFTs, and blockchain-powered education\n🔹 Learn how to get started with crypto, memecoins, and Web3 finance\n🔹 Speaker: AKHIL MANGA 🛡 (Head of Community, Lore Network)\n\n📅 12th March | 🕐 1:00 PM - 3:30 PM\n📍 Seminar Hall, KLH University, Aziznagar\n\n🔥 Web3 isn’t just the future—it’s your future. Don’t miss out!\n\n🔗 Registration open now for KLH students!",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "Mar 12, 2026",
+    likes: "68",
+    comments: "14 comments",
+    tags: ["LoreNetwork", "Web3", "Blockchain", "KLH", "Workshop"]
+  },
+  {
     id: "yt-1",
     platform: "youtube",
     title: "Swipegig Platform Walkthrough",
@@ -568,21 +579,6 @@ export const socialPosts = [
     views: "210 views",
     likes: "25",
     tags: ["Web3", "Freelance", "Escrow", "AI"]
-  },
-  {
-    id: "li-1",
-    platform: "linkedin",
-    title: "Attending the 4th Information Technology CONFEX 2026",
-    description: "Excited to share that I’ll be attending the 4th Information Technology CONFEX 2026 in New Delhi on 22 August 2026.\n\nThis year’s theme, “Engineering Trusted Intelligence for a Resilient Digital Future,”\n\nI’m looking forward to engaging with technology leaders, innovators, founders, and industry experts, exploring emerging trends, exchanging ideas, and discussing how intelligent systems can create meaningful real-world impact.\n\nLooking forward to insightful conversations, new connections, and learning from some of the brightest minds in the industry.\n\nIf you’re attending as well, let’s connect.",
-    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
-    date: "2 weeks ago",
-    likes: "12",
-    comments: "3 reposts",
-    tags: ["ITCONFEX2026", "AI", "Technology", "CyberSecurity"],
-    attachment: {
-      type: "image",
-      src: "https://media.licdn.com/dms/image/v2/D4D22AQFpuPph-8jUaA/feedshare-shrink_800/B4DZ7PmNyaJwAc-/0/1781599362505?e=1784764800&v=beta&t=yeQP43pJOLI_1dtvynxuHhh7UUbwC2KJEzcYREO7qb4"
-    }
   },
   {
     id: "tw-1",
@@ -606,24 +602,6 @@ export const socialPosts = [
     views: "154 views",
     likes: "19",
     tags: ["Web3Gaming", "Paywall", "Gasless", "UX"]
-  },
-  {
-    id: "li-2",
-    platform: "linkedin",
-    title: "MEAN Stack Job Platform with ZKWhisper Integration",
-    description: "Built a MEAN Stack Job Platform with zk + EVM Blockchain Messaging Integration\nAs part of developing the Amdox Technologies Job Platform, I implemented a secure, decentralized messaging feature (ZKWhisper)using zk + EVM integration.\n\n🔹 Tech Stack: MongoDB, Express.js, Angular, Node.js\n🔹 Blockchain Layer: zk + EVM\n🔹 Core Feature: Privacy-focused, blockchain-verified messaging between candidates and recruiters\n\nThe objective was to enhance trust and security in recruitment communication by integrating zero-knowledge blockchain verification while maintaining the scalability of a traditional full-stack architecture.\n\nKey Technical Highlights:\n• Smart contract integration with backend APIs\n• Secure wallet-based interactions\n• Hybrid architecture (off-chain data + on-chain verification)\n• Real-time messaging system\n\nThis project deepened my expertise in:\n✔ Full-stack system design\n✔ Web3 integration in traditional applications\n✔ zk-based privacy mechanisms\n✔ Secure communication protocols\n\n🔗 Job Platform Repository: https://lnkd.in/ginsyt6g\n🔗 Messaging Module (ZKWhisper): https://lnkd.in/gQMG-Dtv",
-    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
-    date: "4 months ago",
-    likes: "12",
-    comments: "3 reposts",
-    tags: ["Blockchain", "Web3", "MEANStack", "ZK"],
-    attachment: {
-      type: "link",
-      title: "GitHub - tmanas06/ZKWhisper",
-      subtitle: "github.com",
-      src: "https://media.licdn.com/dms/image/sync/v2/D5627AQGkaKCyUmihBw/articleshare-shrink_480/B56ZxR4F.8H0Ao-/0/1770900186009?e=1783666800&v=beta&t=2YmI0EQvSiXyAYwvH_UHd9t2I5MeBkkDiIBE5h9s_JM",
-      url: "https://github.com/tmanas06/ZKWhisper"
-    }
   },
   {
     id: "tw-2",
@@ -670,5 +648,114 @@ export const socialPosts = [
     views: "115 views",
     likes: "18",
     tags: ["OpsRover", "SaaS", "Automation", "Walkthrough"]
+  },
+  {
+    id: "li-1",
+    platform: "linkedin",
+    title: "Attending the 4th Information Technology CONFEX 2026",
+    description: "Excited to share that I’ll be attending the 4th Information Technology CONFEX 2026 in New Delhi on 22 August 2026.\n\nThis year’s theme, “Engineering Trusted Intelligence for a Resilient Digital Future,”\n\nI’m looking forward to engaging with technology leaders, innovators, founders, and industry experts, exploring emerging trends, exchanging ideas, and discussing how intelligent systems can create meaningful real-world impact.\n\nLooking forward to insightful conversations, new connections, and learning from some of the brightest minds in the industry.\n\nIf you’re attending as well, let’s connect.",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "2 weeks ago",
+    likes: "12",
+    comments: "3 reposts",
+    tags: ["ITCONFEX2026", "AI", "Technology", "CyberSecurity"],
+    attachment: {
+      type: "image",
+      src: "https://media.licdn.com/dms/image/v2/D4D22AQFpuPph-8jUaA/feedshare-shrink_800/B4DZ7PmNyaJwAc-/0/1781599362505?e=1784764800&v=beta&t=yeQP43pJOLI_1dtvynxuHhh7UUbwC2KJEzcYREO7qb4"
+    }
+  },
+  {
+    id: "li-2",
+    platform: "linkedin",
+    title: "MEAN Stack Job Platform with ZKWhisper Integration",
+    description: "Built a MEAN Stack Job Platform with zk + EVM Blockchain Messaging Integration\nAs part of developing the Amdox Technologies Job Platform, I implemented a secure, decentralized messaging feature (ZKWhisper)using zk + EVM integration.\n\n🔹 Tech Stack: MongoDB, Express.js, Angular, Node.js\n🔹 Blockchain Layer: zk + EVM\n🔹 Core Feature: Privacy-focused, blockchain-verified messaging between candidates and recruiters\n\nThe objective was to enhance trust and security in recruitment communication by integrating zero-knowledge blockchain verification while maintaining the scalability of a traditional full-stack architecture.\n\nKey Technical Highlights:\n• Smart contract integration with backend APIs\n• Secure wallet-based interactions\n• Hybrid architecture (off-chain data + on-chain verification)\n• Real-time messaging system\n\nThis project deepened my expertise in:\n✔ Full-stack system design\n✔ Web3 integration in traditional applications\n✔ zk-based privacy mechanisms\n✔ Secure communication protocols\n\n🔗 Job Platform Repository: https://lnkd.in/ginsyt6g\n🔗 Messaging Module (ZKWhisper): https://lnkd.in/gQMG-Dtv",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "4 months ago",
+    likes: "12",
+    comments: "3 reposts",
+    tags: ["Blockchain", "Web3", "MEANStack", "ZK"],
+    attachment: {
+      type: "link",
+      title: "GitHub - tmanas06/ZKWhisper",
+      subtitle: "github.com",
+      src: "https://media.licdn.com/dms/image/sync/v2/D5627AQGkaKCyUmihBw/articleshare-shrink_480/B56ZxR4F.8H0Ao-/0/1770900186009?e=1783666800&v=beta&t=2YmI0EQvSiXyAYwvH_UHd9t2I5MeBkkDiIBE5h9s_JM",
+      url: "https://github.com/tmanas06/ZKWhisper"
+    }
+  },
+  {
+    id: "li-3",
+    platform: "linkedin",
+    title: "🏆 Winning the DoraHacks AI BUIDL Lab Hackathon (SwipeGig)!",
+    description: "After 20 days of submissions, 211 participants, 90 projects, and 22 shortlisted for judging, our team bagged first place in the “Commerce and Gig Economy” track at the AI BUIDL Lab Rootstock Hackathon! ✨\n\nWe built SwipeGig on the Rootstock testnet, designing a swipe-based Web3 talent marketplace, integrating AI-powered job matching using Groq SDK, and implementing smart contract escrow for trustless, instant payments.\n\nSomething new I learned 💡:\nDuring the hackathon, we tackled two challenges - with dynamic user profile updates and storage on IPFS, and came up with solutions using IPCM (InterPlanetary CID Mapping).\n\n1️⃣ On-chain update costs: Instead of storing the full profile on-chain, IPCM stores a pointer (CID) to the IPFS content. Each update still needs a transaction, but it’s minimal — only the pointer changes.\n2️⃣ Storage waste and costs: Old files on Pinata are deleted after updates via the DELETE endpoint, preventing storage bloat and freeing your quota.\n\nSo workflow we used:\n- Upload a new profile version to IPFS (generating a new CID)\n- Update the IPCM contract to point to the new CID\n- Delete the old file from Pinata\n\nShoutout to my teammate C.N. CHETANA for her efforts! That said, this was likely my last memorable hackathon of this kind, and I’m excited for future hackathon collabs with peers who could truly geek out and push limits to really build epic things. ⚡",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "May 2025",
+    likes: "45",
+    comments: "6 comments",
+    tags: ["DoraHacks", "SwipeGig", "Rootstock", "IPFS", "IPCM"],
+    attachment: {
+      type: "link",
+      title: "DoraHacks - SwipeGig BUIDL details",
+      subtitle: "dorahacks.io",
+      url: "https://dorahacks.io/buidl/20216"
+    }
+  },
+  {
+    id: "li-4",
+    platform: "linkedin",
+    title: "GoodBreach accepted into Innovate UK Breakthrough Founders Programme! 🚀",
+    description: "We are thrilled to share that GoodBreach has been accepted into the Breakthrough Founders Programme — a UK-wide, fully funded initiative powered by Innovate UK to support high-potential startups. 🌍✨\n\nThis milestone means a lot for us — it’s not just validation of our mission, but also an incredible opportunity to scale our vision of helping Gen Z and Millennials build healthy money habits through behavior-first, AI-powered micro-savings. 💡💰\n\nOver the next months, we’ll be working alongside some brilliant founders and mentors to sharpen our investor readiness, grow our network, and accelerate towards our first funding round.\n\nHuge thanks to the Breakthrough Founders team for believing in what we’re building, and to everyone who’s been part of our journey so far. 🙏",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "Aug 2025",
+    likes: "68",
+    comments: "4 comments",
+    tags: ["GoodBreach", "Fintech", "Startups", "InnovateUK", "BehavioralFinance"]
+  },
+  {
+    id: "li-5",
+    platform: "linkedin",
+    title: "Attending Indian Blockchain Week (IBW) 2025 in Bengaluru",
+    description: "Had the opportunity to attend Indian Blockchain Week (IBW) 2025 on 2nd & 3rd December in Bengaluru, and it was my first time experiencing an event of this scale.\n\nThe conference helped me gain deeper insights into blockchain, Web3, and crypto ecosystems. I explored multiple booths, attended product sessions, and interacted with founders, co-founders, and builders across the industry.\n\nIt was great connecting with teams from Aptos, BitGo, Binance, Bybit, Bitget, XDC Labs, Xyro, PathPulseAI, KGEN-AI, Metaspace, and many more. The conversations, networking, and learnings were truly unforgettable!\n\nOverall, IBW 2025 was an inspiring experience, and I’m excited to continue growing in the blockchain space. ⚡",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "Dec 2025",
+    likes: "54",
+    comments: "5 comments",
+    tags: ["IBW2025", "Web3", "Blockchain", "Bengaluru", "Networking"]
+  },
+  {
+    id: "li-6",
+    platform: "linkedin",
+    title: "Received Uniswap Hook Incubator (UHI7) Cohort Certificate 🎓",
+    description: "Glad to share that I’ve received my Uniswap Hook Incubator (UHI7) Cohort Certificate.\n\nThe program provided hands-on exposure to Uniswap v4 hooks, protocol-level design, and how custom logic can be embedded directly into AMM flows. The learnings directly strengthened how I approach DeFi architecture and on-chain execution.\n\nGrateful to the Atrium Academy team, mentors, and fellow builders for the discussions and feedback throughout the cohort. 🔗",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "Oct 2025",
+    likes: "42",
+    comments: "2 comments",
+    tags: ["Uniswapv4", "DeFi", "SmartContracts", "AtriumAcademy"]
+  },
+  {
+    id: "li-7",
+    platform: "linkedin",
+    title: "🧑💻 Professional Development Milestones at KPMG India",
+    description: "As part of my ongoing journey at KPMG, I've completed several key internal training programs that reinforce our commitment to excellence, compliance and continuous learning:\n\n✅ Information Protection and Data Privacy Fundamentals FY25\n✅ Industry Immersive Programme (IIP) in Applied Finance\n✅ IT Service Management (ITSM) Awareness Training and Assessment\n✅ Information Protection\n\nThese certifications have deepened my understanding of data privacy, real-world financial applications and IT Service management principals.",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "Jun 2025",
+    likes: "34",
+    comments: "1 comment",
+    tags: ["KPMG", "ProfessionalGrowth", "DataPrivacy", "ITSM"],
+  },
+  {
+    id: "li-8",
+    platform: "linkedin",
+    title: "1st Place Winner at Hack-A-Thon 2k24! 🏆✈️",
+    description: "Thrilled to share that our team scored 1st place at Hack-A-Thon 2k24 24-hour hackathon held at KLH! 🎉\n\nOur project — a Blockchain-Based Flight Ticketing Application — took off and landed us the top spot among some incredibly talented teams. Built as a DApp, it allows users to search, compare, and book flights with complete transparency and trust, leveraging blockchain for secure, traceable, and authentic ticketing.\n\nTeam: Gayathri P, T MANAS CHAKRAVARTY ., Shreya Thakur, SATHWIK TADIVAKA.\n\nWith the 2k25 edition of the university hackathon just wrapped up, we’re also looking forward to hearing from Nexorith Technologies about the 2k24 edition’s prizes — it’s been a little while!",
+    url: "https://www.linkedin.com/in/t-manas-chakravarty-91958224b/",
+    date: "1 year ago",
+    likes: "37",
+    comments: "12 comments",
+    tags: ["KLH", "Hackathon", "Blockchain", "Aviation", "DApp"],
+    attachment: {
+      type: "image",
+      src: "https://media.licdn.com/dms/image/v2/D5622AQFztYVGThbU5g/feedshare-shrink_800/B56ZYqaOnFHQAg-/0/1744468241449?e=1784764800&v=beta&t=1tzm5TFueZsmIzSTY6H9cDtyUZnFOP3r6jcLXttL12M"
+    }
   }
 ];

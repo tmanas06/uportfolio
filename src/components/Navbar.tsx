@@ -37,7 +37,7 @@ export default function Navbar() {
             className={`nav-logo ${alexBrush.className}`}
             aria-label="Home"
           >
-            t manas
+            t manas chakravarty
           </Link>
 
           {/* Desktop links — hidden on mobile via globals.css */}
