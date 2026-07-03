@@ -57,7 +57,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
           {/* Left: contact info */}
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -98,7 +98,7 @@ export default function ContactPage() {
             {/* Social */}
             <div>
               <p style={{ fontSize: "12px", color: "var(--text-faint)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "10px" }}>Social</p>
-              <div style={{ display: "flex", gap: "8px" }}>
+              <div className="flex flex-wrap gap-2">
                 {socialLinks.filter(s => s.href).map((s) => (
                   <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
                     className="btn btn-secondary" style={{ padding: "8px 14px", gap: "6px", fontSize: "13px" }}>

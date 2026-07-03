@@ -197,12 +197,7 @@ export default function SkillsPage() {
         </div>
 
         {/* ── Summary Stats ── */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 16,
-          marginBottom: 40,
-        }}>
+        <div className="skills-stats-grid">
           {[
             { label: "Technologies", value: totalSkills.toString(), icon: (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
@@ -307,18 +302,18 @@ export default function SkillsPage() {
         {/* ── Active Category Panel ── */}
         <div
           key={activeTab}
+          className="skills-panel"
           style={{
             background: "rgba(255,255,255,0.02)",
             border: `1px solid ${activeCat.color}25`,
             borderRadius: 16,
-            padding: "28px 24px",
             marginBottom: 48,
             boxShadow: `0 0 40px ${activeCat.glow}`,
             animation: "fadeSlideIn 0.35s ease",
           }}
         >
           {/* Panel header */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
+          <div className="skills-panel-header">
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{
                 width: 36, height: 36, borderRadius: 10,

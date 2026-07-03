@@ -687,3 +687,39 @@ a, button, [role="button"], input[type="submit"], label, select { cursor: pointe
 .accent-text { color:var(--accent); }
 :root { --text-secondary: var(--text-muted); --shadow-color: rgba(79,142,247,0.2); --accent-2: #34D399; --accent-3: #FBBF24; --font-heading: var(--font); }
 h1,h2,h3,h4,h5,h6,.font-heading { font-family:var(--font); }
+
+/* ─── Responsive Skills Page Helpers ─── */
+.skills-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+@media (min-width: 640px) {
+  .skills-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.skills-panel {
+  padding: 20px 16px;
+}
+@media (min-width: 768px) {
+  .skills-panel {
+    padding: 28px 24px;
+  }
+}
+
+.skills-panel-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (min-width: 640px) {
+  .skills-panel-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
