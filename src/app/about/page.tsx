@@ -167,11 +167,52 @@ export default function AboutPage() {
           </div>
           <div className="grid-3">
             {certifications.map((cert, i) => (
-              <div key={i} className="card" style={{ padding: "16px 18px" }}>
-                <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text)", lineHeight: 1.4, marginBottom: "10px" }}>{cert.name}</p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px" }}>
-                  <span style={{ color: "var(--accent)", fontWeight: 600 }}>{cert.issuer}</span>
-                  <span style={{ color: "var(--text-faint)" }}>{cert.year}</span>
+              <div key={i} className="card" style={{ padding: "16px", display: "flex", gap: "14px", alignItems: "center" }}>
+                {cert.logo && (
+                  <div style={{
+                    width: 48,
+                    height: 48,
+                    position: "relative",
+                    flexShrink: 0,
+                    borderRadius: "6px",
+                    overflow: "hidden",
+                    background: "rgba(255, 255, 255, 0.02)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}>
+                    <Image
+                      src={cert.logo}
+                      alt={cert.name}
+                      fill
+                      className="object-contain"
+                      sizes="48px"
+                    />
+                  </div>
+                )}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    color: "var(--text)",
+                    lineHeight: 1.3,
+                    marginBottom: "4px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical"
+                  }}>
+                    {cert.name}
+                  </p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "11px" }}>
+                    <span style={{ color: "var(--accent)", fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginRight: "8px" }}>
+                      {cert.issuer}
+                    </span>
+                    <span style={{ color: "var(--text-faint)", flexShrink: 0 }}>
+                      {cert.year}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
