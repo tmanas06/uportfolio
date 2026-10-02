@@ -77,6 +77,11 @@ export default function Navbar() {
     }
   };
 
+  // On dedicated /card page, don't render navbar so the card fits 100% within the viewport without scroll
+  if (pathname === "/card") {
+    return null;
+  }
+
   return (
     <>
       <nav className="nav" aria-label="Main navigation">

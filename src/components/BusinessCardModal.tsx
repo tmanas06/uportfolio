@@ -18,7 +18,7 @@ import {
   Youtube,
   Globe,
   ArrowRight,
-  Radio,
+  Nfc,
 } from "lucide-react";
 import {
   SiSolidity,
@@ -83,12 +83,15 @@ export default function BusinessCardModal({
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
 
-  // Close on Escape, Flip on Space
+  // Close on Escape, Flip on Space, and lock body scroll
   useEffect(() => {
     if (!isOpen) {
       setIsFlipped(false);
       return;
     }
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -104,7 +107,10 @@ export default function BusinessCardModal({
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
   // Copy to clipboard helper
@@ -162,6 +168,10 @@ END:VCARD`;
                 <span className="text-xs font-bold text-[#E8EAF0] uppercase tracking-wider">
                   Digital Card
                 </span>
+                <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-[rgba(163,230,53,0.08)] border border-[rgba(163,230,53,0.25)] text-[#a3e635] text-[9px] font-mono">
+                  <Nfc size={10} strokeWidth={2.4} />
+                  <span>NFC</span>
+                </div>
                 <span className="text-neutral-500 text-xs hidden sm:inline">
                   • {isFlipped ? "Back View" : "Front View"}
                 </span>
@@ -214,9 +224,16 @@ END:VCARD`;
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-full bg-[rgba(52,211,153,0.12)] border border-[rgba(52,211,153,0.3)] text-[#34D399] text-[11px] sm:text-xs font-mono font-semibold shadow-[0_0_10px_rgba(52,211,153,0.15)]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] animate-pulse" />
-                      AVAILABLE
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[rgba(163,230,53,0.08)] border border-[rgba(163,230,53,0.25)] text-[#a3e635] font-mono text-[10px] shadow-[0_0_8px_rgba(163,230,53,0.12)]" title="NFC Enabled Smart Card">
+                        <Nfc size={12} strokeWidth={2.4} />
+                        <span className="font-bold tracking-wider text-[9px]">NFC</span>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-full bg-[rgba(52,211,153,0.12)] border border-[rgba(52,211,153,0.3)] text-[#34D399] text-[11px] sm:text-xs font-mono font-semibold shadow-[0_0_10px_rgba(52,211,153,0.15)]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] animate-pulse" />
+                        AVAILABLE
+                      </div>
                     </div>
                   </div>
 
@@ -231,6 +248,7 @@ END:VCARD`;
                           src="/my_transparent.png"
                           alt={personalInfo.name}
                           fill
+                          sizes="(max-width: 640px) 120px, 160px"
                           className="object-cover object-top"
                           priority
                         />
@@ -239,7 +257,7 @@ END:VCARD`;
 
                     {/* Personal Text Info & Socials */}
                     <div className="flex-1 min-w-0 w-full">
-                      <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white leading-tight">
+                      <h2 className="text-lg sm:text-2xl font-extrabold tracking-tight text-white leading-tight">
                         {personalInfo.firstName}
                       </h2>
 
@@ -249,18 +267,18 @@ END:VCARD`;
 
                       {/* Alex Brush Signature */}
                       <div
-                        className={`text-xl sm:text-2xl text-neutral-200 select-none pointer-events-none drop-shadow-[0_0_6px_rgba(163,230,53,0.25)] ${alexBrush.className}`}
+                        className={`text-xl sm:text-2xl text-neutral-200 select-none pointer-events-none drop-shadow-[0_0_6px_rgba(163,230,53,0.25)] ${alexBrush.className} hidden sm:block`}
                         style={{ transform: "rotate(-1.5deg)" }}
                       >
                         t manas chakravarty
                       </div>
 
-                      <p className="text-[11px] text-[#8892A4] mt-0.5 font-mono">
+                      <p className="text-[10px] sm:text-[11px] text-[#8892A4] mt-0.5 font-mono">
                         KL University • CGPA: 9.44 • Ex-KPMG
                       </p>
 
                       {/* Socials Dock */}
-                      <div className="flex items-center justify-center sm:justify-start gap-2 mt-2">
+                      <div className="flex items-center justify-center sm:justify-start gap-1.5 mt-1 sm:mt-2">
                         <a
                           href={personalInfo.github}
                           target="_blank"
@@ -269,7 +287,7 @@ END:VCARD`;
                           className="bcard-social-btn"
                           title="GitHub"
                         >
-                          <Github size={15} />
+                          <Github size={13} className="sm:text-sm" />
                         </a>
 
                         <a
@@ -396,10 +414,17 @@ END:VCARD`;
                       </span>
                     </div>
 
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-neutral-300 flex-shrink-0">
-                      <MapPin size={11} className="text-[#a3e635]" />
-                      Hyderabad, India
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[rgba(163,230,53,0.08)] border border-[rgba(163,230,53,0.25)] text-[#a3e635] font-mono text-[10px] shadow-[0_0_8px_rgba(163,230,53,0.12)]" title="NFC Enabled">
+                        <Nfc size={11} strokeWidth={2.4} />
+                        <span className="font-bold tracking-wider text-[9px]">NFC</span>
+                      </div>
+
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-neutral-300 flex-shrink-0">
+                        <MapPin size={11} className="text-[#a3e635]" />
+                        Hyderabad, India
+                      </span>
+                    </div>
                   </div>
 
                   {/* Middle Content: Stacks vertically on mobile, horizontal on desktop */}
@@ -587,22 +612,17 @@ END:VCARD`;
               </motion.div>
             </div>
 
-            {/* Mobile NFC Callout & Open Website Action */}
-            <div className="mt-3.5 flex flex-col items-center text-center w-full max-w-[340px] px-2 sm:hidden pb-4">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[rgba(163,230,53,0.08)] border border-[rgba(163,230,53,0.25)] text-[#a3e635] text-[10px] font-mono mb-2 shadow-[0_0_10px_rgba(163,230,53,0.1)]">
-                <Radio size={11} className="animate-pulse" />
-                <span>NFC Tap Detected</span>
-              </div>
-              <p className="text-xs text-neutral-300 font-mono mb-2.5">
-                Click on the button below to open the website
-              </p>
+            {/* Redirect Button Below Card on Mobile */}
+            <div className="w-full px-2 sm:hidden">
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl bg-gradient-to-r from-[#a3e635] to-[#84cc16] hover:from-[#bef264] hover:to-[#a3e635] text-black font-mono font-bold text-xs shadow-[0_0_20px_rgba(163,230,53,0.3)] transition-all active:scale-[0.98] cursor-pointer"
+                className="bcard-website-btn"
+                id="modal-open-website-btn"
               >
+                <Nfc size={19} strokeWidth={2.5} />
                 <span>Open Website</span>
-                <ArrowRight size={14} />
+                <ArrowRight size={19} strokeWidth={2.5} />
               </button>
             </div>
 
