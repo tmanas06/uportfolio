@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText, Menu, X } from "lucide-react";
 import { Alex_Brush } from "next/font/google";
+import BusinessCardModal from "@/components/BusinessCardModal";
 
 const alexBrush = Alex_Brush({
   weight: "400",
@@ -12,8 +13,16 @@ const alexBrush = Alex_Brush({
   display: "swap",
 });
 
-const links = [
+interface NavItem {
+  label: string;
+  href?: string;
+  isAction?: boolean;
+}
+
+const navItems: NavItem[] = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Card", isAction: true },
   { label: "Projects", href: "/projects" },
   { label: "Posts", href: "/posts" },
   { label: "Stack", href: "/skills" },
@@ -23,8 +32,11 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [cardOpen, setCardOpen] = useState(false);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -42,15 +54,32 @@ export default function Navbar() {
 
           {/* Desktop links — hidden on mobile via globals.css */}
           <ul className="nav-links">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className={`nav-link${pathname === l.href ? " active" : ""}`}
-                  aria-current={pathname === l.href ? "page" : undefined}
-                >
-                  {l.label}
-                </Link>
+            {navItems.map((item) => (
+              <li key={item.label}>
+                {item.isAction ? (
+                  <button
+                    type="button"
+                    onClick={() => setCardOpen(true)}
+                    className={`nav-link${cardOpen ? " active" : ""}`}
+                    id="nav-card-btn"
+                    aria-label="Open Business Card"
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href!}
+                    className={`nav-link${pathname === item.href ? " active" : ""}`}
+                    aria-current={pathname === item.href ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
             <li style={{ marginLeft: "8px" }}>
@@ -82,16 +111,38 @@ export default function Navbar() {
         {/* Mobile dropdown — slides down below navbar */}
         <div className={`mobile-dropdown${open ? " mobile-dropdown--open" : ""}`}>
           <div className="container mobile-dropdown-inner">
-            {[{ label: "Home", href: "/" }, ...links].map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className={`mobile-nav-link${pathname === l.href ? " active" : ""}`}
-              >
-                {l.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.isAction ? (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    setCardOpen(true);
+                  }}
+                  className={`mobile-nav-link${cardOpen ? " active" : ""}`}
+                  id="mobile-nav-card-btn"
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    textAlign: "left",
+                    width: "100%",
+                    cursor: "pointer",
+                  }}
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href!}
+                  onClick={() => setOpen(false)}
+                  className={`mobile-nav-link${pathname === item.href ? " active" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
             <a
               href="/resume.pdf"
               target="_blank"
@@ -104,6 +155,13 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* Business Card Modal */}
+      <BusinessCardModal
+        isOpen={cardOpen}
+        onClose={() => setCardOpen(false)}
+      />
     </>
   );
 }
+
