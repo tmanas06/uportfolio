@@ -17,6 +17,8 @@ import {
   Twitter,
   Youtube,
   Globe,
+  ArrowRight,
+  Radio,
 } from "lucide-react";
 import {
   SiSolidity,
@@ -585,8 +587,27 @@ END:VCARD`;
               </motion.div>
             </div>
 
-            {/* Bottom Keyboard Hint */}
-            <div className="mt-3 flex items-center justify-center gap-4 text-xs font-mono text-neutral-500">
+            {/* Mobile NFC Callout & Open Website Action */}
+            <div className="mt-3.5 flex flex-col items-center text-center w-full max-w-[340px] px-2 sm:hidden pb-4">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[rgba(163,230,53,0.08)] border border-[rgba(163,230,53,0.25)] text-[#a3e635] text-[10px] font-mono mb-2 shadow-[0_0_10px_rgba(163,230,53,0.1)]">
+                <Radio size={11} className="animate-pulse" />
+                <span>NFC Tap Detected</span>
+              </div>
+              <p className="text-xs text-neutral-300 font-mono mb-2.5">
+                Click on the button below to open the website
+              </p>
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl bg-gradient-to-r from-[#a3e635] to-[#84cc16] hover:from-[#bef264] hover:to-[#a3e635] text-black font-mono font-bold text-xs shadow-[0_0_20px_rgba(163,230,53,0.3)] transition-all active:scale-[0.98] cursor-pointer"
+              >
+                <span>Open Website</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+
+            {/* Desktop Keyboard Hint */}
+            <div className="mt-3 hidden sm:flex items-center justify-center gap-4 text-xs font-mono text-neutral-500">
               <span className="flex items-center gap-1.5">
                 <kbd className="px-1.5 py-0.5 rounded bg-neutral-900 border border-neutral-700 text-neutral-300 text-[10px]">
                   Space

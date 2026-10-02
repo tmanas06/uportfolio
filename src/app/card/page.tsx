@@ -18,6 +18,8 @@ import {
   Youtube,
   Globe,
   ArrowLeft,
+  ArrowRight,
+  Radio,
 } from "lucide-react";
 import {
   SiSolidity,
@@ -523,6 +525,30 @@ END:VCARD`;
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Mobile NFC Callout & Open Website Action */}
+        <div className="mt-5 w-full max-w-[350px] sm:max-w-[460px] mx-auto flex flex-col items-center text-center px-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[rgba(163,230,53,0.08)] border border-[rgba(163,230,53,0.25)] text-[#a3e635] text-[11px] font-mono mb-2.5 shadow-[0_0_12px_rgba(163,230,53,0.12)]">
+            <Radio size={12} className="animate-pulse" />
+            <span>NFC Tap Detected</span>
+          </div>
+
+          <p className="text-xs sm:text-sm text-neutral-300 font-mono mb-3">
+            Click on the button below to open the website
+          </p>
+
+          <Link
+            href="/"
+            className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-gradient-to-r from-[#a3e635] to-[#84cc16] hover:from-[#bef264] hover:to-[#a3e635] text-black font-mono font-bold text-sm shadow-[0_0_25px_rgba(163,230,53,0.35)] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+          >
+            <span>Open Website</span>
+            <ArrowRight size={16} />
+          </Link>
+
+          <p className="text-[11px] text-neutral-500 font-mono mt-2.5">
+            17+ Projects • 15+ Internships • Full Stack &amp; Blockchain
+          </p>
         </div>
       </div>
     </div>

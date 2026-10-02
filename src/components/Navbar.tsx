@@ -38,6 +38,45 @@ export default function Navbar() {
     setOpen(false);
   }, [pathname]);
 
+  // Auto-open business card when arriving via NFC tap (?nfc=true, ?card=true, etc.)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const isNfc =
+        params.get("nfc") === "true" ||
+        params.get("nfc") === "1" ||
+        params.get("card") === "true" ||
+        params.get("card") === "1" ||
+        params.get("tap") === "nfc" ||
+        params.get("source") === "nfc";
+
+      if (isNfc) {
+        setCardOpen(true);
+      }
+    }
+  }, []);
+
+  const handleCloseCard = () => {
+    setCardOpen(false);
+    if (typeof window !== "undefined" && window.location.search) {
+      const params = new URLSearchParams(window.location.search);
+      if (
+        params.has("nfc") ||
+        params.has("card") ||
+        params.has("tap") ||
+        params.has("source")
+      ) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("nfc");
+        url.searchParams.delete("card");
+        url.searchParams.delete("tap");
+        url.searchParams.delete("source");
+        const cleanUrl = url.pathname + (url.search ? url.search : "") + url.hash;
+        window.history.replaceState({}, "", cleanUrl);
+      }
+    }
+  };
+
   return (
     <>
       <nav className="nav" aria-label="Main navigation">
@@ -159,7 +198,7 @@ export default function Navbar() {
       {/* Business Card Modal */}
       <BusinessCardModal
         isOpen={cardOpen}
-        onClose={() => setCardOpen(false)}
+        onClose={handleCloseCard}
       />
     </>
   );
