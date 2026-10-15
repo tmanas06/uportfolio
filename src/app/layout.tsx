@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Manas Chakravarty — Full Stack & Blockchain Developer",
   description:
-    "Final-year CSE student (9.44 CGPA) building scalable full-stack apps, smart contracts, and Solana dApps across 7+ blockchain ecosystems. 5 hackathon wins, 15+ internships.",
+    "Recent CSE graduate (9.44 CGPA) building scalable full-stack apps, smart contracts, and Solana dApps across 7+ blockchain ecosystems. 5 hackathon wins, 15+ internships.",
   keywords: [
     "Blockchain Developer", "Full Stack Developer", "Web3", "Solana",
     "Smart Contracts", "Solidity", "React", "Next.js", "Ethereum",

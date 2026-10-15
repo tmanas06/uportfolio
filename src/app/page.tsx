@@ -46,7 +46,7 @@ export default function HomePage() {
               </p>
 
               <p className="hero-bio">
-                Final-year B.Tech CSE student at KL University with <strong>9.44 CGPA</strong>.
+                Recent B.Tech CSE graduate from KL University with <strong>9.44 CGPA</strong>.
                 I build scalable full-stack applications, smart contracts, and Solana dApps across
                 7+ blockchain ecosystems. 15+ internships, 5 hackathon wins.
               </p>

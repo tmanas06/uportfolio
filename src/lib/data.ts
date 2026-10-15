@@ -14,7 +14,7 @@ export const personalInfo = {
   dorahacks: "https://dorahacks.io/hacker/Anz",
   portfolio: "https://portfolio-tmanas.vercel.app",
   blog: "https://techieresearch.blogspot.com",
-  summary: "Final-year B.Tech CSE (Hons.) student at KL University with 9.44 CGPA, specializing in Cybersecurity and Blockchain development. Experienced in building scalable full-stack applications with modern frameworks, smart contracts, and API integrations.",
+  summary: "Recent B.Tech CSE (Hons.) graduate from KL University with 9.44 CGPA, specializing in Cybersecurity and Blockchain development. Experienced in building scalable full-stack applications with modern frameworks, smart contracts, and API integrations.",
 };
 
 export const metrics = [
